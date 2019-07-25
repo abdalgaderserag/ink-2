@@ -1,4 +1,3 @@
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -17,19 +16,17 @@ window.Vue = require('vue');
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
-  import Echo from 'laravel-echo'
+// import Echo from 'laravel-echo'
 
- window.io = require('socket,io-client');
+// window.io = require('socket.io-client');
 
- window.Echo = new Echo({
-     broadcaster: 'socket.io',
-     host: window.location.hostname + ':6001'
- });
- 
+// window.Echo = new Echo({
+//     broadcaster: 'socket.io',
+//     host: window.location.hostname + ':6001'
+// });
+
 
 // Vue.component('file-upload', require("vue-upload-component").default);
-
-
 
 
 /**
