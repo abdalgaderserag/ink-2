@@ -15,6 +15,7 @@ class CreateInksTable extends Migration
     {
         Schema::create('inks', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('user_id', false, true);
             $table->timestamps();
         });
     }

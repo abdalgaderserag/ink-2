@@ -15,6 +15,10 @@ class CreateMediaTable extends Migration
     {
         Schema::create('media', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('comment_id', false, true)->nullable();
+            $table->bigInteger('ink_id', false, true)->nullable();
+            $table->text('text');
+            $table->text('media');
             $table->timestamps();
         });
     }

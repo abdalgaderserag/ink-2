@@ -22,3 +22,4 @@ use Illuminate\Http\Request;
 
 //});
 
+Route::apiResource('ink','Api\InkController');
