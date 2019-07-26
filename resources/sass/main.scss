@@ -1,3 +1,63 @@
 // Variables
 @import 'variables';
 
+.ink-main {
+  width: 100%;
+  background-color: $white;
+}
+
+.card-header {
+  justify-content: flex-start;
+}
+
+.ink-card {
+  width: 92%;
+  padding: 0 4% 2% 4%;
+}
+
+.ink-avatar {
+  /*padding: 10px 0 0 3%;*/
+}
+
+.ink-avatar-img {
+  width: 60px;
+  height: 60px;
+  border: 2px solid $orange;
+  border-radius: 50%;
+  margin: 0 0 -38px 28%;
+}
+
+.ink-user-name {
+  color: $orange;
+  padding: 0 0 0 22px;
+  margin: 10px 0 0 0;
+}
+
+.card-body {
+  border: 2px solid $orange;
+  padding: 35px 2% 8px 2%;
+}
+
+.card-footer {
+  justify-content: space-between;
+}
+
+.card-interact {
+  margin:  0 0 0 10px;
+  img {
+    width: 26px;
+  }
+  span {
+    color: $gray;
+  }
+}
+
+.card-interact:last-child {
+  img {
+    margin: -4px 0 0 10px;
+  }
+}
+
+.media {
+  padding: 0 0 5px 0;
+}

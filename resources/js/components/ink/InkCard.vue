@@ -15,11 +15,16 @@
             </div>
             <div class="card-footer flex-box">
                 <div class="flex-box">
-                    <div>()</div>
-                    <div>()</div>
-                    <div>()</div>
+                    <div class="card-interact">
+                        <img src="/images/ink/hard-fill-color.svg" alt="">
+                        <span>24</span>
+                    </div>
+                    <div class="card-interact">
+                        <img src="/images/ink/comment.svg" alt="">
+                        <span>5</span>
+                    </div>
                 </div>
-                <div>-</div>
+                <!--<div>-</div>-->
             </div>
         </div>
     </div>
