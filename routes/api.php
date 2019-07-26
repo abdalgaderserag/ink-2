@@ -23,3 +23,4 @@ use Illuminate\Http\Request;
 //});
 
 Route::apiResource('ink','Api\InkController');
+Route::apiResource('comment','Api\CommentController');

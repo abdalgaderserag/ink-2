@@ -4,12 +4,21 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Resources\Inks\InteractCountCollection;
 use App\Ink;
+use App\Media;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class InkController extends Controller
 {
+
+    public function __construct()
+    {
+//        Auth::logout();
+        Auth::loginUsingId(1);
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -36,12 +45,17 @@ class InkController extends Controller
 
         $media = new Media();
         $media->text = $request->text;
-        foreach ($request->media as $media) {
-            $media->media = $media->media . $media . ',';
+        if (isset($request->media)) {
+            foreach ($request->media as $media) {
+                $media->media = $media->media . $media . ',';
+            }
         }
+
         $ink->save();
-        $ink->media = $media->save();
-        return response()->json($ink, 200);
+        $media->save();
+        $data[0] = $ink;
+        $data[1] = $media;
+        return response()->json($data, 200);
     }
 
     /**
@@ -65,11 +79,12 @@ class InkController extends Controller
      */
     public function update(Request $request, Ink $ink)
     {
-        $media = $ink->media();
+        $media = $ink->media;
         $media->text = $request->text;
-        foreach ($request->media as $med) {
-            $media->media = $media->media . $med . ',';
-        }
+        if (isset($request->media))
+            foreach ($request->media as $med) {
+                $media->media = $media->media . $med . ',';
+            }
         $media->save();
         return response()->json($media, 200);
     }

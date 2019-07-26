@@ -11,6 +11,12 @@ use Illuminate\Support\Facades\Auth;
 class CommentController extends Controller
 {
 
+    public function __construct()
+    {
+//        Auth::logout();
+        Auth::loginUsingId(1);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -18,8 +24,9 @@ class CommentController extends Controller
      */
     public function index()
     {
-        $comments = Comment::where('user_id', Auth::id())->where('ink_id', $_GET['ink'])->with('media', 'user');
-        return response()->json($comments->get(), 200);
+        $comments = Comment::where('user_id', Auth::id())->where('ink_id', $_GET['ink'])->with('media', 'user')->get();
+//        $comments = Comment::where('user_id', Auth::id())->where('ink_id', 1)->with('media', 'user')->get();
+        return response()->json($comments, 200);
     }
 
     /**
@@ -37,15 +44,21 @@ class CommentController extends Controller
         } else {
             $comment->comment_id = $request->comment_id;
         }
+        $comment->save();
         $media = new Media();
         $media->text = $request->text;
-        foreach ($request->media as $media) {
-            $media->media = $media->media . $media . ',';
-        }
+        if (isset($request->media))
+            foreach ($request->media as $media) {
+                $media->media = $media->media . $media . ',';
+            }
 
-        $comment->media = $media->save();
+        $media->comment_id = $comment->id;
+        $media->save();
 
-        return response()->json($comment, 200);
+        $data[0] = $comment;
+        $data[1] = $media;
+
+        return response()->json($data, 200);
     }
 
 
@@ -71,13 +84,14 @@ class CommentController extends Controller
      */
     public function update(Request $request, Comment $comment)
     {
-        $media = $comment->media();
-        $media->text = $request->text;
-        foreach ($request->media as $med) {
-            $media->media = $media->media . $med . ',';
-        }
-        $media->save();
-        $comment->media = $media;
+        $m = $comment->media;
+        $m->text = $request->text;
+        if (isset($request->media))
+            foreach ($request->media as $med) {
+                $m->media = $m->media . $med . ',';
+            }
+        $m->save();
+        $comment->media = $m;
         return response()->json($comment, 200);
     }
 
