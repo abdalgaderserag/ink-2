@@ -21,6 +21,7 @@
 </head>
 <body>
 <div id="app">
+
     <div class="nav-bar flex-box">
         <div class="flex-box g g1">
             <div class="logo-title">
@@ -44,7 +45,10 @@
             </div>
         </div>
     </div>
-    @yield('content')
+
+    <div class="container">
+        @yield('content')
+    </div>
 </div>
 </body>
 </html>

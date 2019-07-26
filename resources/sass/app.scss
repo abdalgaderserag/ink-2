@@ -12,13 +12,13 @@ body {
   justify-content: space-between;
 }
 
-.link-clear{
+.link-clear {
   color: unset;
   text-decoration: unset;
 }
 
 .nav-bar {
-  height: 50px;
+  height: 58px;
   background: $bg-rtl;
   border-bottom: 3px solid $orange;
   padding: 0 10%;
@@ -30,10 +30,11 @@ body {
     .logo-title {
       font-size: 5vh;
       color: $white;
-      padding: 4px 4% 0 0;
+      padding: 1% 4% 0 0;
     }
     .search {
       width: 100%;
+      padding: 0.8% 0 0 0;
       input {
         margin: 12px 0 0 0;
         width: 60%;
@@ -49,26 +50,31 @@ body {
   .g2 {
     justify-content: flex-end;
     .notifications {
-      margin-right: 2%;
-      padding: 12px 0 0 0;
+      margin-right: 5%;
+      padding: 3% 0 0 0;
       img {
         width: 24px;
       }
     }
     .nav-avatar {
-      margin-right: 2%;
-      padding: 4px 0 0 0;
+      margin-right: 4%;
+      padding: 5px 0 0 0;
       img {
-        width: 38px;
+        width: 48px;
         border-radius: 50%;
         border: 2px solid $white;
       }
     }
     .nav-menu {
-      padding: 4px 0 0 0;
+      padding: 1% 0 0 0;
       img {
-        width: 28px;
+        width: 34px;
       }
     }
   }
+}
+
+.container {
+  width: 100%;
+  background-color: $background;
 }
