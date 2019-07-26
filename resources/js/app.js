@@ -26,7 +26,7 @@ window.Vue = require('vue');
 // });
 
 
-// Vue.component('file-upload', require("vue-upload-component").default);
+Vue.component('ink-main', require("./components/ink/InkMain").default);
 
 
 /**
