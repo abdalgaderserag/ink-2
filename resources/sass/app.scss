@@ -93,6 +93,7 @@ body {
     width: 84%;
     margin-left: $leftWidth;
     overflow-x: auto;
+    padding: 101px 0 0 0;
     height: -webkit-fill-available;
     .main {
       width: 75%;
@@ -102,3 +103,29 @@ body {
     }
   }
 }
+//
+//#heart:after {
+//  left: 0;
+//  transform: rotate(45deg);
+//  transform-origin: 100% 100%;
+//  background: $orange;
+//}
+//
+//#heart:before, #heart:after {
+//  position: absolute;
+//  content: "";
+//  left: 50px;
+//  top: 0;
+//  width: 50px;
+//  height: 80px;
+//  background: $orange;
+//  border-radius: 50px 50px 0 0;
+//  transform: rotate(-45deg);
+//  transform-origin: 0 100%;
+//}
+//
+//#heart {
+//  position: relative;
+//  width: 100px;
+//  height: 100px;
+//}
