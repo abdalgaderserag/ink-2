@@ -34,39 +34,20 @@ class CommentController extends Controller
         $comment->user_id = Auth::id();
         if (isset($request->ink_id)) {
             $comment->ink_id = $request->ink_id;
-            $comment->media = $this->mediaType($request);
         } else {
             $comment->comment_id = $request->comment_id;
-            $comment->media = $this->mediaType($request, false);
         }
-        return response()->json($comment, 200);
-    }
-
-
-    /**
-     * Bind the media to comment
-     *
-     *
-     * @param Request $request
-     * @param $type = true
-     * @return Media $media
-     **/
-    private function mediaType(Request $request, $type = true)
-    {
         $media = new Media();
         $media->text = $request->text;
-
-        if ($type)
-            $media->ink_id = $request->ink_id;
-        else
-            $media->comment_id = $request->comment_id;
-
         foreach ($request->media as $media) {
             $media->media = $media->media . $media . ',';
         }
 
-        return $media->save();
+        $comment->media = $media->save();
+
+        return response()->json($comment, 200);
     }
+
 
     /**
      * Display the specified resource.
@@ -103,6 +84,7 @@ class CommentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
+     * @throws 403
      * @param  \App\Comment $comment
      * @return \Illuminate\Http\Response
      */
