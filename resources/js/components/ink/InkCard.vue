@@ -26,6 +26,11 @@
                 </div>
             </div>
         </div>
+        <div v-if="onlyVis" class="flex-box new-comment">
+            <input class="comment-text" type="text">
+            <img class="comment-icon" src="/images/ink/comment.svg" alt="">
+            <input class="comment-button" type="button" value="Comment">
+        </div>
     </div>
 </template>
 

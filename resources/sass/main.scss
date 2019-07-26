@@ -43,7 +43,7 @@
 }
 
 .card-interact {
-  margin:  0 0 0 10px;
+  margin: 0 0 0 10px;
   img {
     width: 26px;
   }
@@ -60,4 +60,25 @@
 
 .media {
   padding: 0 0 5px 0;
+}
+
+.new-comment {
+  height: 26px;
+  justify-content: flex-start;
+  padding: 12px 3%;
+  .comment-text {
+    width: 60%;
+    padding: 4px 1.5%;
+    border: 1px solid $gray;
+  }
+  .comment-icon {
+    width: 24px;
+    padding: 0 2%;
+  }
+  .comment-button {
+    border-radius: 14px;
+    border: 1px solid $white;
+    color: $white;
+    background: $bg-ltr;
+  }
 }

@@ -16,7 +16,7 @@
 {{--<link rel="dns-prefetch" href="//fonts.gstatic.com">--}}
 {{--<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">--}}
 
-    <!-- Styles -->
+<!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     @yield('styles')
 </head>
@@ -52,8 +52,14 @@
     </div>
 </div>
 <script>
+    <?php
+            \Illuminate\Support\Facades\Auth::loginUsingId(1);
+    ?>
     let app = new Vue({
         el: '#app',
+        data: {
+            user: {!! \Illuminate\Support\Facades\Auth::user() !!}
+        }
     });
 </script>
 </body>
