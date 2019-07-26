@@ -9,7 +9,7 @@
         <div>
         </div>
     </div>
-    <div class="main-section">
+    <div class="flex-box main-section">
         <div class="main">
             <ink-main></ink-main>
         </div>

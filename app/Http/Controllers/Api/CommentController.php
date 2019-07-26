@@ -70,7 +70,7 @@ class CommentController extends Controller
      */
     public function show(Comment $comment)
     {
-        $data = $comment->replies;
+        $data = $comment->replies();
         $data->with('media', 'user', 'like');
         return response()->json($data, 200);
     }
