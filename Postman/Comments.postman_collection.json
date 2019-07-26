@@ -1,0 +1,208 @@
+{
+	"info": {
+		"_postman_id": "855ea32b-1a61-4bc1-9203-661a26c4972a",
+		"name": "Comments",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get comments",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "127.0.0.1:8000/api/comment",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"comment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "store comment",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "127.0.0.1:8000/api/comment?text=asdasd 123123 daksjdhlskjd laskdjkas ljd.dj.adsjaskdjasfk.jjsdkf. kfjdsklfjkds jfskdljflkdsjfl&ink_id=1",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"comment"
+					],
+					"query": [
+						{
+							"key": "text",
+							"value": "asdasd 123123 daksjdhlskjd laskdjkas ljd.dj.adsjaskdjasfk.jjsdkf. kfjdsklfjkds jfskdljflkdsjfl"
+						},
+						{
+							"key": "ink_id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get single comment",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "127.0.0.1:8000/api/comment/2",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"comment",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UPDATE comment",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImYzOWE2MmYxYzg5MmEzY2RiN2U5ZDVjYjQ4NDAxODQ5MWUyOTVlZTUyYmU2YjU0Mjk0NGMxM2VjMzE2MGQxNTUzMTFhYjg4MGI2M2U0ODkzIn0.eyJhdWQiOiIxIiwianRpIjoiZjM5YTYyZjFjODkyYTNjZGI3ZTlkNWNiNDg0MDE4NDkxZTI5NWVlNTJiZTZiNTQyOTQ0YzEzZWMzMTYwZDE1NTMxMWFiODgwYjYzZTQ4OTMiLCJpYXQiOjE1NjQxNjgxMDgsIm5iZiI6MTU2NDE2ODEwOCwiZXhwIjoxNTk1NzkwNTA4LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.VlQU998-X08O28PC0fW8JwAEQe5euf4MJXa-w7cd_bagqGeJFs7GJA3sQ9NLO41uQOtV4ZdBtCaZ2-u2idXoxunLeSVGx_j5I_xQ9OAJDIwPwGeqzMdFkgt5xUt2FT6E7s5wn_Q9OpgJpIunbRG_xxh7aBikpBWV6T7PnPcAwJ9S7nmfW9QcE4ih283o_wV0-ryuORnN2kihuFZljhM8qwqYpllu59oBCcTvwhdMN5_31dfdkvhB3wfJs_pcb__Ka2woBbRcE1tBBIHO8bf89CdG3bHDcjdyhTkKYHKob2ASJ0n6Ff7LfFViyg7L7l-nX9pDMxaQqwznLTvxzuqEPIdbNH9wvmiTQ7voytvqGb9zgUuauDVeRoxawLYNMDt2dQ7QD_XL4khxBez4cm7vDz6HERrzcDj9iCyVew4FkJn_7FVV8z0hhTXs352U0DW3CBZgw4cakoXJN9UVrLpHpiQLoiGkq9RLiKwKOZHs2H9IwqDHfwn9maTChpjMxYP1UZ-KqRbdm2D0L5hfW6peFISv4QI8S_uON_ev_pBl8sJfSJ-WF5BwxzMsxcFevosA_qnVyCH-sXc7-DK_s10G0WXAfB23CXpkx8xO4joN-t5kD0qW53N9REEep3EejJNozx6x8jOtRb1GZ_bIBEqEkm9Fjxv0IEHZeY2rKYL0OHA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "127.0.0.1:8000/api/comment/2?text=1235465",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"comment",
+						"2"
+					],
+					"query": [
+						{
+							"key": "text",
+							"value": "1235465"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE comment",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImYzOWE2MmYxYzg5MmEzY2RiN2U5ZDVjYjQ4NDAxODQ5MWUyOTVlZTUyYmU2YjU0Mjk0NGMxM2VjMzE2MGQxNTUzMTFhYjg4MGI2M2U0ODkzIn0.eyJhdWQiOiIxIiwianRpIjoiZjM5YTYyZjFjODkyYTNjZGI3ZTlkNWNiNDg0MDE4NDkxZTI5NWVlNTJiZTZiNTQyOTQ0YzEzZWMzMTYwZDE1NTMxMWFiODgwYjYzZTQ4OTMiLCJpYXQiOjE1NjQxNjgxMDgsIm5iZiI6MTU2NDE2ODEwOCwiZXhwIjoxNTk1NzkwNTA4LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.VlQU998-X08O28PC0fW8JwAEQe5euf4MJXa-w7cd_bagqGeJFs7GJA3sQ9NLO41uQOtV4ZdBtCaZ2-u2idXoxunLeSVGx_j5I_xQ9OAJDIwPwGeqzMdFkgt5xUt2FT6E7s5wn_Q9OpgJpIunbRG_xxh7aBikpBWV6T7PnPcAwJ9S7nmfW9QcE4ih283o_wV0-ryuORnN2kihuFZljhM8qwqYpllu59oBCcTvwhdMN5_31dfdkvhB3wfJs_pcb__Ka2woBbRcE1tBBIHO8bf89CdG3bHDcjdyhTkKYHKob2ASJ0n6Ff7LfFViyg7L7l-nX9pDMxaQqwznLTvxzuqEPIdbNH9wvmiTQ7voytvqGb9zgUuauDVeRoxawLYNMDt2dQ7QD_XL4khxBez4cm7vDz6HERrzcDj9iCyVew4FkJn_7FVV8z0hhTXs352U0DW3CBZgw4cakoXJN9UVrLpHpiQLoiGkq9RLiKwKOZHs2H9IwqDHfwn9maTChpjMxYP1UZ-KqRbdm2D0L5hfW6peFISv4QI8S_uON_ev_pBl8sJfSJ-WF5BwxzMsxcFevosA_qnVyCH-sXc7-DK_s10G0WXAfB23CXpkx8xO4joN-t5kD0qW53N9REEep3EejJNozx6x8jOtRb1GZ_bIBEqEkm9Fjxv0IEHZeY2rKYL0OHA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "127.0.0.1:8000/api/comment/2",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"comment",
+						"2"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImYzOWE2MmYxYzg5MmEzY2RiN2U5ZDVjYjQ4NDAxODQ5MWUyOTVlZTUyYmU2YjU0Mjk0NGMxM2VjMzE2MGQxNTUzMTFhYjg4MGI2M2U0ODkzIn0.eyJhdWQiOiIxIiwianRpIjoiZjM5YTYyZjFjODkyYTNjZGI3ZTlkNWNiNDg0MDE4NDkxZTI5NWVlNTJiZTZiNTQyOTQ0YzEzZWMzMTYwZDE1NTMxMWFiODgwYjYzZTQ4OTMiLCJpYXQiOjE1NjQxNjgxMDgsIm5iZiI6MTU2NDE2ODEwOCwiZXhwIjoxNTk1NzkwNTA4LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.VlQU998-X08O28PC0fW8JwAEQe5euf4MJXa-w7cd_bagqGeJFs7GJA3sQ9NLO41uQOtV4ZdBtCaZ2-u2idXoxunLeSVGx_j5I_xQ9OAJDIwPwGeqzMdFkgt5xUt2FT6E7s5wn_Q9OpgJpIunbRG_xxh7aBikpBWV6T7PnPcAwJ9S7nmfW9QcE4ih283o_wV0-ryuORnN2kihuFZljhM8qwqYpllu59oBCcTvwhdMN5_31dfdkvhB3wfJs_pcb__Ka2woBbRcE1tBBIHO8bf89CdG3bHDcjdyhTkKYHKob2ASJ0n6Ff7LfFViyg7L7l-nX9pDMxaQqwznLTvxzuqEPIdbNH9wvmiTQ7voytvqGb9zgUuauDVeRoxawLYNMDt2dQ7QD_XL4khxBez4cm7vDz6HERrzcDj9iCyVew4FkJn_7FVV8z0hhTXs352U0DW3CBZgw4cakoXJN9UVrLpHpiQLoiGkq9RLiKwKOZHs2H9IwqDHfwn9maTChpjMxYP1UZ-KqRbdm2D0L5hfW6peFISv4QI8S_uON_ev_pBl8sJfSJ-WF5BwxzMsxcFevosA_qnVyCH-sXc7-DK_s10G0WXAfB23CXpkx8xO4joN-t5kD0qW53N9REEep3EejJNozx6x8jOtRb1GZ_bIBEqEkm9Fjxv0IEHZeY2rKYL0OHA",
+				"type": "string"
+			}
+		]
+	}
+}
