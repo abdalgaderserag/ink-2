@@ -66,12 +66,11 @@
 
     //GET ugly
     function pop() {
-        let element = '';
         //start drawing
         document.getElementById('pop-up').style.display = 'block';
         element = `<div class="pop-card">
 <div class="pop-header">
-<img src="/images/ink/back.png" style="width: 32px;margin:0 0 -5px 0">
+<img onclick="document.getElementById('pop-up').style.display = 'none';" src="/images/ink/back.png" style="cursor: pointer;width: 32px;margin:0 0 -5px 0">
 Edit Comment</div>
 <textarea id="pop-text" cols="30" rows="10">
 ${mediaTemp.text}

@@ -28,7 +28,7 @@
         </div>
         <div v-if="onlyVis" class="flex-box new-comment">
             <input class="comment-text" type="text" v-model="commentText">
-            <img class="comment-icon" src="/images/ink/comment.svg" alt="">
+            <img class="comment-icon" src="/images/ink/attachment.svg" alt="">
             <input class="comment-button" @click="storeComment()" @submit="storeComment()" type="button"
                    value="Comment">
         </div>
@@ -96,16 +96,10 @@
                             comment = response.data[0];
                             comment.media = response.data[1];
                             comment.user = this.$root.user;
-                            // this.comments[this.comments.length] = comment;
+                            this.comments.unshift(comment);
                             this.commentText = '';
                         });
             },
-            bindEditComment: function (data, index) {
-                this.comments[index] = data;
-            },
-            deleteComment: function (id, index) {
-
-            }
         }
     }
 </script>
