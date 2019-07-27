@@ -61,11 +61,27 @@
                 <div>
                     <img src="/images/ink/attachment.svg" style="width: 30px;height: 30px;margin: 1% 1% 0 0;" alt="">
                 </div>
-                <div style="height: 60px;padding: 5px;">
-                    <img style="height: 50px;width: 50px;border-radius: 15px" src="/images/avatars/ariya.jpg" alt="">
+                <div class="flex-box" style="height: 60px;padding: 5px 1%;justify-content: flex-start;">
+
+                    {{--Img View--}}
+                    <div class="flex-box" style="justify-content: flex-start">
+                        <img style="height: 50px;width: 50px;border-radius: 15px" src="/images/avatars/ariya.jpg"
+                             alt="">
+                        <div style="cursor: pointer;">
+                            <svg style="background-color: #f98835;border-radius: 50%;margin: 0 0 0 -10px;" width="16"
+                                 height="16">
+                                <path d="m4 8 l8 0" style="stroke: white;"/>
+                            </svg>
+                        </div>
+                    </div>
+                    {{--Img View--}}
+
                 </div>
-                <div>
-                    <button >
+                <div style="padding: 0 20px 0 0;text-align: right">
+                    <button style="text-decoration: underline;padding: 4px 2%;width: 10%;border: 0 solid #b2b2b2;background-color: white;border-radius: 16px;font-size: 2.4vh">
+                        Cancel
+                    </button>
+                    <button style="color:white;padding: 4px 2%;width: 10%;border: 1px solid #b2b2b2;background-color: #f98835;border-radius: 16px;font-size: 2.4vh">
                         Save
                     </button>
                 </div>
@@ -74,6 +90,14 @@
     </div>
 </div>
 <script>
+
+    function deleteImage(e) {
+        console.log(e);
+    }
+
+    function pop() {
+        let element = ''
+    }
 
     let app = new Vue({
         el: '#app',
