@@ -31,7 +31,8 @@
         </div>
         <div v-if="onlyVis" class="flex-box new-comment">
             <input class="comment-text" type="text" v-model="commentText">
-            <img class="comment-icon" src="/images/ink/attachment.svg" alt="">
+            <input type="file" @change="upload" name="" id="upload">
+            <img class="comment-icon" src="/images/ink/attachment.svg">
             <input class="comment-button" @click="storeComment()" @submit="storeComment()" type="button"
                    value="Comment">
         </div>
@@ -60,6 +61,17 @@
             }
         },
         methods: {
+            upload: function (e) {
+                let read = new FileReader();
+                read.readAsDataURL(e.target.files[0]);
+                read.onload = () => {
+                    // console.log(read.result);
+                    axios.post('/api/upload', {result: read.result})
+                        .then(response => {
+                            console.log(response.data);
+                        });
+                }
+            },
             getComments: function () {
                 if (!this.commentsLoaded)
                     axios.get('/api/comment?ink=' + this.ink.id)
