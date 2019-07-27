@@ -11,17 +11,20 @@
         </div>
         <div class="card-body">
             <div @click="hideEvent" class="media">
-                <span style="font-size: 4vh">{{ ink.media.text }}</span>
+                <span v-if="ink.media.text.length != 0" style="font-size: 4vh">{{ ink.media.text }}</span>
+                <div v-for="media in ink.media.media">
+                    <img :src="media" alt="">
+                </div>
             </div>
             <div class="card-footer flex-box">
                 <div class="flex-box">
                     <div class="card-interact">
-                        <img src="/images/ink/hard-fill-color.svg" alt="">
+                        <img @click="editInk()" src="/images/ink/hard-fill-color.svg" alt="">
                         <span>{{ ink.like }}</span>
                     </div>
                     <div class="card-interact">
                         <img src="/images/ink/comment.svg" alt="">
-                        <span>{{ ink.like }}</span>
+                        <span>{{ ink.comment }}</span>
                     </div>
                 </div>
             </div>
@@ -83,12 +86,36 @@
                 }
                 this.$el.style.display = 'block';
             },
+            editInk: function () {
+                mediaTemp = {
+                    text: this.ink.media.text,
+                    media: this.ink.media.media,
+                };
+                pop();
+                let text = document.getElementById('pop-text');
+                text.value = text.value.slice(0, text.value.length - 1);
+                let id = this.ink.id;
+                let save = document.getElementById('save');
+                save.onclick = () => {
+                    if (text.value == '')
+                        return;
+                    axios.put('/api/ink/' + id, {
+                        text: text.value,
+                        media: mediaTemp.media,
+                    });
+                    this.ink.media.text = text.value;
+                    this.ink.media.media = mediaTemp.media;
+                    text.value = '';
+                    mediaTemp.media = [];
+                    mediaTemp.text = '';
+                    document.getElementById('pop-up').style.display = 'none';
+                };
+            },
             storeComment: function () {
                 let data = {
                     ink_id: this.ink.id,
                     text: this.commentText,
                 };
-
                 if (this.commentText.length != 0)
                     axios.post('/api/comment', data)
                         .then(response => {
@@ -98,8 +125,10 @@
                             comment.user = this.$root.user;
                             this.comments.unshift(comment);
                             this.commentText = '';
+                            this.ink.comment++;
                         });
-            },
+            }
+            ,
         }
     }
 </script>
