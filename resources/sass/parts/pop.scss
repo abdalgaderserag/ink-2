@@ -1,18 +1,19 @@
 @import "../variables";
 
-.pop-up {
+#pop-up {
   width: 100%;
   height: -webkit-fill-available;
   position: fixed;
   background-color: #3939396e;
   .pop-card {
     background-color: $white;
-    min-height: 400px;
+    padding-bottom: 12px;
     width: 62%;
     margin: 82px 0 0 16%;
     border-top: 6px solid $orange;
     .pop-header {
       font-size: 4vh;
+      margin: 10px 8px 16px 0.5%;
     }
     textarea {
       width: 94%;
@@ -20,10 +21,15 @@
       padding: 0 2%;
     }
     .attachment {
+      justify-content: flex-start;
+      margin: 0 0 18px 0;
       img {
         width: 30px;
         height: 30px;
-        margin: 1% 1% 0 0;
+        margin: 1% 0 0 1%;
+      }
+      span{
+        margin: 18px 0 0 1%;
       }
     }
     .images-pop {
@@ -53,6 +59,7 @@
     .pop-buttons {
       padding: 0 20px 0 0;
       text-align: right;
+      margin: 12px 0 0 0;
       span {
         text-decoration: underline;
         margin-right: 10px;

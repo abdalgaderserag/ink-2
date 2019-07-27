@@ -56,20 +56,29 @@
     </div>
 </div>
 <script>
+    let mediaTemp;
+    let app = new Vue({
+        el: '#app',
+        data: {
+            user: {!! \Illuminate\Support\Facades\Auth::user() !!}
+        }
+    });
 
-    function deleteImage(e) {
-        console.log(e);
-    }
-
-    function pop(media = 'asdasd') {
+    //GET ugly
+    function pop() {
+        let element = '';
+        //start drawing
         document.getElementById('pop-up').style.display = 'block';
-        let element = `<div class="pop-card">
-<div class="pop-header"><- Edit Comment</div>
-<textarea cols="30" rows="10">
-${media}
+        element = `<div class="pop-card">
+<div class="pop-header">
+<img src="/images/ink/back.png" style="width: 32px;margin:0 0 -5px 0">
+Edit Comment</div>
+<textarea id="pop-text" cols="30" rows="10">
+${mediaTemp.text}
 </textarea>
-<div class="attachment">
+<div class="attachment flex-box">
 <img src="/images/ink/attachment.svg">
+<span>Add image or video or Gif</span>
 </div>
 <div class="flex-box images-pop">
 <div class="flex-box pop-icon">
@@ -82,23 +91,18 @@ ${media}
 </div>
 </div>
 <div class="pop-buttons">
-<span>
+<span onclick="document.getElementById('pop-up').style.display = 'none';">
 Cancel
 </span>
-<button>
+<button id="save">
 Save
 </button>
 </div>
 </div>`;
-        return element;
+        //    bind draw
+        document.getElementById('pop-up').innerHTML = element;
     }
 
-    let app = new Vue({
-        el: '#app',
-        data: {
-            user: {!! \Illuminate\Support\Facades\Auth::user() !!}
-        }
-    });
 </script>
 </body>
 </html>
