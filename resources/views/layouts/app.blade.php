@@ -51,41 +51,7 @@
 
     <div class="container flex-box">
         @yield('content')
-        <div class="pop-up"
-             style="width: 100%;height: -webkit-fill-available;position: fixed;background-color: #3939396e">
-            <div style="background-color: white;min-height: 400px;width: 62%;margin: 82px 0 0 16%;border-top: 6px solid #f98835;">
-                <div><- Edit Comment</div>
-                <textarea style="width: 94%;margin-left: 1%;padding: 0 2%;" cols="30" rows="10">
-
-                </textarea>
-                <div>
-                    <img src="/images/ink/attachment.svg" style="width: 30px;height: 30px;margin: 1% 1% 0 0;" alt="">
-                </div>
-                <div class="flex-box" style="height: 60px;padding: 5px 1%;justify-content: flex-start;">
-
-                    {{--Img View--}}
-                    <div class="flex-box" style="justify-content: flex-start">
-                        <img style="height: 50px;width: 50px;border-radius: 15px" src="/images/avatars/ariya.jpg"
-                             alt="">
-                        <div style="cursor: pointer;">
-                            <svg style="background-color: #f98835;border-radius: 50%;margin: 0 0 0 -10px;" width="16"
-                                 height="16">
-                                <path d="m4 8 l8 0" style="stroke: white;"/>
-                            </svg>
-                        </div>
-                    </div>
-                    {{--Img View--}}
-
-                </div>
-                <div style="padding: 0 20px 0 0;text-align: right">
-                    <button style="text-decoration: underline;padding: 4px 2%;width: 10%;border: 0 solid #b2b2b2;background-color: white;border-radius: 16px;font-size: 2.4vh">
-                        Cancel
-                    </button>
-                    <button style="color:white;padding: 4px 2%;width: 10%;border: 1px solid #b2b2b2;background-color: #f98835;border-radius: 16px;font-size: 2.4vh">
-                        Save
-                    </button>
-                </div>
-            </div>
+        <div style="display: none;" id="pop-up">
         </div>
     </div>
 </div>
@@ -95,8 +61,36 @@
         console.log(e);
     }
 
-    function pop() {
-        let element = ''
+    function pop(media = 'asdasd') {
+        document.getElementById('pop-up').style.display = 'block';
+        let element = `<div class="pop-card">
+<div class="pop-header"><- Edit Comment</div>
+<textarea cols="30" rows="10">
+${media}
+</textarea>
+<div class="attachment">
+<img src="/images/ink/attachment.svg">
+</div>
+<div class="flex-box images-pop">
+<div class="flex-box pop-icon">
+<img class="image" src="/images/avatars/ariya.jpg">
+<div>
+<svg>
+<path d="m4 8 l8 0" style="stroke: white;"/>
+</svg>
+</div>
+</div>
+</div>
+<div class="pop-buttons">
+<span>
+Cancel
+</span>
+<button>
+Save
+</button>
+</div>
+</div>`;
+        return element;
     }
 
     let app = new Vue({
