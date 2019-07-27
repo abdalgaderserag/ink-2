@@ -19,7 +19,7 @@
             <div class="card-footer flex-box">
                 <div class="flex-box">
                     <div class="card-interact">
-                        <img @click="editInk()" src="/images/ink/hard-fill-color.svg" alt="">
+                        <img src="/images/ink/hard-fill-color.svg" alt="">
                         <span>{{ ink.like }}</span>
                     </div>
                     <div class="card-interact">
@@ -110,6 +110,13 @@
                     mediaTemp.text = '';
                     document.getElementById('pop-up').style.display = 'none';
                 };
+            },
+            deleteInk: function () {
+                axios.delete('/api/ink/' + this.ink.id)
+                    .then(response => {
+                        this.$el.innerHTML = '';
+                        this.$el.outerHTML = '';
+                    })
             },
             storeComment: function () {
                 let data = {
