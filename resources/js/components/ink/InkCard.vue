@@ -32,7 +32,7 @@
             <input class="comment-button" @click="storeComment()" @submit="storeComment()" type="button"
                    value="Comment">
         </div>
-        <comments v-if="showComments" :comments="comments"></comments>
+        <comments v-if="showComments && onlyVis" :comments="comments"></comments>
     </div>
 </template>
 
@@ -41,8 +41,11 @@
         name: "InkCard",
         data() {
             return {
+                //used to hide the other cards and comments
                 onlyVis: false,
                 commentText: '',
+                //the comments card
+                commentsLoaded: false,
                 comments: [],
                 showComments: false,
             }
@@ -55,12 +58,14 @@
         },
         methods: {
             getComments: function () {
-                axios.get('/api/comment?ink=' + this.ink.id)
-                    .then(response => {
-                        console.log(response.data);
-                        this.comments.push(response.data);
-                        this.showComments = true;
-                    });
+                if (!this.commentsLoaded)
+                    axios.get('/api/comment?ink=' + this.ink.id)
+                        .then(response => {
+                            console.log(response.data);
+                            this.comments = response.data;
+                            this.showComments = true;
+                            this.commentsLoaded = true;
+                        });
             },
             hideEvent: function () {
                 let type;
@@ -87,8 +92,19 @@
                 if (this.commentText.length != 0)
                     axios.post('/api/comment', data)
                         .then(response => {
+                            let comment;
+                            comment = response.data[0];
+                            comment.media = response.data[1];
+                            comment.user = this.$root.user;
+                            // this.comments[this.comments.length] = comment;
                             this.commentText = '';
                         });
+            },
+            bindEditComment: function (data, index) {
+                this.comments[index] = data;
+            },
+            deleteComment: function (id, index) {
+
             }
         }
     }

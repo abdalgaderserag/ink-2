@@ -25,7 +25,6 @@
 \Illuminate\Support\Facades\Auth::loginUsingId(1);
 ?>
 <div id="app">
-
     <div class="nav-bar flex-box">
         <div class="flex-box g g1">
             <div class="logo-title">
@@ -52,6 +51,26 @@
 
     <div class="container flex-box">
         @yield('content')
+        <div class="pop-up"
+             style="width: 100%;height: -webkit-fill-available;position: fixed;background-color: #3939396e">
+            <div style="background-color: white;min-height: 400px;width: 62%;margin: 82px 0 0 16%;border-top: 6px solid #f98835;">
+                <div><- Edit Comment</div>
+                <textarea style="width: 94%;margin-left: 1%;padding: 0 2%;" cols="30" rows="10">
+
+                </textarea>
+                <div>
+                    <img src="/images/ink/attachment.svg" style="width: 30px;height: 30px;margin: 1% 1% 0 0;" alt="">
+                </div>
+                <div style="height: 60px;padding: 5px;">
+                    <img style="height: 50px;width: 50px;border-radius: 15px" src="/images/avatars/ariya.jpg" alt="">
+                </div>
+                <div>
+                    <button >
+                        Save
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <script>

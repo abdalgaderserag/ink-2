@@ -27,6 +27,7 @@
                 .catch(error => {
                     this.$root.message = 'problem while loading inks try refresh or try an other time.';
                 });
+            this.$refs.inksCards = this.$children;
         },
         computed: {
             nullInks: function () {

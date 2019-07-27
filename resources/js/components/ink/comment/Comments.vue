@@ -1,8 +1,8 @@
 <template>
     <div>
         <div v-if="comments.length != 0" v-for="comment in comments">
-            {{ comment[0] }}
-            <!--<comment :comment="comment"></comment>-->
+            <!--{{ comment[0] }}-->
+            <comment :comment="comment"></comment>
         </div>
         <div v-else>
             <h1>No Comments</h1>
@@ -18,7 +18,7 @@
                 type: Array,
                 required: true,
             }
-        }
+        },
     }
 </script>
 
