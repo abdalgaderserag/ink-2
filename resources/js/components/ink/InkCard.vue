@@ -27,10 +27,12 @@
             </div>
         </div>
         <div v-if="onlyVis" class="flex-box new-comment">
-            <input class="comment-text" type="text">
+            <input class="comment-text" type="text" v-model="commentText">
             <img class="comment-icon" src="/images/ink/comment.svg" alt="">
-            <input class="comment-button" type="button" value="Comment">
+            <input class="comment-button" @click="storeComment()" @submit="storeComment()" type="button"
+                   value="Comment">
         </div>
+        <comments v-if="showComments" :comments="comments"></comments>
     </div>
 </template>
 
@@ -40,6 +42,9 @@
         data() {
             return {
                 onlyVis: false,
+                commentText: '',
+                comments: [],
+                showComments: false,
             }
         },
         props: {
@@ -49,7 +54,15 @@
             }
         },
         methods: {
-            hideEvent: function (e) {
+            getComments: function () {
+                axios.get('/api/comment?ink=' + this.ink.id)
+                    .then(response => {
+                        console.log(response.data);
+                        this.comments.push(response.data);
+                        this.showComments = true;
+                    });
+            },
+            hideEvent: function () {
                 let type;
                 if (this.onlyVis) {
                     type = 'block';
@@ -57,19 +70,25 @@
                 } else {
                     type = 'none';
                     this.onlyVis = true;
+                    this.getComments();
                 }
                 let inks = document.getElementsByClassName('ink-card');
                 for (let i = 0; i < inks.length; i++) {
                     inks[i].style.display = type;
                 }
                 this.$el.style.display = 'block';
-
             },
-            getInkCardEle: function (target) {
-                let ink = target;
-                while (ink.className != 'ink-card') {
+            storeComment: function () {
+                let data = {
+                    ink_id: this.ink.id,
+                    text: this.commentText,
+                };
 
-                }
+                if (this.commentText.length != 0)
+                    axios.post('/api/comment', data)
+                        .then(response => {
+                            this.commentText = '';
+                        });
             }
         }
     }

@@ -21,6 +21,9 @@
     @yield('styles')
 </head>
 <body>
+<?php
+\Illuminate\Support\Facades\Auth::loginUsingId(1);
+?>
 <div id="app">
 
     <div class="nav-bar flex-box">
@@ -35,7 +38,7 @@
         <div class="flex-box g g2">
             <div class="nav-avatar">
                 <a href="/profile">
-                    <img src="/images/avatars/a5364090-db15-4621-9661-1be314605dac.png" alt="">
+                    <img src="{{ \Illuminate\Support\Facades\Auth::user()->avatar }}" alt="">
                 </a>
             </div>
             <div class="notifications">
@@ -52,9 +55,7 @@
     </div>
 </div>
 <script>
-    <?php
-            \Illuminate\Support\Facades\Auth::loginUsingId(1);
-    ?>
+
     let app = new Vue({
         el: '#app',
         data: {
