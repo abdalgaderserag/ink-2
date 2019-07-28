@@ -39,21 +39,28 @@ class CommentController extends Controller
     {
         $comment = new Comment();
         $comment->user_id = Auth::id();
-        if (isset($request->ink_id)) {
+        if (!empty($request->ink_id)) {
             $comment->ink_id = $request->ink_id;
         } else {
             $comment->comment_id = $request->comment_id;
         }
         $comment->save();
-        $media = new Media();
-        $media->text = $request->text;
-        if (isset($request->media))
-            foreach ($request->media as $media) {
-                $media->media = $media->media . $media . ',';
-            }
 
-        $media->comment_id = $comment->id;
+        $mei = '';
+        if ($request->media != []) {
+            foreach ($request->media as $media) {
+                $mei = $mei . $media . ',';
+            }
+        }
+
+        $data = [
+            'comment_id' => $comment->id,
+            'text' => $request->text,
+            'media' => $mei,
+        ];
+        $media = new Media($data);
         $media->save();
+
 
         $data[0] = $comment;
         $data[1] = $media;

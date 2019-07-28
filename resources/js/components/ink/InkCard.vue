@@ -31,8 +31,9 @@
         </div>
         <div v-if="onlyVis" class="flex-box new-comment">
             <input class="comment-text" type="text" v-model="commentText">
-            <input type="file" @change="upload" name="" id="upload">
-            <img class="comment-icon" src="/images/ink/attachment.svg">
+            <input style="display: none" type="file" @change="upload" name="" id="upload">
+            <img class="comment-icon" onclick="document.getElementById('upload').click()"
+                 src="/images/ink/attachment.svg">
             <input class="comment-button" @click="storeComment()" @submit="storeComment()" type="button"
                    value="Comment">
         </div>
@@ -52,6 +53,8 @@
                 commentsLoaded: false,
                 comments: [],
                 showComments: false,
+                mediaPath: [],
+                mediaSrc: [],
             }
         },
         props: {
@@ -65,10 +68,10 @@
                 let read = new FileReader();
                 read.readAsDataURL(e.target.files[0]);
                 read.onload = () => {
-                    // console.log(read.result);
                     axios.post('/api/upload', {result: read.result})
                         .then(response => {
-                            console.log(response.data);
+                            this.mediaPath.push(response.data.path);
+                            this.mediaSrc.push(read.result);
                         });
                 }
             },
@@ -76,7 +79,6 @@
                 if (!this.commentsLoaded)
                     axios.get('/api/comment?ink=' + this.ink.id)
                         .then(response => {
-                            console.log(response.data);
                             this.comments = response.data;
                             this.showComments = true;
                             this.commentsLoaded = true;
@@ -134,6 +136,7 @@
                 let data = {
                     ink_id: this.ink.id,
                     text: this.commentText,
+                    media: this.mediaPath,
                 };
                 if (this.commentText.length != 0)
                     axios.post('/api/comment', data)

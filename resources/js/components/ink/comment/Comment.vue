@@ -10,6 +10,9 @@
                              style="font-size: 2vh;">{{ comment.user.name }}</a></span>
                 </div>
                 <div>{{ comment.media.text }}</div>
+                <div v-for="image in comment.media.media">
+                    <img :src="image">
+                </div>
                 <div>
                     <div @click="editComment">()</div>
                 </div>
