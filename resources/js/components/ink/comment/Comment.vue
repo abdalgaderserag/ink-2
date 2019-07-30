@@ -31,8 +31,15 @@
                 <div v-for="image in comment.media.media">
                     <img style="max-width: 120px;" :src="image">
                 </div>
-                <div>
-                    <div @click="editComment">()</div>
+                <div class="flex-box" style="justify-content: flex-start">
+                    <div>
+                        <img @click="liked()" :src="'/images/ink/' + likeUrl" style="width: 24px" alt="">
+                        <span>{{ comment.like }}</span>
+                    </div>
+                    <div>
+                        <img src="/images/ink/comment.svg" style="width: 24px" alt="">
+                        <span>{{ comment.comment }}</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -42,11 +49,22 @@
 <script>
     export default {
         name: "Comment",
+        data() {
+            return {
+                likeUrl: '',
+            }
+        },
         props: {
             comment: {
                 type: Object,
                 required: true,
             }
+        },
+        mounted() {
+            if (this.comment.isLiked == 0)
+                this.likeUrl = 'hard-fill.svg';
+            else if (this.comment.isLiked == 1)
+                this.likeUrl = 'hard-fill-color.svg';
         },
         methods: {
             cardMenu: function (e) {
@@ -95,6 +113,19 @@
                         par.ink.comment--;
                     });
             },
+            liked: function () {
+                axios.post('/api/like', {
+                    comment_id: this.comment.id,
+                }).then((response) => {
+                    if (response.data == "") {
+                        this.likeUrl = 'hard-fill.svg';
+                        this.comment.like--;
+                    } else if (response.data == 1) {
+                        this.likeUrl = 'hard-fill-color.svg';
+                        this.comment.like++;
+                    }
+                });
+            }
         }
     }
 </script>

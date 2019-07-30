@@ -149,7 +149,13 @@
                 if (!this.commentsLoaded)
                     axios.get('/api/comment?ink=' + this.ink.id)
                         .then(response => {
-                            this.comments = response.data;
+                            // this.comments = response.data[0];
+                            for (let i = 0; i < response.data[0].length; i++) {
+                                this.comments[i] = response.data[0][i];
+                                this.comments[i].like = response.data[1][i].like;
+                                this.comments[i].isLiked = response.data[1][i].isLiked;
+                                this.comments[i].comment = response.data[1][i].comment;
+                            }
                             this.showComments = true;
                             this.commentsLoaded = true;
                         });

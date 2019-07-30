@@ -7,6 +7,7 @@ use App\Media;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CommentController extends Controller
 {
@@ -24,9 +25,24 @@ class CommentController extends Controller
      */
     public function index()
     {
-        $comments = Comment::where('user_id', Auth::id())->where('ink_id', $_GET['ink'])->with('media', 'user')->get();
+        $data[0] = Comment::where('user_id', Auth::id())->where('ink_id', $_GET['ink'])->with('media', 'user')->get();
 //        $comments = Comment::where('user_id', Auth::id())->where('ink_id', 1)->with('media', 'user')->get();
-        return response()->json($comments, 200);
+        $i = 0;
+        foreach ($data[0] as $comment) {
+
+            $data[1][$i]['like'] = DB::table('likes')
+                ->where('comment_id', $comment->id)->count();
+
+            $data[1][$i]['isLiked'] = DB::table('likes')
+                ->where('user_id', Auth::id())
+                ->where('comment_id', $comment->id)->count();
+
+            $data[1][$i]['comment'] = DB::table('comments')
+                ->where('comment_id', $comment->id)->count();
+
+            $i++;
+        }
+        return response()->json($data, 200);
     }
 
     /**
