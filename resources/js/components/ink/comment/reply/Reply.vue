@@ -9,7 +9,7 @@
                     <span><a href="/profile" class="link-clear"
                              style="font-size: 2vh;">{{ comment.user.name }}</a></span>
                 </div>
-                <div @click="getReplies">{{ comment.media.text }}</div>
+                <div>{{ comment.media.text }}</div>
 
 
                 <div>
@@ -36,20 +36,7 @@
                         <img @click="liked()" :src="'/images/ink/' + likeUrl" style="width: 24px" alt="">
                         <span>{{ comment.like }}</span>
                     </div>
-                    <div>
-                        <img src="/images/ink/comment.svg" style="width: 24px" alt="">
-                        <span>{{ comment.comment }}</span>
-                    </div>
                 </div>
-                <div class="flex-box new-comment">
-                    <input class="comment-text" type="text" v-model="commentText">
-                    <input style="display: none" type="file" @change="upload" name="" id="upload">
-                    <img class="comment-icon" onclick="document.getElementById('upload').click()"
-                         src="/images/ink/attachment.svg">
-                    <input class="comment-button" @click="storeComment()" @submit="storeComment()" type="button"
-                           value="Comment">
-                </div>
-                <replies v-if="showRp" :comments="comments"></replies>
             </div>
         </div>
     </div>
@@ -57,19 +44,10 @@
 
 <script>
     export default {
-        name: "Comment",
+        name: "Reply",
         data() {
             return {
                 likeUrl: '',
-                comments: [],
-                showRp: false,
-
-                //vars for inputs
-                commentText: '',
-
-
-                mediaPath: [],
-                mediaSrc: [],
             }
         },
         props: {
@@ -79,58 +57,18 @@
             }
         },
         mounted() {
+            console.log(this.comment);
             if (this.comment.isLiked == 0)
                 this.likeUrl = 'hard-fill.svg';
             else if (this.comment.isLiked == 1)
                 this.likeUrl = 'hard-fill-color.svg';
         },
         methods: {
-            upload: function (e) {
-                let read = new FileReader();
-                read.readAsDataURL(e.target.files[0]);
-                read.onload = () => {
-                    axios.post('/api/upload', {result: read.result})
-                        .then(response => {
-                            this.mediaPath.push(response.data.path);
-                            this.mediaSrc.push(read.result);
-                        });
-                }
-            },
-            storeComment: function () {
-                let data = {
-                    comment_id: this.comment.id,
-                    text: this.commentText,
-                    media: this.mediaPath,
-                };
-                if (this.commentText.length != 0)
-                    axios.post('/api/comment', data)
-                        .then(response => {
-                            let comment;
-                            comment = response.data[0];
-                            comment.media = response.data[1];
-                            comment.user = this.$root.user;
-                            this.comments.unshift(comment);
-                            this.commentText = '';
-                            this.ink.comment++;
-                        });
-            },
             cardMenu: function (e) {
                 let card = this.$el.getElementsByClassName('card-menu')[0];
                 card.style.display = 'block';
                 card.style.left = (e.clientX - card.offsetWidth) + 'px';
                 card.style.top = (e.clientY + 6) + 'px';
-            },
-            getReplies: function () {
-                axios.get('/api/comment/?comment=' + this.comment.id)
-                    .then((response) => {
-                        for (let i = 0; i < response.data[0].length; i++) {
-                            this.comments[i] = response.data[0][i];
-                            this.comments[i].like = response.data[1][i].like;
-                            this.comments[i].isLiked = response.data[1][i].isLiked;
-                            this.comments[i].comment = response.data[1][i].comment;
-                            this.showRp = true;
-                        }
-                    });
             },
             editComment: function () {
                 mediaTemp = {

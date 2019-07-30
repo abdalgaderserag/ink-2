@@ -26,7 +26,7 @@ class LikeController extends Controller
     {
         $like = Like::where('user_id', Auth::id())->where('ink_id', $request->ink_id)->first();
         if (empty($like->id))
-            $like = Like::where('user_id', Auth::id())->where('ink_id', $request->ink_id)->first();
+            $like = Like::where('user_id', Auth::id())->where('comment_id', $request->comment_id)->first();
         if (!empty($like->id))
             return response()->json(''.!$like->delete(), 200);
         $like = new Like();

@@ -25,8 +25,14 @@ class CommentController extends Controller
      */
     public function index()
     {
-        $data[0] = Comment::where('user_id', Auth::id())->where('ink_id', $_GET['ink'])->with('media', 'user')->get();
-//        $comments = Comment::where('user_id', Auth::id())->where('ink_id', 1)->with('media', 'user')->get();
+
+        if (isset($_GET['comment']))
+            $data[0] = Comment::where('user_id', Auth::id())->where('comment_id', $_GET['comment'])->with('media', 'user')->get();
+        else if (isset($_GET['ink']))
+            $data[0] = Comment::where('user_id', Auth::id())->where('ink_id', $_GET['ink'])->with('media', 'user')->get();
+        else
+            return response()->json('no data found :(', 204);
+
         $i = 0;
         foreach ($data[0] as $comment) {
 
@@ -37,8 +43,9 @@ class CommentController extends Controller
                 ->where('user_id', Auth::id())
                 ->where('comment_id', $comment->id)->count();
 
-            $data[1][$i]['comment'] = DB::table('comments')
-                ->where('comment_id', $comment->id)->count();
+            if (!isset($_GET['ink']))
+                $data[1][$i]['comment'] = DB::table('comments')
+                    ->where('comment_id', $comment->id)->count();
 
             $i++;
         }
