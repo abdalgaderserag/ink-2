@@ -11,7 +11,7 @@
                 </div>
                 <div>{{ comment.media.text }}</div>
                 <div v-for="image in comment.media.media">
-                    <img :src="image">
+                    <img style="max-width: 120px;" :src="image">
                 </div>
                 <div>
                     <div @click="editComment">()</div>

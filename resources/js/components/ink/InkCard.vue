@@ -11,9 +11,9 @@
         </div>
         <div class="card-body">
             <div @click="hideEvent" class="media">
-                <span v-if="ink.media.text.length != 0" style="font-size: 4vh">{{ ink.media.text }}</span>
-                <div v-for="media in ink.media.media">
-                    <img :src="media" alt="">
+                <span style="font-size: 4vh">{{ ink.media.text }}</span>
+                <div class="media-view" style="padding: 4%">
+                    <img v-for="(media,index) in ink.media.media" v-if="index<4" :src="media" alt="">
                 </div>
             </div>
             <div class="card-footer flex-box">
@@ -49,6 +49,7 @@
                 //used to hide the other cards and comments
                 onlyVis: false,
                 commentText: '',
+
                 //the comments card
                 commentsLoaded: false,
                 comments: [],
@@ -63,7 +64,46 @@
                 required: true,
             }
         },
+        mounted() {
+            if (this.ink.media.media)
+                this.reSizeImages();
+        },
         methods: {
+            reSizeImages: function () {
+                let mediaEle = document.getElementsByClassName('media-view')[0];
+                let height = mediaEle.offsetWidth / 1.75;
+                let rad = '12px';
+                if (this.ink.media.media.length > 1) {
+                    for (let i = 0; i < this.ink.media.media.length; i++) {
+
+                        switch (i) {
+                            case 0:
+                                mediaEle.children[i].style.borderTopLeftRadius = rad;
+                                mediaEle.children[i].style.borderTopLeftRadius = rad;
+                                break;
+                            case 1:
+                                mediaEle.children[i].style.borderTopRightRadius = rad;
+                                mediaEle.children[i].style.borderBottomLeftRadius = rad;
+                                break;
+                            case 2:
+                                mediaEle.children[i].style.borderBottomLeftRadius = rad;
+                                mediaEle.children[0].style.borderBottomLeftRadius = 0;
+                                break;
+                            case 3:
+                                mediaEle.children[i].style.borderBottomRightRadius = rad;
+                                mediaEle.children[1].style.borderBottomLeftRadius = 0;
+                                break;
+                        }
+
+                        mediaEle.children[i].style.width = '50%';
+                        if (this.ink.media.media.length > 2) {
+                            mediaEle.children[i].style.height = Math.trunc(height * 0.4) + 'px';
+                        } else {
+                            mediaEle.children[i].style.height = Math.trunc(height * 0.8) + 'px';
+                        }
+                    }
+                }
+            },
             upload: function (e) {
                 let read = new FileReader();
                 read.readAsDataURL(e.target.files[0]);

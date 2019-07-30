@@ -38,10 +38,13 @@
             getInk: function (ink, index) {
                 ink.like = this.interact[index].like[0];
                 ink.comment = this.interact[index].comment[0];
-                let media = ink.media.media;
-                if (media) {
-                    media = media.split(',').slice(0, -1);
-                    ink.media.media = media;
+                if (ink.media.media) {
+                    let media = ink.media.media;
+                    try {
+                        media = media.split(',').slice(0, -1);
+                        ink.media.media = media;
+                    }catch (e) {
+                    }
                 }
                 return ink;
             }
