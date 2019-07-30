@@ -10,6 +10,24 @@
                              style="font-size: 2vh;">{{ comment.user.name }}</a></span>
                 </div>
                 <div>{{ comment.media.text }}</div>
+
+
+                <div>
+                <span style="padding: 0 10px">
+                    <div class="card-menu" style="display:none;">
+                        <div>share</div>
+                        <div @click="editComment()">edit</div>
+                        <div @click="deleteComment()">delete</div>
+                        <div>report</div>
+                    </div>
+                    <svg @click="cardMenu" class="arrow"
+                         viewBox="-300.7 388.6 10.1 17.4" id="arrow" width="100%" height="100%">
+                        <path d="M-290.6,404.6l-1.4,1.4l-8-8l-0.7-0.7l0.7-0.7l8-8l1.4,1.4l-7.3,7.3L-290.6,404.6z"></path>
+                    </svg>
+                </span>
+                </div>
+
+
                 <div v-for="image in comment.media.media">
                     <img style="max-width: 120px;" :src="image">
                 </div>
@@ -31,6 +49,12 @@
             }
         },
         methods: {
+            cardMenu: function (e) {
+                let card = this.$el.getElementsByClassName('card-menu')[0];
+                card.style.display = 'block';
+                card.style.left = (e.clientX - card.offsetWidth) + 'px';
+                card.style.top = (e.clientY + 6) + 'px';
+            },
             editComment: function () {
                 mediaTemp = {
                     text: this.comment.media.text,
@@ -59,8 +83,16 @@
             deleteComment: function () {
                 axios.delete('/api/comment/' + this.comment.id)
                     .then(response => {
-                        this.$el.innerHTML = '';
-                        this.$el.outerHTML = '';
+                        // this.$el.innerHTML = '';
+                        // this.$el.outerHTML = '';
+                        let par = this.$parent.$parent;
+                        for (let i = 0; i < par.comments.length; i++) {
+                            let comment = par.comments[i];
+                            if (comment.id == this.comment.id) {
+                                par.comments.splice(i, 1);
+                            }
+                        }
+                        par.ink.comment--;
                     });
             },
         }

@@ -17,7 +17,6 @@
             return {
                 inks: [],
                 interact: [],
-                activeMenu: 1,
             }
         },
         mounted() {

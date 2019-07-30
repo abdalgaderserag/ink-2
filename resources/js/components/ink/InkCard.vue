@@ -29,7 +29,7 @@
         <div class="card-body">
             <div @click="hideEvent" class="media">
                 <span style="font-size: 4vh">{{ ink.media.text }}</span>
-                <div class="media-view" style="padding: 4%">
+                <div v-if="ink.media.media" class="media-view" style="padding: 4%">
                     <img v-for="(media,index) in ink.media.media" v-if="index<4" :src="media" alt="">
                 </div>
             </div>
@@ -87,7 +87,6 @@
         },
         methods: {
             cardMenu: function (e) {
-                this.$root.activeMenu = this._uid;
                 let card = this.$el.getElementsByClassName('card-menu')[0];
                 card.style.display = 'block';
                 card.style.left = (e.clientX - card.offsetWidth) + 'px';
