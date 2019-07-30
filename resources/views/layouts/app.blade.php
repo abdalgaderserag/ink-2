@@ -64,6 +64,22 @@
         }
     });
 
+    //cla height.
+    let nav = document.getElementsByClassName('nav-bar')[0];
+    let height = window.innerHeight - nav.offsetHeight;
+
+    //bind the height to views.
+    document.getElementsByClassName('left-section')[0].style.height = height + 'px';
+    document.getElementsByClassName('main-section')[0].style.height = height + 'px';
+
+
+    //Click event listen for the hide the menus
+    document.onclick = (e) => {
+        if (!(e.target.className == 'card-menu' || e.target.id == 'arrow' || e.target.localName == 'path'))
+            document.getElementsByClassName('card-menu')[0].style.display = 'none';
+    };
+
+
     //GET ugly
     function pop() {
         //start drawing

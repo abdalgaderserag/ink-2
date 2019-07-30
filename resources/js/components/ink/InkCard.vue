@@ -1,12 +1,23 @@
 <template>
     <div class="ink-card">
         <br>
-        <div class="flex-box card-header">
-            <div class="ink-avatar">
-                <img class="ink-avatar-img" :src="ink.user.avatar" alt="">
+        <div class="flex-box">
+            <div class="flex-box card-header">
+                <div class="ink-avatar">
+                    <img class="ink-avatar-img" :src="ink.user.avatar" alt="">
+                </div>
+                <div>
+                    <div class="ink-user-name">{{ ink.user.name }}</div>
+                </div>
             </div>
+
             <div>
-                <div class="ink-user-name">{{ ink.user.name }}</div>
+                <span style="padding: 0 10px">
+                    <svg @click="cardMenu" class="arrow"
+                         viewBox="-300.7 388.6 10.1 17.4" id="arrow" width="100%" height="100%">
+                        <path d="M-290.6,404.6l-1.4,1.4l-8-8l-0.7-0.7l0.7-0.7l8-8l1.4,1.4l-7.3,7.3L-290.6,404.6z"></path>
+                    </svg>
+                </span>
             </div>
         </div>
         <div class="card-body">
@@ -69,6 +80,12 @@
                 this.reSizeImages();
         },
         methods: {
+            cardMenu: function (e) {
+                let card = document.getElementsByClassName('card-menu')[0];
+                card.style.display = 'block';
+                card.style.left = (e.clientX - card.offsetWidth) + 'px';
+                card.style.top = (e.clientY + 6) + 'px';
+            },
             reSizeImages: function () {
                 let mediaEle = document.getElementsByClassName('media-view')[0];
                 let height = mediaEle.offsetWidth / 1.75;

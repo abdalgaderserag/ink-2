@@ -22,7 +22,7 @@ body {
   background: $bg-rtl;
   border-bottom: 3px solid $orange;
   padding: 0 10%;
-  position: fixed;
+  //position: fixed;
   width: 80%;
   .g {
     width: 50%;
@@ -83,9 +83,9 @@ body {
 
   .left-section {
     width: $leftWidth;
-    height: -webkit-fill-available;
+    //height: -webkit-fill-available;
     position: fixed;
-    margin-top: 63px;
+    //margin-top: 63px;
     background-color: #f4f4f4;
   }
 
@@ -93,8 +93,8 @@ body {
     width: 84%;
     margin-left: $leftWidth;
     overflow-x: auto;
-    padding: 101px 0 0 0;
-    height: -webkit-fill-available;
+    //padding: 101px 0 0 0;
+    //height: -webkit-fill-available;
     .main {
       width: 75%;
     }
