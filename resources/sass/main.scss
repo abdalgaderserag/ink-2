@@ -92,12 +92,17 @@
   width: 10%;
   box-shadow: 0 0 5px -2px #878787;
   border: 1px solid $background;
-  a div {
+  div {
     padding: 4px 4%;
     border-bottom: 1px solid $background;
+    cursor: pointer;
   }
-  a:last-child div {
+  div:last-child {
     border-bottom-width: 0;
+  }
+
+  div:hover {
+    background-color: $background;
   }
 }
 
