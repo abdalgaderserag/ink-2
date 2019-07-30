@@ -36,7 +36,7 @@
             <div class="card-footer flex-box">
                 <div class="flex-box">
                     <div class="card-interact">
-                        <img src="/images/ink/hard-fill-color.svg" alt="">
+                        <img @click="liked()" :src="'/images/ink/' + like" alt="">
                         <span>{{ ink.like }}</span>
                     </div>
                     <div class="card-interact">
@@ -63,16 +63,19 @@
         name: "InkCard",
         data() {
             return {
-                //used to hide the other cards and comments
+                // used to hide the other cards and comments
                 onlyVis: false,
                 commentText: '',
 
-                //the comments card
+                // the comments card
                 commentsLoaded: false,
                 comments: [],
                 showComments: false,
                 mediaPath: [],
                 mediaSrc: [],
+
+                // like
+                like: '',
             }
         },
         props: {
@@ -84,6 +87,10 @@
         mounted() {
             if (this.ink.media.media)
                 this.reSizeImages();
+            if (this.ink.isLiked == 1)
+                this.like = 'hard-fill-color.svg';
+            else
+                this.like = 'hard-fill.svg';
         },
         methods: {
             cardMenu: function (e) {
@@ -212,8 +219,20 @@
                             this.commentText = '';
                             this.ink.comment++;
                         });
+            },
+            liked: function () {
+                axios.post('/api/like', {
+                    ink_id: this.ink.id,
+                }).then((response) => {
+                    if (response.data == "") {
+                        this.like = 'hard-fill.svg';
+                        this.ink.like--;
+                    } else if (response.data == 1) {
+                        this.like = 'hard-fill-color.svg';
+                        this.ink.like++;
+                    }
+                });
             }
-            ,
         }
     }
 </script>

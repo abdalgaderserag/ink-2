@@ -8,6 +8,7 @@ use App\Media;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class InkController extends Controller
 {
@@ -27,8 +28,23 @@ class InkController extends Controller
     public function index()
     {
         $inks = Ink::where('user_id', Auth::id());
-        $data[1] = new InteractCountCollection($inks->with('like', 'comment')->get());
+//        $data[1] = new InteractCountCollection($inks->with('like', 'comment')->get());
         $data[0] = $inks->with('user', 'media')->get();
+        $i = 0;
+        foreach ($data[0] as $ink) {
+
+            $data[1][$i]['like'] = DB::table('likes')
+                ->where('ink_id', $ink->id)->count();
+
+            $data[1][$i]['isLiked'] = DB::table('likes')
+                ->where('user_id', Auth::id())
+                ->where('ink_id', $ink->id)->count();
+
+            $data[1][$i]['comment'] = DB::table('comments')
+                ->where('ink_id', $ink->id)->count();
+
+            $i++;
+        }
         return response()->json($data, 200);
     }
 

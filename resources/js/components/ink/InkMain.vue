@@ -43,8 +43,9 @@
         },
         methods: {
             getInk: function (ink, index) {
-                ink.like = this.interact[index].like[0];
-                ink.comment = this.interact[index].comment[0];
+                ink.like = this.interact[index].like;
+                ink.comment = this.interact[index].comment;
+                ink.isLiked = this.interact[index].isLiked;
                 if (ink.media.media) {
                     let media = ink.media.media;
                     try {
