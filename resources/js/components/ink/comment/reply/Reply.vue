@@ -98,8 +98,6 @@
             deleteComment: function () {
                 axios.delete('/api/comment/' + this.comment.id)
                     .then(response => {
-                        // this.$el.innerHTML = '';
-                        // this.$el.outerHTML = '';
                         let par = this.$parent.$parent;
                         for (let i = 0; i < par.comments.length; i++) {
                             let comment = par.comments[i];

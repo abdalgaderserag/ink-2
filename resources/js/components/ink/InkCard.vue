@@ -233,7 +233,7 @@
                     if (response.data == "") {
                         this.like = 'hard-fill.svg';
                         this.ink.like--;
-                    } else if (response.data == 1) {
+                    }else {
                         this.like = 'hard-fill-color.svg';
                         this.ink.like++;
                     }

@@ -28,7 +28,6 @@ class InkController extends Controller
     public function index()
     {
         $inks = Ink::where('user_id', Auth::id());
-//        $data[1] = new InteractCountCollection($inks->with('like', 'comment')->get());
         $data[0] = $inks->with('user', 'media')->get();
         $i = 0;
         foreach ($data[0] as $ink) {

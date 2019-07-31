@@ -27,9 +27,9 @@ class CommentController extends Controller
     {
 
         if (isset($_GET['comment']))
-            $data[0] = Comment::where('user_id', Auth::id())->where('comment_id', $_GET['comment'])->with('media', 'user')->get();
+            $data[0] = Comment::where('comment_id', $_GET['comment'])->with('media', 'user')->get();
         else if (isset($_GET['ink']))
-            $data[0] = Comment::where('user_id', Auth::id())->where('ink_id', $_GET['ink'])->with('media', 'user')->get();
+            $data[0] = Comment::where('ink_id', $_GET['ink'])->with('media', 'user')->get();
         else
             return response()->json('no data found :(', 204);
 
@@ -43,7 +43,7 @@ class CommentController extends Controller
                 ->where('user_id', Auth::id())
                 ->where('comment_id', $comment->id)->count();
 
-            if (!isset($_GET['ink']))
+            if (isset($_GET['ink']))
                 $data[1][$i]['comment'] = DB::table('comments')
                     ->where('comment_id', $comment->id)->count();
 

@@ -79,6 +79,7 @@
             }
         },
         mounted() {
+            console.log(this.comment);
             if (this.comment.isLiked == 0)
                 this.likeUrl = 'hard-fill.svg';
             else if (this.comment.isLiked == 1)

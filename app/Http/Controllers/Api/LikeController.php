@@ -24,13 +24,16 @@ class LikeController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $like = Like::where('user_id', Auth::id())->where('ink_id', $request->ink_id)->first();
-        if (empty($like->id))
+//        check if like already added and then delete him.
+        if (isset($request->ink_id))
+            $like = Like::where('user_id', Auth::id())->where('ink_id', $request->ink_id)->first();
+        else if (isset($request->comment_id))
             $like = Like::where('user_id', Auth::id())->where('comment_id', $request->comment_id)->first();
         if (!empty($like->id))
-            return response()->json(''.!$like->delete(), 200);
-        $like = new Like();
+            return response()->json('' . !$like->delete(), 200);
 
+//       if there are no like create new one.
+        $like = new Like();
         $like->user_id = Auth::id();
         if (isset($request->ink_id)) {
             $like->ink_id = $request->ink_id;
