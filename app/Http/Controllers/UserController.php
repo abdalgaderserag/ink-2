@@ -15,6 +15,7 @@ class UserController extends Controller
      */
     public function index()
     {
+        Auth::loginUsingId(1);
         $user = Auth::user();
         return view('user.profile')->with(['user' => $user]);
     }
@@ -49,6 +50,10 @@ class UserController extends Controller
     public function show($slug)
     {
         $user = User::where('slug', $slug)->first();
+
+        if (empty($user))
+            return response('404');
+
         return view('user.profile')->with(['user' => $user]);
     }
 
