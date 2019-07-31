@@ -11,6 +11,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    @yield('head-script')
 
     <!-- Fonts -->
 {{--<link rel="dns-prefetch" href="//fonts.gstatic.com">--}}
@@ -120,6 +121,8 @@ Save
         //    bind draw
         document.getElementById('pop-up').innerHTML = element;
     }
+
+    @yield('foot-script')
 
 </script>
 </body>
