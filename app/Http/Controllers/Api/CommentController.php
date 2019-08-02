@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Comment;
 use App\Media;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -21,10 +22,16 @@ class CommentController extends Controller
     /**
      * Display a listing of the resource.
      *
+     *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
+//        try {
+//            $this->authorize('comments.view');
+//        } catch (AuthorizationException $error) {
+//            return response()->json('you are not allowed to see this content.\n' . $error, 401);
+//        }
 
         if (isset($_GET['comment']))
             $data[0] = Comment::where('comment_id', $_GET['comment'])->with('media', 'user')->get();
@@ -60,6 +67,14 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
+
+        try {
+            $this->authorize('comments.create');
+        } catch (AuthorizationException $error) {
+            return response()
+                ->json('you are not allowed to create this comment.\n' . $error, 401);
+        }
+
         $comment = new Comment();
         $comment->user_id = Auth::id();
         if (!empty($request->ink_id)) {
@@ -100,6 +115,13 @@ class CommentController extends Controller
      */
     public function show(Comment $comment)
     {
+        try {
+            $this->authorize('comments.view', $comment);
+        } catch (AuthorizationException $error) {
+            return response()
+                ->json('you are not allowed to See this content.\n' . $error, 401);
+        }
+
         $data = $comment->replies();
         $data->with('media', 'user', 'like');
         return response()->json($data, 200);
@@ -114,6 +136,14 @@ class CommentController extends Controller
      */
     public function update(Request $request, Comment $comment)
     {
+
+        try {
+            $this->authorize('comments.update', $comment);
+        } catch (AuthorizationException $error) {
+            return response()
+                ->json('you are not allowed to update this comment.\n' . $error, 401);
+        }
+
         $m = $comment->media;
         $m->text = $request->text;
         if (isset($request->media))
@@ -134,6 +164,12 @@ class CommentController extends Controller
      */
     public function destroy(Comment $comment)
     {
+        try {
+            $this->authorize('comments.delete', $comment);
+        } catch (AuthorizationException $error) {
+            return response()
+                ->json('you are not allowed to delete this comment.\n' . $error, 401);
+        }
         $comment->delete();
         return response()->json($comment, 200);
     }
