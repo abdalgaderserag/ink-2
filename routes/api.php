@@ -14,12 +14,12 @@ use Illuminate\Http\Request;
 */
 
 
-//Route::middleware('auth:api')->group(function () {
+Route::middleware('auth:api')->group(function () {
 
+    Route::post('like', 'Api\LikeController');
+    Route::post('upload', 'Api\UploaderController');
 
-//});
+});
 
 Route::apiResource('ink', 'Api\InkController');
 Route::apiResource('comment', 'Api\CommentController');
-Route::post('like', 'Api\LikeController');
-Route::post('upload', 'Api\UploaderController');

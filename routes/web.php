@@ -19,12 +19,22 @@ Route::get('/', function () {
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-//Route::group(function () {
-Route::get('/profile', 'UserController@index')->name('profile');
-Route::get('/register', 'UserController@create')->name('register');
-Route::post('/register', 'UserController@store')->name('register');
+Route::middleware('auth')->group(function () {
+    Route::get('/edit/profile', 'UserController@edit')->name('profile.edit');
+    Route::put('/edit/profile', 'UserController@update')->name('profile.edit');
+    Route::put('/delete/account', 'UserController@destory')->name('profile.delete');
+    Route::post('/logout', 'UserController@logout')->name('logout');
+    Route::get('/profile', 'UserController@index')->name('profile');
+});
+
 Route::get('/profile/{slug}', 'UserController@show')->name('profile');
-Route::get('/edit/profile', 'UserController@edit')->name('profile.edit');
-Route::put('/edit/profile', 'UserController@update')->name('profile.edit');
-Route::put('/delete/account', 'UserController@destory')->name('profile.delete');
-//});
+
+
+Route::get('/log', 'UserController@create')->name('log');
+Route::post('/register', 'UserController@register')->name('register');
+Route::post('/login', 'UserController@login')->name('login');
+
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

@@ -27,7 +27,30 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('auth.register');
+        return view('auth.log');
+    }
+
+    /**
+     * Log user in.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function login(Request $request)
+    {
+//        TODO : redirect to Auth login
+    }
+
+
+    /**
+     * Register User.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function register(Request $request)
+    {
+//        TODO : redirect to Register Controller
     }
 
     /**
