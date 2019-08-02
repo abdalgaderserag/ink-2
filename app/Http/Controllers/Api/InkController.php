@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Resources\Inks\InteractCountCollection;
 use App\Ink;
 use App\Media;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -27,6 +28,7 @@ class InkController extends Controller
      */
     public function index()
     {
+
         $inks = Ink::where('user_id', Auth::id());
         $data[0] = $inks->with('user', 'media')->get();
         $i = 0;
@@ -55,6 +57,12 @@ class InkController extends Controller
      */
     public function store(Request $request)
     {
+        try {
+            $this->authorize('inks.create');
+        } catch (AuthorizationException $error) {
+            return response()->json('you are not allowed to create this content', 401);
+        }
+
         $ink = new Ink();
         $ink->user_id = Auth::id();
 
@@ -81,6 +89,12 @@ class InkController extends Controller
      */
     public function show(Ink $ink)
     {
+        try {
+            $this->authorize('inks.view',$ink);
+        } catch (AuthorizationException $error) {
+            return response()->json('you are not allowed to see this content', 401);
+        }
+
         $data = $ink->comment->with('replies.media', 'replies.user')->get();
         return response()->json($data, 200);
     }
@@ -94,6 +108,13 @@ class InkController extends Controller
      */
     public function update(Request $request, Ink $ink)
     {
+
+        try {
+            $this->authorize('inks.update');
+        } catch (AuthorizationException $error) {
+            return response()->json('you are not allowed to update this content', 401);
+        }
+
         $media = $ink->media;
         $media->text = $request->text;
         if (isset($request->media))
@@ -113,6 +134,13 @@ class InkController extends Controller
      */
     public function destroy(Ink $ink)
     {
+
+        try {
+            $this->authorize('inks.delete');
+        } catch (AuthorizationException $error) {
+            return response()->json('you are not allowed to delete this content', 401);
+        }
+
         $ink->delete();
         return response()->json($ink, 200);
     }
