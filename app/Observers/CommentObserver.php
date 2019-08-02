@@ -9,18 +9,18 @@ class CommentObserver
     /**
      * Handle the comment "created" event.
      *
-     * @param  \App\Comment  $comment
+     * @param  \App\Comment $comment
      * @return void
      */
     public function created(Comment $comment)
     {
-        //
+//        TODO : notify the ink owner about
     }
 
     /**
      * Handle the comment "updated" event.
      *
-     * @param  \App\Comment  $comment
+     * @param  \App\Comment $comment
      * @return void
      */
     public function updated(Comment $comment)
@@ -31,33 +31,21 @@ class CommentObserver
     /**
      * Handle the comment "deleted" event.
      *
-     * @param  \App\Comment  $comment
+     * @param  \App\Comment $comment
      * @return void
      */
     public function deleted(Comment $comment)
     {
-        //
-    }
+//        TODO: reset the notify
 
-    /**
-     * Handle the comment "restored" event.
-     *
-     * @param  \App\Comment  $comment
-     * @return void
-     */
-    public function restored(Comment $comment)
-    {
-        //
-    }
+        $comment->media->delete();
 
-    /**
-     * Handle the comment "force deleted" event.
-     *
-     * @param  \App\Comment  $comment
-     * @return void
-     */
-    public function forceDeleted(Comment $comment)
-    {
-        //
+        if (!empty($comment->replies()))
+            $comment->replies()->each(function ($comment) {
+                $comment->delete();
+            });
+        $comment->like()->each(function ($like) {
+            $like->delete();
+        });
     }
 }

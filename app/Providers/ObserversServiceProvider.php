@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
+
 class ObserversServiceProvider extends ServiceProvider
 {
     /**
@@ -23,6 +24,7 @@ class ObserversServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+
+
     }
 }

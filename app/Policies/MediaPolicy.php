@@ -43,7 +43,6 @@ class MediaPolicy
      */
     public function update(User $user, Media $media)
     {
-//        detearms if the user
         $allow = false;
 
         if (!empty($media->ink)) {
