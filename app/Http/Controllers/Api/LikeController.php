@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Like;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -29,8 +30,22 @@ class LikeController extends Controller
             $like = Like::where('user_id', Auth::id())->where('ink_id', $request->ink_id)->first();
         else if (isset($request->comment_id))
             $like = Like::where('user_id', Auth::id())->where('comment_id', $request->comment_id)->first();
-        if (!empty($like->id))
+        if (!empty($like->id)) {
+
+            try {
+                $this->authorize('like.delete', $like);
+            } catch (AuthorizationException $error) {
+                return response()->json('you are not allowed to delete this content', 401);
+            }
+
             return response()->json('' . !$like->delete(), 200);
+        }
+
+        try {
+            $this->authorize('like.create');
+        } catch (AuthorizationException $error) {
+            return response()->json('you are not allowed to create this content', 401);
+        }
 
 //       if there are no like create new one.
         $like = new Like();

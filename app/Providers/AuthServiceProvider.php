@@ -37,15 +37,8 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('inks.update', 'InkPolicy@update');
         Gate::define('inks.delete', 'InkPolicy@delete');
 
-        Gate::define('likes.view', 'LikePolicy@view');
         Gate::define('likes.create', 'LikePolicy@create');
         Gate::define('likes.delete', 'LikePolicy@delete');
-
-        Gate::define('medias.view', 'MediaPolicy@view');
-        Gate::define('medias.create', 'MediaPolicy@create');
-        Gate::define('medias.update', 'MediaPolicy@update');
-        Gate::define('medias.delete', 'MediaPolicy@delete');
-
 
         Passport::routes();
     }
