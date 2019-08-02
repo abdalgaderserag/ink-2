@@ -21,6 +21,11 @@ class Ink extends Model
         return $this->hasMany('App\Comment');
     }
 
+    public function ink()
+    {
+        return $this->hasMany('App\Ink');
+    }
+
     public function media()
     {
         return $this->hasOne('App\Media');
