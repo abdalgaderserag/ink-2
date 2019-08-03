@@ -27,18 +27,19 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
 //        Policy section
-        Gate::define('comments.view', 'CommentPolicy@view');
-        Gate::define('comments.create', 'CommentPolicy@create');
-        Gate::define('comments.update', 'CommentPolicy@update');
-        Gate::define('comments.delete', 'CommentPolicy@delete');
+        $policies = 'App\Policies\\';
+        Gate::define('comments.view', $policies . 'CommentPolicy@view');
+        Gate::define('comments.create', $policies . 'CommentPolicy@create');
+        Gate::define('comments.update', $policies . 'CommentPolicy@update');
+        Gate::define('comments.delete', $policies . 'CommentPolicy@delete');
 
-        Gate::define('inks.view', 'InkPolicy@view');
-        Gate::define('inks.create', 'InkPolicy@create');
-        Gate::define('inks.update', 'InkPolicy@update');
-        Gate::define('inks.delete', 'InkPolicy@delete');
+        Gate::define('inks.view', $policies . 'InkPolicy@view');
+        Gate::define('inks.create', $policies . 'InkPolicy@create');
+        Gate::define('inks.update', $policies . 'InkPolicy@update');
+        Gate::define('inks.delete', $policies . 'InkPolicy@delete');
 
-        Gate::define('likes.create', 'LikePolicy@create');
-        Gate::define('likes.delete', 'LikePolicy@delete');
+        Gate::define('likes.create', $policies . 'LikePolicy@create');
+        Gate::define('likes.delete', $policies . 'LikePolicy@delete');
 
         Passport::routes();
     }

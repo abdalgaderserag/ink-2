@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\DB;
 class CommentController extends Controller
 {
 
+    public function __construct()
+    {
+        Auth::loginUsingId(1);
+    }
 
     /**
      * Display a listing of the resource.

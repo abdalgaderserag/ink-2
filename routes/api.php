@@ -16,10 +16,10 @@ use Illuminate\Http\Request;
 
 Route::middleware('auth:api')->group(function () {
 
-    Route::post('like', 'Api\LikeController');
-    Route::post('upload', 'Api\UploaderController');
+    Route::post('like', 'Api\LikeController')->middleware('test');
+    Route::post('upload', 'Api\UploaderController')->middleware('test');
 
 });
 
-Route::apiResource('ink', 'Api\InkController');
-Route::apiResource('comment', 'Api\CommentController');
+Route::apiResource('ink', 'Api\InkController')->middleware('test');
+Route::apiResource('comment', 'Api\CommentController')->middleware('test');
