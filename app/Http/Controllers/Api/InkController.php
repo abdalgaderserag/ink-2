@@ -14,11 +14,6 @@ use Illuminate\Support\Facades\DB;
 class InkController extends Controller
 {
 
-    public function __construct()
-    {
-//        Auth::logout();
-        Auth::loginUsingId(1);
-    }
 
 
     /**

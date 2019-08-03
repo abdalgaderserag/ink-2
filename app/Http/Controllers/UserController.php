@@ -15,7 +15,6 @@ class UserController extends Controller
      */
     public function index()
     {
-        Auth::loginUsingId(1);
         $user = Auth::user();
         return view('user.profile')->with(['user' => $user]);
     }

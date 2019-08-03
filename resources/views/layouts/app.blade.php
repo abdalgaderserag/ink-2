@@ -22,9 +22,6 @@
     @yield('styles')
 </head>
 <body>
-<?php
-\Illuminate\Support\Facades\Auth::loginUsingId(1);
-?>
 <div id="app">
     <div class="nav-bar flex-box">
         <div class="flex-box g g1">
@@ -36,7 +33,7 @@
             </div>
         </div>
 
-        @if(! \Illuminate\Support\Facades\Auth::check())
+        @auth
             <div class="flex-box g g2">
                 <div class="nav-avatar">
                     <a href="/profile">
@@ -53,7 +50,7 @@
                     <img src="/images/layouts/menu.svg" alt="">
                 </div>
             </div>
-        @endif
+        @endauth
 
     </div>
 

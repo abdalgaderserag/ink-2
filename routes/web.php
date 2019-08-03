@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return redirect('/home');
-});
+Route::get('/', 'HomeController@index');
 
 //Auth::routes();
 
@@ -36,5 +34,3 @@ Route::post('/login', 'UserController@login')->name('login');
 
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');

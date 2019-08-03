@@ -17,7 +17,6 @@ class UploaderController extends Controller
      */
     public function __invoke(Request $request)
     {
-        Auth::loginUsingId(1);
         list($type, $data) = explode(';', $request->result);
         list($code, $data) = explode(',', $data);
         list($file_type, $type) = explode(':', $type);

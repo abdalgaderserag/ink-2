@@ -8,6 +8,8 @@ use App\Media;
 use App\Observers\CommentObserver;
 use App\Observers\InkObserver;
 use App\Observers\MediaObserver;
+use App\Observers\UserObserver;
+use App\User;
 use Illuminate\Support\ServiceProvider;
 
 
@@ -33,5 +35,6 @@ class ObserversServiceProvider extends ServiceProvider
         Comment::observe(CommentObserver::class);
         Ink::observe(InkObserver::class);
         Media::observe(MediaObserver::class);
+        User::observe(UserObserver::class);
     }
 }
