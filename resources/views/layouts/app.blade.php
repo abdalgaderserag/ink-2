@@ -35,19 +35,26 @@
                 <input type="search" placeholder="search">
             </div>
         </div>
-        <div class="flex-box g g2">
-            <div class="nav-avatar">
-                <a href="/profile">
-                    <img src="{{ \Illuminate\Support\Facades\Auth::user()->avatar }}" alt="">
-                </a>
+
+        @if(! \Illuminate\Support\Facades\Auth::check())
+            <div class="flex-box g g2">
+                <div class="nav-avatar">
+                    <a href="/profile">
+                        <img src="{{ \Illuminate\Support\Facades\Auth::user()->avatar }}" alt="">
+                    </a>
+                </div>
+                <div class="notifications">
+                    <img src="/images/layouts/notification.svg" alt="">
+                </div>
+                <form id="logout" method="POST" action="{{ route('logout') }}">
+                    @csrf
+                </form>
+                <div class="nav-menu" onclick="document.getElementById('logout').submit();">
+                    <img src="/images/layouts/menu.svg" alt="">
+                </div>
             </div>
-            <div class="notifications">
-                <img src="/images/layouts/notification.svg" alt="">
-            </div>
-            <div class="nav-menu">
-                <img src="/images/layouts/menu.svg" alt="">
-            </div>
-        </div>
+        @endif
+
     </div>
 
     <div class="container flex-box">
