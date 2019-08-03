@@ -40,12 +40,13 @@ class CommentObserver
 
         $comment->media->delete();
 
-        if (!empty($comment->replies()))
-            $comment->replies()->each(function ($comment) {
+        if (!empty($comment->replies))
+            $comment->replies->each(function ($comment) {
                 $comment->delete();
             });
-        $comment->like()->each(function ($like) {
-            $like->delete();
-        });
+
+//        $comment->like->each(function ($like) {
+//            $like->delete();
+//        });
     }
 }

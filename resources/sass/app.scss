@@ -1,6 +1,36 @@
 // Variables
 @import 'variables';
 
+@media only screen and (max-device-width: 480px) {
+  .main-section {
+    width: 100%;
+    margin-left: 0;
+    .main {
+      width: 100%;
+    }
+    .right-section {
+      display: none;
+    }
+  }
+  .left-section {
+    display: none;
+  }
+}
+
+@media only screen and (min-width: 960px) {
+  .main-section {
+    width: 84%;
+    margin-left: 16%;
+
+    .main {
+      width: 75%;
+    }
+    .right-section {
+      width: 25%;
+    }
+  }
+}
+
 body {
   margin: 0;
   font-family: $font-family-1, $font-family-2;
@@ -33,7 +63,7 @@ body {
     .logo-title {
       font-size: 5vh;
       color: $white;
-      padding: 1% 4% 0 0;
+      padding: 10px 4% 0 0;
     }
     .search {
       width: 100%;
@@ -54,7 +84,7 @@ body {
     justify-content: flex-end;
     .notifications {
       margin-right: 5%;
-      padding: 3% 0 0 0;
+      padding: 18px 0 0 0;
       img {
         width: 24px;
       }
@@ -69,7 +99,7 @@ body {
       }
     }
     .nav-menu {
-      padding: 1% 0 0 0;
+      padding: 7px 0 0 0;
       cursor: pointer;
       img {
         width: 34px;
@@ -92,17 +122,10 @@ body {
   }
 
   .main-section {
-    width: 84%;
-    margin-left: $leftWidth;
     overflow-x: auto;
     //padding: 101px 0 0 0;
     //height: -webkit-fill-available;
-    .main {
-      width: 75%;
-    }
-    .right-section {
-      width: 25%;
-    }
+
   }
 }
 

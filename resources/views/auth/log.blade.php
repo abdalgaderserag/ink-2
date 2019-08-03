@@ -141,7 +141,7 @@
 
             let data = {
                 client_id: 2,
-                client_secret: '2ObIGKf2AxsTXxCo8EKrAoY2PGw5aafDLQjxQnE0',
+                client_secret: 'ZKhOuB4J3XM1dDf3AkYDxGbDU1NIuzDtEXwWwLUn',
                 grant_type: 'password',
                 username: document.getElementById('email').value,
                 password: document.getElementById('password').value,

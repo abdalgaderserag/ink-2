@@ -39,10 +39,10 @@ class InkObserver
 //        TODO : reset the notify
         $ink->media->delete();
 
-        $ink->comment()->each(function ($comment) {
+        $ink->comment->each(function ($comment) {
             $comment->delete();
         });
-        $ink->like()->each(function ($like) {
+        $ink->like->each(function ($like) {
             $like->delete();
         });
     }

@@ -62,9 +62,14 @@
 </div>
 <script>
 
-    window.axios.defaults.headers.common["Authorization"] = localStorage.token_type + ' ' + localStorage.access_token;
 
+    //cla height.
+    let nav = document.getElementsByClassName('nav-bar')[0];
+    let height = window.innerHeight - nav.offsetHeight;
 
+    @auth
+
+        window.axios.defaults.headers.common["Authorization"] = localStorage.token_type + ' ' + localStorage.access_token;
     let mediaTemp;
     let app = new Vue({
         el: '#app',
@@ -72,10 +77,6 @@
             user: {!! \Illuminate\Support\Facades\Auth::user() !!},
         }
     });
-
-    //cla height.
-    let nav = document.getElementsByClassName('nav-bar')[0];
-    let height = window.innerHeight - nav.offsetHeight;
 
 
     //bind the height to views.
@@ -132,9 +133,9 @@ Save
         //    bind draw
         document.getElementById('pop-up').innerHTML = element;
     }
+    @endauth
 
     @yield('foot-script')
-
 </script>
 </body>
 </html>

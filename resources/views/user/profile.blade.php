@@ -20,16 +20,16 @@
         <div class="main">
 
 
-            <div style="border-bottom: 12px solid #f98835;background-color: #f98835;height: 240px;">
-                <img src="{{ $user->background }}"
-                     style="width: 100%;height: 240px;object-fit: cover;margin: 0 0 -4px 0;" alt="">
+            <div id="background-holder" style="border-bottom: 12px solid #f98835;background-color: #f98835;">
+                <img id="background" src="{{ $user->background }}"
+                     style="width: 100%;object-fit: cover;margin: 0 0 -4px 0;" alt="">
             </div>
             <div class="flex-box" style="justify-content: flex-start;">
                 <div id="avatar-holder"
-                     style="background-color: #f98835;width: 120px;height: 120px;border-radius: 50%;border: 10px solid;border-color: #f4f4f4;margin: -61px 0 0 3%;">
+                     style="background-color: #f98835;width: 90px;height: 90px;border-radius: 50%;border: 10px solid;border-color: #f4f4f4;margin: -61px 0 0 3%;">
                 </div>
                 <img id="profile-avatar" class="profile-avatar"
-                     style="display:none;width: 120px;height: 120px;border-radius: 50%;border: 10px solid;border-color: #f4f4f4;margin: -61px 0 0 3%;"
+                     style="display:none;width: 90px;height: 90px;border-radius: 50%;border: 10px solid;border-color: #f4f4f4;margin: -61px 0 0 3%;"
                      src="{{ $user->avatar }}" alt="">
                 <div style="width: 75%;margin-top: 8px">
                     <div class="flex-box" style="justify-content: space-between">
@@ -78,8 +78,12 @@
 @endsection
 
 @section('foot-script')
+    {{--<script>--}}
     document.getElementById('profile-avatar').onload = () => {
     document.getElementById('profile-avatar').style.display = 'block';
     document.getElementById('avatar-holder').remove();
-    }
+    };
+    let bgWidth = document.getElementById('background').offsetWidth;
+    document.getElementById('background').style.height = (bgWidth * (1.5 / 4)) + 'px';
+    document.getElementById('background-holder').style.height = (bgWidth * (1.5 / 4)) + 'px';
 @endsection

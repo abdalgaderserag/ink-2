@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Resources\Inks\InteractCountCollection;
 use App\Ink;
 use App\Media;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -13,8 +12,6 @@ use Illuminate\Support\Facades\DB;
 
 class InkController extends Controller
 {
-
-
 
 
     /**
@@ -86,7 +83,7 @@ class InkController extends Controller
     public function show(Ink $ink)
     {
         try {
-            $this->authorize('inks.view',$ink);
+            $this->authorize('inks.view', $ink);
         } catch (AuthorizationException $error) {
             return response()->json('you are not allowed to see this content', 401);
         }
@@ -132,7 +129,7 @@ class InkController extends Controller
     {
 
         try {
-            $this->authorize('inks.delete');
+            $this->authorize('inks.delete', $ink);
         } catch (AuthorizationException $error) {
             return response()->json('you are not allowed to delete this content', 401);
         }
