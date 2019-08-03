@@ -20,6 +20,7 @@ class LikeController extends Controller
      */
     public function __invoke(Request $request)
     {
+        Auth::loginUsingId(1);
 //        check if like already added and then delete him.
         if (isset($request->ink_id))
             $like = Like::where('user_id', Auth::id())->where('ink_id', $request->ink_id)->first();
@@ -28,7 +29,7 @@ class LikeController extends Controller
         if (!empty($like->id)) {
 
             try {
-                $this->authorize('like.delete', $like);
+                $this->authorize('likes.delete', $like);
             } catch (AuthorizationException $error) {
                 return response()->json('you are not allowed to delete this content', 401);
             }
@@ -37,7 +38,7 @@ class LikeController extends Controller
         }
 
         try {
-            $this->authorize('like.create');
+            $this->authorize('likes.create');
         } catch (AuthorizationException $error) {
             return response()->json('you are not allowed to create this content', 401);
         }

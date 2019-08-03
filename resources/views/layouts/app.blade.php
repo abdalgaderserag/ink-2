@@ -69,7 +69,7 @@
     let app = new Vue({
         el: '#app',
         data: {
-            user: {},
+            user: {!! \Illuminate\Support\Facades\Auth::user() !!},
         }
     });
 
