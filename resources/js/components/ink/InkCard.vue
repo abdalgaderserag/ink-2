@@ -28,7 +28,7 @@
         </div>
         <div class="card-body">
             <div @click="hideEvent" class="media">
-                <span style="font-size: 4vh">{{ ink.media.text }}</span>
+                <span style="font-size: 4vh" v-html="getHashTag(ink.media.text)"></span>
                 <div v-if="ink.media.media" class="media-view" style="padding: 4%">
                     <img v-for="(media,index) in ink.media.media" v-if="index<4" :src="media" alt="">
                 </div>
@@ -93,6 +93,30 @@
                 this.like = 'hard-fill.svg';
         },
         methods: {
+            getHashTag: function (text) {
+                //split the all the text to array the first element won't contain any hash tag
+                let textArray = text.split('#');
+
+                //save the first element to the out put var (out)
+                let out = textArray[0];
+
+                //loop thowght all the hashes and instert the # sgin with the a HTML tag
+                //it's start from the second element why? see the prev comments
+                for (let i = 1; i < textArray.length; i++) {
+
+                    //splite the hash from the rest text by space the hash will stored in the splited[0]
+                    let splited = textArray[i].split(' ', 1);
+                    // bind the new hash to the old if avil
+                    // it will add the hash to the old out var text
+                    // remove from the loop text the hash by slice() function
+                    out = out + '<a href="/search?hash=' + splited[0] + '" class="hash-tag">#' + splited[0] + '</a>' + textArray[i].slice(splited[0].length, textArray[i].length);
+                }
+
+                //set the text to out put
+                text = out;
+
+                return text;
+            },
             cardMenu: function (e) {
                 let card = this.$el.getElementsByClassName('card-menu')[0];
                 card.style.display = 'block';
@@ -233,7 +257,7 @@
                     if (response.data == "") {
                         this.like = 'hard-fill.svg';
                         this.ink.like--;
-                    }else {
+                    } else {
                         this.like = 'hard-fill-color.svg';
                         this.ink.like++;
                     }
