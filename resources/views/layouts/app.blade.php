@@ -61,11 +61,15 @@
     </div>
 </div>
 <script>
+
+    window.axios.defaults.headers.common["Authorization"] = localStorage.token_type + ' ' + localStorage.access_token;
+
+
     let mediaTemp;
     let app = new Vue({
         el: '#app',
         data: {
-            user: {!! \Illuminate\Support\Facades\Auth::user() !!}
+            user: {},
         }
     });
 

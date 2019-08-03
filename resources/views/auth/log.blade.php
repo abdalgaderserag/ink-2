@@ -73,20 +73,21 @@
     <div id="log-body" style="width: 100%;overflow-y: auto;">
         <div class="log">
             <div class="log-box" style="float: left;margin-right: 10px">
-                <form method="POST" action="{{ route('login') }}">
+                <form id="login-form" method="POST" action="{{ route('login') }}">
                     @csrf
                     <div class="log-title">
                         Sign In
                     </div>
-                    <input id="email" type="email" name="email" value="{{ old('email') }}"
+                    <input id="email" type="email" name="email" value=""
                            placeholder="username or email"
                            required autofocus>
 
 
                     <input id="password" type="password" name="password" placeholder="password" required>
 
+                    <div id="login-message"></div>
 
-                    <button type="submit" class="btn btn-primary">
+                    <button onclick="event.preventDefault(); login()" class="btn btn-primary">
                         {{ __('Login') }}
                     </button>
                 </form>
@@ -133,5 +134,43 @@
 
 
 @section('foot-script')
-    document.getElementById('log-body').style.height = height + 'px';
+    {{--<script>--}}
+        function login() {
+            {{--clear the old data -if avialible- before send the login request.--}}
+            localStorage.clear();
+
+            let data = {
+                client_id: 2,
+                client_secret: '2ObIGKf2AxsTXxCo8EKrAoY2PGw5aafDLQjxQnE0',
+                grant_type: 'password',
+                username: document.getElementById('email').value,
+                password: document.getElementById('password').value,
+            };
+
+            document.getElementById('login-message').innerText = '';
+
+            document.getElementById('login-form').getElementsByTagName('button')[0].disabled = true;
+            document.getElementById('login-form').getElementsByTagName('button')[0].style.background = '#eee';
+            document.getElementById('login-form').getElementsByTagName('button')[0].style.color = '#000';
+
+
+            axios.post('/oauth/token', data)
+                .then(response => {
+                    localStorage.setItem('access_token', response.data.access_token);
+                    localStorage.setItem('expires_in', response.data.expires_in);
+                    localStorage.setItem('refresh_token', response.data.refresh_token);
+                    localStorage.setItem('token_type', response.data.token_type);
+                    document.getElementById('login-form').submit();
+                })
+                .catch(error => {
+                    document.getElementById('login-form').getElementsByTagName('button')[0].disabled = false;
+                    document.getElementById('login-form').getElementsByTagName('button')[0].style.background = '';
+                    document.getElementById('login-form').getElementsByTagName('button')[0].style.color = '';
+
+                    document.getElementById('login-message').innerText = 'the email or password not match any of our records.'
+                });
+
+        }
+
+        document.getElementById('log-body').style.height = height + 'px';
 @endsection

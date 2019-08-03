@@ -11,7 +11,7 @@ class passeed extends Command
      *
      * @var string
      */
-    protected $signature = 'command:name';
+    protected $signature = 'build';
 
     /**
      * The console command description.
@@ -37,6 +37,8 @@ class passeed extends Command
      */
     public function handle()
     {
-        //
+        $this->call('migrate:refresh');
+        $this->call('passport:install');
+        $this->call('db:seed');
     }
 }
