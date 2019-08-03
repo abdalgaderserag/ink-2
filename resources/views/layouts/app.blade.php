@@ -11,9 +11,9 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
-    @yield('head-script')
+@yield('head-script')
 
-    <!-- Fonts -->
+<!-- Fonts -->
 {{--<link rel="dns-prefetch" href="//fonts.gstatic.com">--}}
 {{--<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">--}}
 
@@ -69,10 +69,13 @@
     let nav = document.getElementsByClassName('nav-bar')[0];
     let height = window.innerHeight - nav.offsetHeight;
 
+
     //bind the height to views.
-    document.getElementsByClassName('left-section')[0].style.height = height + 'px';
-    document.getElementsByClassName('main-section')[0].style.height = height + 'px';
-    document.getElementsByClassName('main')[0].style.minHeight = 1 + height + 'px';
+    if (document.getElementsByClassName('left-section').length !== 0) {
+        document.getElementsByClassName('left-section')[0].style.height = height + 'px';
+        document.getElementsByClassName('main-section')[0].style.height = height + 'px';
+        document.getElementsByClassName('main')[0].style.minHeight = 1 + height + 'px';
+    }
 
     //Click event listen for the hide the menus
     document.onclick = (e) => {
