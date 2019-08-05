@@ -143,9 +143,14 @@ class UserController extends Controller
      * @param  \App\User $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request)
     {
-        return redirect()->route('profile');
+        $user = Auth::user();
+        $user->name = $request->name;
+        $user->slug = str_slug($request->name);
+        $user->details = $request->details;
+        $user->save();
+        return redirect()->route('user.profile');
     }
 
     /**

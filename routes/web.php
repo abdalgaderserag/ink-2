@@ -22,7 +22,9 @@ Route::middleware('auth')->group(function () {
     Route::put('/edit/profile', 'UserController@update')->name('profile.edit');
     Route::put('/delete/account', 'UserController@destory')->name('profile.delete');
     Route::post('/logout', 'UserController@logout')->name('logout');
-    Route::get('/profile', 'UserController@index')->name('profile');
+    Route::get('/profile', 'UserController@index')->name('user.profile');
+    Route::get('/edit/profile', 'UserController@edit')->name('edit.profile');
+    Route::post('/edit/profile', 'UserController@update')->name('edit.profile');
 });
 
 Route::get('/profile/{slug}', 'UserController@show')->name('profile');
