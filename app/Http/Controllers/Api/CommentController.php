@@ -14,6 +14,11 @@ class CommentController extends Controller
 {
 
 
+    public function __construct()
+    {
+        Auth::loginUsingId(1);
+    }
+
 
     /**
      * Display a listing of the resource.
@@ -98,6 +103,9 @@ class CommentController extends Controller
 
         $data[0] = $comment;
         $data[1] = $media;
+        $data[2]['isLiked'] = 0;
+        $data[2]['like'] = 0;
+        $data[2]['comment'] = 0;
 
         return response()->json($data, 200);
     }

@@ -58,7 +58,7 @@
                     <div style="width: 100%;margin-top: 20px">
                         <div>{{ $user->details }}</div>
                         <div>
-                            <button style="font-size: 2.4vh;padding: 2px 6%;background-color: white;border: 1px solid gray;margin: 8px 0 0 0;">
+                            <button style="font-size: 2.4vh;padding: 4px 6%;background-color: white;border: 1px solid gray;margin: 8px 0 0 0;">
                                 follow
                             </button>
                         </div>

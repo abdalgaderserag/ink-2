@@ -60,7 +60,7 @@
         name: "Comment",
         data() {
             return {
-                likeUrl: '',
+                likeUrl: 'hard-fill.svg',
                 comments: [],
                 showRp: false,
 
@@ -79,10 +79,9 @@
             }
         },
         mounted() {
-            console.log(this.comment);
-            if (this.comment.isLiked == 0)
+            if (this.comment.isLiked)
                 this.likeUrl = 'hard-fill.svg';
-            else if (this.comment.isLiked == 1)
+            else if (this.comment.isLiked)
                 this.likeUrl = 'hard-fill-color.svg';
         },
         methods: {
@@ -103,16 +102,18 @@
                     text: this.commentText,
                     media: this.mediaPath,
                 };
-                if (this.commentText.length != 0)
+                if (data.text.length != 0 || data.media != [])
                     axios.post('/api/comment', data)
                         .then(response => {
-                            let comment;
-                            comment = response.data[0];
+                            let comment = response.data[0];
                             comment.media = response.data[1];
+                            comment.like = response.data[2].like;
+                            comment.comment = response.data[2].comment;
+                            comment.isLike = response.data[2].isLiked;
                             comment.user = this.$root.user;
                             this.comments.unshift(comment);
                             this.commentText = '';
-                            this.ink.comment++;
+                            this.comment.comment++;
                         });
             },
             cardMenu: function (e) {

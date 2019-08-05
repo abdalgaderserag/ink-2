@@ -123,6 +123,7 @@
                 card.style.left = (e.clientX - card.offsetWidth) + 'px';
                 card.style.top = (e.clientY + 6) + 'px';
             },
+            //resize images by count
             reSizeImages: function () {
                 let mediaEle = document.getElementsByClassName('media-view')[0];
                 let height = mediaEle.offsetWidth / 1.75;
@@ -233,17 +234,22 @@
                     })
             },
             storeComment: function () {
+
                 let data = {
                     ink_id: this.ink.id,
                     text: this.commentText,
                     media: this.mediaPath,
                 };
-                if (this.commentText.length != 0)
+
+                if (data.length != 0 || data.media != [])
                     axios.post('/api/comment', data)
                         .then(response => {
                             let comment;
                             comment = response.data[0];
                             comment.media = response.data[1];
+                            comment.like = response.data[2].like;
+                            comment.comment = response.data[2].comment;
+                            comment.isLike = response.data[2].isLiked;
                             comment.user = this.$root.user;
                             this.comments.unshift(comment);
                             this.commentText = '';
