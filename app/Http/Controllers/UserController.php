@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Ink;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -9,6 +10,13 @@ use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
+
+
+    public function __construct()
+    {
+        Auth::loginUsingId(1);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -21,6 +29,37 @@ class UserController extends Controller
         $data['followers'] = DB::table('follows')->where('follow_id', Auth::id())->count();
         return view('user.profile')->with($data);
     }
+
+
+    public function profileInk()
+    {
+        if (isset($_GET['slug']))
+            $user = User::where('slug', $_GET['slug'])->first();
+        else
+            $user = Auth::user();
+
+        if (empty($user))
+            return response()->json('', 404);
+
+        $inks = Ink::where('user_id', $user->id);
+        $data[0] = $inks->with('user', 'media')->get();
+        $i = 0;
+        foreach ($data[0] as $ink) {
+
+            $data[1][$i]['like'] = DB::table('likes')
+                ->where('ink_id', $ink->id)->count();
+
+            $data[1][$i]['isLiked'] = DB::table('likes')
+                ->where('user_id', Auth::id())
+                ->where('ink_id', $ink->id)->count();
+
+            $data[1][$i]['comment'] = DB::table('comments')
+                ->where('ink_id', $ink->id)->count();
+            $i++;
+        }
+        return response()->json($data, 200);
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -81,6 +120,7 @@ class UserController extends Controller
 
         $data['following'] = DB::table('follows')->where('user_id', $data['user']['id'])->count();
         $data['followers'] = DB::table('follows')->where('follow_id', $data['user']['id'])->count();
+        $data['follow'] = DB::table('follows')->where('user_id', Auth::id())->where('follow_id', $data['user']['id'])->count();
 
         return view('user.profile')->with($data);
     }

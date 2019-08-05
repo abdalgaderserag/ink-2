@@ -27,5 +27,6 @@ Route::delete('follow/{user_id}', 'Api\FollowController@destroy')->middleware('t
 
 Route::apiResource('ink', 'Api\InkController')->middleware('test');
 Route::get('main','Api\MainPageController');
+Route::get('profile/ink', 'UserController@profileInk');
 
 Route::apiResource('comment', 'Api\CommentController')->middleware('test');

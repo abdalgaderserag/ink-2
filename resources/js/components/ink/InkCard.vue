@@ -244,7 +244,7 @@
                     axios.post('/api/comment', data)
                         .then(response => {
                             let comment;
-                            comment = respons1e.data[0];
+                            comment = response.data[0];
                             comment.media = response.data[1];
                             comment.like = response.data[2].like;
                             comment.comment = response.data[2].comment;

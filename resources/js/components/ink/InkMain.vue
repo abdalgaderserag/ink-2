@@ -21,9 +21,12 @@
         },
         mounted() {
             let url = '/api/ink';
-            if (document.location.pathname == '/') {
+
+            if (document.location.pathname == '/profile')
+                url = '/api/profile/ink';
+            else if (document.location.pathname == '/') {
                 url = '/api/main';
-                axios.get(url)
+                /*axios.get(url)
                     .then(response => {
                         // this.inks = response.data[0];
                         let inks = [];
@@ -36,19 +39,19 @@
                     })
                     .catch(error => {
                         this.$root.message = 'problem while loading inks try refresh or try an other time.';
-                    });
+                    });*/
             }
+            else
+                url = '/api/profile/ink?slug=' + document.location.pathname.split('/').pop();
 
-            else {
-                axios.get(url)
-                    .then(response => {
-                        this.inks = response.data[0];
-                        this.interact = response.data[1];
-                    })
-                    .catch(error => {
-                        this.$root.message = 'problem while loading inks try refresh or try an other time.';
-                    });
-            }
+            axios.get(url)
+                .then(response => {
+                    this.inks = response.data[0];
+                    this.interact = response.data[1];
+                })
+                .catch(error => {
+                    this.$root.message = 'problem while loading inks try refresh or try an other time.';
+                });
 
             let cardMenu = document.getElementsByClassName('card-menu');
             document.getElementsByClassName('main-section')[0].addEventListener('scroll', () => {

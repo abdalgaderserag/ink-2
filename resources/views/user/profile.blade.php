@@ -48,7 +48,7 @@
 
                             <div style="text-align: center;color: #878787;">
                                 <span style="color: black;">followers</span><br>
-                                <span>{{ $followers }}</span>
+                                <span id="followers">{{ $followers }}</span>
                             </div>
 
                         </div>
@@ -59,10 +59,17 @@
                         <div>{{ $user->details }}</div>
                         @if($user->id != \Illuminate\Support\Facades\Auth::id())
                             <div>
-                                <button id="follow-button"
-                                        style="font-size: 2.4vh;padding: 5px 6%;color:white;background: linear-gradient(to right, #FC4027, #f98835);border-width: 0;border-radius:14px;margin: 8px 0 0 0;">
-                                    follow
-                                </button>
+                                @if( $follow == 0)
+                                    <button id="follow-button"
+                                            style="font-size: 2.4vh;padding: 5px 6%;color:white;background: linear-gradient(to right, #FC4027, #f98835);border-width: 0;border-radius:14px;margin: 8px 0 0 0;">
+                                        follow
+                                    </button>
+                                @else
+                                    <button id="follow-button"
+                                            style="font-size: 2.4vh;padding: 5px 6%;color:#362017;background: #e0e0e0;border-width: 0;border-radius:14px;margin: 8px 0 0 0; ">
+                                        followed
+                                    </button>
+                                @endif
                             </div>
                         @endif
                     </div>
@@ -82,40 +89,54 @@
 
 @section('foot-script')
     {{--<script>--}}
-    document.getElementById('profile-avatar').onload = () => {
-    document.getElementById('profile-avatar').style.display = 'block';
-    document.getElementById('avatar-holder').remove();
-    };
-    let bgWidth = document.getElementById('background').offsetWidth;
-    document.getElementById('background').style.height = (bgWidth * (1.5 / 4)) + 'px';
-    document.getElementById('background-holder').style.height = (bgWidth * (1.5 / 4)) + 'px';
-    @if($user->id != \Illuminate\Support\Facades\Auth::id())
-        document.getElementById('follow-button').onclick = (e) => {
-        if (e.target.innerText == 'follow') {
-        let bgColor = e.target.style.background;
-        e.target.style.background = '#e0e0e0';
-        e.target.style.color = '#362017';
-        e.target.innerText = 'followed';
+        document.getElementById('profile-avatar').onload = () => {
+            document.getElementById('profile-avatar').style.display = 'block';
+            document.getElementById('avatar-holder').remove();
+        };
+        let bgWidth = document.getElementById('background').offsetWidth;
+        document.getElementById('background').style.height = (bgWidth * (1.5 / 4)) + 'px';
+        document.getElementById('background-holder').style.height = (bgWidth * (1.5 / 4)) + 'px';
 
-        axios.post('/api/follow', {
-        user_id: {{ $user->id }},
-        }).catch(error => {
-        e.target.style.background = bgColor;
-        e.target.style.color = '#000';
-        });
-        } else if (e.target.innerText == 'followed') {
-        let bgColor = e.target.style.background;
-        e.target.style.background = 'linear-gradient(to right, #FC4027, #f98835)';
-        e.target.style.color = '#fff';
-        e.target.innerText = 'follow';
-
-        axios.delete('/api/follow/{{ $user->id }}')
-        .catch(error => {
-        e.target.style.background = '#e0e0e0';
-        e.target.style.color = '#362017';
-        e.target.innerText = 'followed';
-        });
+        function deIncFollowers(val = '+') {
+            let number = Number.parseInt(document.getElementById('followers').innerText);
+            if (val == '+')
+                number++;
+            else
+                number--;
+            document.getElementById('followers').innerText = number;
         }
+
+        @if($user->id != \Illuminate\Support\Facades\Auth::id())
+        document.getElementById('follow-button').onclick = (e) => {
+            if (e.target.innerText == 'follow') {
+                let bgColor = e.target.style.background;
+                e.target.style.background = '#e0e0e0';
+                e.target.style.color = '#362017';
+                e.target.innerText = 'followed';
+                deIncFollowers();
+
+                axios.post('/api/follow', {
+                    user_id: {{ $user->id }},
+                }).catch(error => {
+                    deIncFollowers('-');
+                    e.target.style.background = bgColor;
+                    e.target.style.color = '#000';
+                });
+            } else if (e.target.innerText == 'followed') {
+                let bgColor = e.target.style.background;
+                e.target.style.background = 'linear-gradient(to right, #FC4027, #f98835)';
+                e.target.style.color = '#fff';
+                deIncFollowers('-');
+                e.target.innerText = 'follow';
+
+                axios.delete('/api/follow/{{ $user->id }}')
+                    .catch(error => {
+                        deIncFollowers();
+                        e.target.style.background = '#e0e0e0';
+                        e.target.style.color = '#362017';
+                        e.target.innerText = 'followed';
+                    });
+            }
         };
     @endif
 
