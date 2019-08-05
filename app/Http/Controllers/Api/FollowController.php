@@ -28,8 +28,8 @@ class FollowController extends Controller
     public function store(Request $request)
     {
         $follow = new Follow();
-        $follow->user_slug = Auth::user()->slug;
-        $follow->follow_slug = $request->slug;
+        $follow->user_id = Auth::id();
+        $follow->follow_id = $request->user_id;
         $follow->save();
         return response()->json('', 200);
     }
@@ -60,11 +60,12 @@ class FollowController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Follow $follow
+     * @param  $user_id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Follow $follow)
+    public function destroy($user_id)
     {
+        $follow = Follow::where('user_id', Auth::id())->where('follow_id', $user_id)->first();
         try {
             $follow->delete();
         } catch (\Exception $e) {

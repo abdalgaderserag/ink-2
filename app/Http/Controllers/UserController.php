@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -15,8 +16,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
-        return view('user.profile')->with(['user' => $user]);
+        $data['user'] = Auth::user();
+        $data['followers'] = DB::table('follows')->where('user_id',Auth::id())->count();
+        $data['following'] = DB::table('follows')->where('follow_id',Auth::id())->count();
+        return view('user.profile')->with($data);
     }
 
     /**

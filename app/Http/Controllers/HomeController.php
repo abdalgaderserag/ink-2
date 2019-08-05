@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 
+use Illuminate\Support\Facades\Auth;
+
 class HomeController extends Controller
 {
     /**
@@ -12,6 +14,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
+        Auth::loginUsingId(1);
         $this->middleware('auth');
     }
 

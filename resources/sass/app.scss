@@ -31,6 +31,10 @@
   }
 }
 
+button:focus {
+  outline: black auto 0;
+}
+
 body {
   margin: 0;
   font-family: $font-family-1, $font-family-2;
@@ -128,6 +132,7 @@ body {
 
   }
 }
-.hash-tag{
+
+.hash-tag {
   color: $orange;
 }

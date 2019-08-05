@@ -43,12 +43,12 @@
                         <div class="flex-box" style="justify-content: space-around;width: 100%;">
                             <div style="text-align: center;color: #878787;">
                                 <span style="color: black;">following</span><br>
-                                <span>2</span>
+                                <span>{{ $following }}</span>
                             </div>
 
                             <div style="text-align: center;color: #878787;">
                                 <span style="color: black;">followers</span><br>
-                                <span>20</span>
+                                <span>{{ $followers }}</span>
                             </div>
 
                         </div>
@@ -57,11 +57,14 @@
                     {{--details--}}
                     <div style="width: 100%;margin-top: 20px">
                         <div>{{ $user->details }}</div>
-                        <div>
-                            <button style="font-size: 2.4vh;padding: 4px 6%;background-color: white;border: 1px solid gray;margin: 8px 0 0 0;">
-                                follow
-                            </button>
-                        </div>
+                        @if($user->id != \Illuminate\Support\Facades\Auth::id())
+                            <div>
+                                <button id="follow-button"
+                                        style="font-size: 2.4vh;padding: 5px 6%;color:white;background: linear-gradient(to right, #FC4027, #f98835);border-width: 0;border-radius:14px;margin: 8px 0 0 0;">
+                                    follow
+                                </button>
+                            </div>
+                        @endif
                     </div>
 
                 </div>
@@ -86,4 +89,33 @@
     let bgWidth = document.getElementById('background').offsetWidth;
     document.getElementById('background').style.height = (bgWidth * (1.5 / 4)) + 'px';
     document.getElementById('background-holder').style.height = (bgWidth * (1.5 / 4)) + 'px';
+
+    document.getElementById('follow-button').onclick = (e) => {
+    if (e.target.innerText == 'follow') {
+    let bgColor = e.target.style.background;
+    e.target.style.background = '#e0e0e0';
+    e.target.style.color = '#362017';
+    e.target.innerText = 'followed';
+
+    axios.post('/api/follow', {
+    user_id: {{ $user->id }},
+    }).catch(error => {
+    e.target.style.background = bgColor;
+    e.target.style.color = '#000';
+    });
+    } else if (e.target.innerText == 'followed') {
+    let bgColor = e.target.style.background;
+    e.target.style.background = 'linear-gradient(to right, #FC4027, #f98835)';
+    e.target.style.color = '#fff';
+    e.target.innerText = 'follow';
+
+    axios.delete('/api/follow/{{ $user->id }}')
+    .catch(error => {
+    e.target.style.background = '#e0e0e0';
+    e.target.style.color = '#362017';
+    e.target.innerText = 'followed';
+    });
+    }
+    };
+
 @endsection

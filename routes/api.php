@@ -16,8 +16,12 @@ use Illuminate\Http\Request;
 
 //Route::middleware('auth:api')->group(function () {
 
-    Route::post('like', 'Api\LikeController')->middleware('test');
-    Route::post('upload', 'Api\UploaderController')->middleware('test');
+Route::post('like', 'Api\LikeController')->middleware('test');
+Route::post('upload', 'Api\UploaderController')->middleware('test');
+
+Route::post('follow', 'Api\FollowController@store')->middleware('test');
+Route::delete('follow/{user_id}', 'Api\FollowController@destroy')->middleware('test');
+
 
 //});
 

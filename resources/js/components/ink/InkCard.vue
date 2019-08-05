@@ -240,8 +240,7 @@
                     text: this.commentText,
                     media: this.mediaPath,
                 };
-
-                if (data.length != 0 || data.media != [])
+                if (data.text.length != 0 || data.media.length != 0)
                     axios.post('/api/comment', data)
                         .then(response => {
                             let comment;
