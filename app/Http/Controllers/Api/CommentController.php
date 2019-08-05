@@ -35,12 +35,11 @@ class CommentController extends Controller
 //        }
 
         if (isset($_GET['comment']))
-            $data[0] = Comment::where('comment_id', $_GET['comment'])->with('media', 'user')->get();
+            $data[0] = Comment::where('comment_id', $_GET['comment'])->with('media', 'user')->orderBy('created_at', 'desc')->get();
         else if (isset($_GET['ink']))
-            $data[0] = Comment::where('ink_id', $_GET['ink'])->with('media', 'user')->get();
+            $data[0] = Comment::where('ink_id', $_GET['ink'])->with('media', 'user')->orderBy('created_at', 'desc')->get();
         else
             return response()->json('no data found :(', 204);
-
         $i = 0;
         foreach ($data[0] as $comment) {
 
