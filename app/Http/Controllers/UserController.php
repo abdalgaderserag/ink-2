@@ -17,8 +17,8 @@ class UserController extends Controller
     public function index()
     {
         $data['user'] = Auth::user();
-        $data['followers'] = DB::table('follows')->where('user_id',Auth::id())->count();
-        $data['following'] = DB::table('follows')->where('follow_id',Auth::id())->count();
+        $data['following'] = DB::table('follows')->where('user_id', Auth::id())->count();
+        $data['followers'] = DB::table('follows')->where('follow_id', Auth::id())->count();
         return view('user.profile')->with($data);
     }
 
@@ -74,12 +74,15 @@ class UserController extends Controller
      */
     public function show($slug)
     {
-        $user = User::where('slug', $slug)->first();
+        $data['user'] = User::where('slug', $slug)->first();
 
-        if (empty($user))
+        if (empty($data['user']))
             return response('404');
 
-        return view('user.profile')->with(['user' => $user]);
+        $data['following'] = DB::table('follows')->where('user_id', $data['user']['id'])->count();
+        $data['followers'] = DB::table('follows')->where('follow_id', $data['user']['id'])->count();
+
+        return view('user.profile')->with($data);
     }
 
     /**

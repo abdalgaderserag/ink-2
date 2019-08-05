@@ -89,33 +89,34 @@
     let bgWidth = document.getElementById('background').offsetWidth;
     document.getElementById('background').style.height = (bgWidth * (1.5 / 4)) + 'px';
     document.getElementById('background-holder').style.height = (bgWidth * (1.5 / 4)) + 'px';
+    @if($user->id != \Illuminate\Support\Facades\Auth::id())
+        document.getElementById('follow-button').onclick = (e) => {
+        if (e.target.innerText == 'follow') {
+        let bgColor = e.target.style.background;
+        e.target.style.background = '#e0e0e0';
+        e.target.style.color = '#362017';
+        e.target.innerText = 'followed';
 
-    document.getElementById('follow-button').onclick = (e) => {
-    if (e.target.innerText == 'follow') {
-    let bgColor = e.target.style.background;
-    e.target.style.background = '#e0e0e0';
-    e.target.style.color = '#362017';
-    e.target.innerText = 'followed';
+        axios.post('/api/follow', {
+        user_id: {{ $user->id }},
+        }).catch(error => {
+        e.target.style.background = bgColor;
+        e.target.style.color = '#000';
+        });
+        } else if (e.target.innerText == 'followed') {
+        let bgColor = e.target.style.background;
+        e.target.style.background = 'linear-gradient(to right, #FC4027, #f98835)';
+        e.target.style.color = '#fff';
+        e.target.innerText = 'follow';
 
-    axios.post('/api/follow', {
-    user_id: {{ $user->id }},
-    }).catch(error => {
-    e.target.style.background = bgColor;
-    e.target.style.color = '#000';
-    });
-    } else if (e.target.innerText == 'followed') {
-    let bgColor = e.target.style.background;
-    e.target.style.background = 'linear-gradient(to right, #FC4027, #f98835)';
-    e.target.style.color = '#fff';
-    e.target.innerText = 'follow';
-
-    axios.delete('/api/follow/{{ $user->id }}')
-    .catch(error => {
-    e.target.style.background = '#e0e0e0';
-    e.target.style.color = '#362017';
-    e.target.innerText = 'followed';
-    });
-    }
-    };
+        axios.delete('/api/follow/{{ $user->id }}')
+        .catch(error => {
+        e.target.style.background = '#e0e0e0';
+        e.target.style.color = '#362017';
+        e.target.innerText = 'followed';
+        });
+        }
+        };
+    @endif
 
 @endsection
