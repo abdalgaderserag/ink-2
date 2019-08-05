@@ -19,4 +19,10 @@ class Follow extends Model
     {
         return $this->hasMany('App\User', 'follow_id', 'id');
     }
+
+    public function inks()
+    {
+        return $this->hasManyThrough('App\Ink', 'App\User', 'id', 'user_id', 'follow_id', 'id');
+    }
+
 }

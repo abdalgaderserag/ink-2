@@ -20,14 +20,35 @@
             }
         },
         mounted() {
-            axios.get('/api/ink')
-                .then(response => {
-                    this.inks = response.data[0];
-                    this.interact = response.data[1];
-                })
-                .catch(error => {
-                    this.$root.message = 'problem while loading inks try refresh or try an other time.';
-                });
+            let url = '/api/ink';
+            if (document.location.pathname == '/') {
+                url = '/api/main';
+                axios.get(url)
+                    .then(response => {
+                        // this.inks = response.data[0];
+                        let inks = [];
+                        for (let j = 0; j < response.data.length; j++) {
+                            inks.push(response.data[j].inks);
+                        }
+                        let temp = [];
+                        this.inks = temp.concat(inks[0],inks[1],inks[2]);
+                        this.interact = temp.concat(inks[0],inks[1],inks[2]);
+                    })
+                    .catch(error => {
+                        this.$root.message = 'problem while loading inks try refresh or try an other time.';
+                    });
+            }
+
+            else {
+                axios.get(url)
+                    .then(response => {
+                        this.inks = response.data[0];
+                        this.interact = response.data[1];
+                    })
+                    .catch(error => {
+                        this.$root.message = 'problem while loading inks try refresh or try an other time.';
+                    });
+            }
 
             let cardMenu = document.getElementsByClassName('card-menu');
             document.getElementsByClassName('main-section')[0].addEventListener('scroll', () => {

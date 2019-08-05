@@ -16,6 +16,7 @@ class Ink extends Model
         return $this->hasMany('App\Like');
     }
 
+
     public function comment()
     {
         return $this->hasMany('App\Comment');
@@ -29,5 +30,11 @@ class Ink extends Model
     public function media()
     {
         return $this->hasOne('App\Media');
+    }
+
+    public function getLikeCountAttribute($key)
+    {
+        return \Illuminate\Support\Facades\DB::table('likes')
+            ->where('ink_id', $this->attributes['id'])->count();
     }
 }
