@@ -41,7 +41,13 @@
                     </a>
                 </div>
                 <div class="notifications">
-                    <img src="/images/layouts/notification.svg" alt="">
+                    <img onclick="let type = '';
+                    document.getElementById('notifications').style.display == 'none'? type = 'block':type = 'none';
+                    document.getElementById('notifications').style.display = type;"
+                         src="/images/layouts/notification.svg" alt="">
+                    <div id="notifications" style="display: none;position: absolute;">
+                        <notifications></notifications>
+                    </div>
                 </div>
                 <form id="logout" method="POST" action="{{ route('logout') }}">
                     @csrf
@@ -76,8 +82,6 @@
         data: {
             user: {!! \Illuminate\Support\Facades\Auth::user() !!},
         },
-        mounted(){
-        }
     });
 
 
@@ -96,7 +100,6 @@
                 cardMenu[i].style.display = 'none';
         }
     };
-
 
 
     //GET ugly

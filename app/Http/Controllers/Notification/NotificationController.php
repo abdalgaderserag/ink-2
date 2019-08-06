@@ -7,6 +7,12 @@ use Illuminate\Support\Facades\Auth;
 
 class NotificationController extends Controller
 {
+
+    public function __construct()
+    {
+        Auth::loginUsingId(1);
+    }
+
     /**
      *  return all the notification for the auth user
      *
@@ -14,7 +20,7 @@ class NotificationController extends Controller
      **/
     public function notifications()
     {
-        $data = Auth::user()->notifications();
+        $data = Auth::user()->notifications;
         return response()->json($data, 200);
     }
 

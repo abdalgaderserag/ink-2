@@ -34,6 +34,9 @@ Vue.component('replies', require("./components/ink/comment/reply/Replies").defau
 Vue.component('reply', require("./components/ink/comment/reply/Reply").default);
 
 
+Vue.component('notifications', require("./components/Notifications/Notifications").default);
+
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
