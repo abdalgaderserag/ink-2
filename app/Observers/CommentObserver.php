@@ -50,7 +50,6 @@ class CommentObserver
      */
     public function deleted(Comment $comment)
     {
-//        TODO: reset the notify
 
         if (!empty($comment->ink_id))
             $type = 'ink';
