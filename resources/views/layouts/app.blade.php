@@ -75,6 +75,8 @@
         el: '#app',
         data: {
             user: {!! \Illuminate\Support\Facades\Auth::user() !!},
+        },
+        mounted(){
         }
     });
 
@@ -94,6 +96,7 @@
                 cardMenu[i].style.display = 'none';
         }
     };
+
 
 
     //GET ugly
