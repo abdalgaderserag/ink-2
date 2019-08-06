@@ -21,6 +21,7 @@ class NotificationController extends Controller
     /**
      *  return set single notification as read
      *
+     * @param $uuid
      * @return \Illuminate\Http\Response
      **/
     public function setNotificationAsRead($uuid)
@@ -51,7 +52,7 @@ class NotificationController extends Controller
     {
         foreach (Auth::user()->readNotifications as $notification)
             $notification->delete();
-        return response()->json('',200);
+        return response()->json('', 200);
     }
 
     /**

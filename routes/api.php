@@ -30,3 +30,9 @@ Route::get('main','Api\MainPageController');
 Route::get('profile/ink', 'UserController@profileInk');
 
 Route::apiResource('comment', 'Api\CommentController')->middleware('test');
+
+Route::get('notifications','Notification\NotificationController@notifications');
+Route::post('notifications/mark-as-read/{uuid}','Notification\NotificationController@setNotificationAsRead');
+Route::get('notifications/unread','Notification\NotificationController@getUnreadNotification');
+Route::delete('notifications/delete-read','Notification\NotificationController@deleteReadNotification');
+Route::put('notifications/mark-all-as-read','Notification\NotificationController@notifications');
