@@ -24,7 +24,7 @@
                     </div>
                 </div>
 
-                <div @click="getReplies" style="padding: 8px 1%;">{{ comment.media.text }}</div>
+                <div @click="showReplies" style="padding: 8px 1%;">{{ comment.media.text }}</div>
                 <div v-for="image in comment.media.media">
                     <img style="max-width: 120px;" :src="image">
                 </div>
@@ -40,15 +40,15 @@
                         <span>{{ comment.comment }}</span>
                     </div>
                 </div>
-                <div class="flex-box new-comment">
+                <div v-if="showRp" class="flex-box new-comment">
                     <input class="comment-text" type="text" v-model="commentText">
                     <input style="display: none" type="file" @change="upload" name="" id="upload">
                     <img class="comment-icon" onclick="document.getElementById('upload').click()"
                          src="/images/ink/attachment.svg">
                     <input class="comment-button" @click="storeComment()" @submit="storeComment()" type="button"
                            value="Comment">
+                    <replies :comments="comments"></replies>
                 </div>
-                <replies v-if="showRp" :comments="comments"></replies>
             </div>
         </div>
     </div>
@@ -62,6 +62,7 @@
                 likeUrl: 'hard-fill.svg',
                 comments: [],
                 showRp: false,
+                firstTime: true,
 
                 //vars for inputs
                 commentText: '',
@@ -94,6 +95,14 @@
                             this.mediaSrc.push(read.result);
                         });
                 }
+            },
+            showReplies: function () {
+                this.showRp = !this.showRp;
+
+                if (this.firstTime)
+                    this.getReplies();
+
+                this.firstTime = false;
             },
             storeComment: function () {
                 let data = {
@@ -129,8 +138,8 @@
                             this.comments[i].like = response.data[1][i].like;
                             this.comments[i].isLiked = response.data[1][i].isLiked;
                             this.comments[i].comment = response.data[1][i].comment;
-                            this.showRp = true;
                         }
+                        // this.showRp = true;
                     });
             },
             editComment: function () {

@@ -1,8 +1,8 @@
 <template>
     <div>
-        <div>
+        <div v-if="comments.length != 0">
             <div v-for="comment in comments">
-                <reply :comment="comment"></reply>
+                <reply :comment="getComment(comment)"></reply>
             </div>
         </div>
     </div>
@@ -17,6 +17,20 @@
                 required: true,
             }
         },
+        methods: {
+            getComment: function (comment) {
+                console.log(comment);
+                if (comment.media.media) {
+                    let media = comment.media.media;
+                    try {
+                        media = media.split(',').slice(0, -1);
+                        comment.media.media = media;
+                    } catch (e) {
+                    }
+                }
+                return comment;
+            }
+        }
     }
 </script>
 

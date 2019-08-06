@@ -21,11 +21,14 @@ class CommentObserver
         if (!empty($comment->ink_id))
             $type = 'ink';
         else if (!empty($comment->comment_id))
-            $type = 'comment';
+            $type = 'parentComment';
         else
             return;
 
         $user = $comment[$type]->user;
+        if ($type = 'parentComment')
+            $type = 'comment';
+
         $holder = $type;
 
         if ($user->id != Auth::id())

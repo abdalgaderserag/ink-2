@@ -33,7 +33,7 @@ class Comment extends Model
 
     public function parentComment()
     {
-        return $this->belongsTo('App\Comment');
+        return $this->belongsTo('App\Comment', 'comment_id', 'id');
     }
 
     public function comment()
