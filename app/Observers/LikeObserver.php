@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Like;
 use App\Notifications\Like\CreateLikeNotification;
+use Illuminate\Support\Facades\Auth;
 
 class LikeObserver
 {
@@ -48,7 +49,19 @@ class LikeObserver
      */
     public function deleted(Like $like)
     {
-        //
+        if (!empty($like->ink_id))
+            $type = 'ink';
+        else if (!empty($like->comment_id))
+            $type = 'comment';
+        else
+            return;
+
+        $user = $like[$type]->user;
+
+        foreach ($user->notifications as $notification) {
+            if ($notification['data']['like'])
+                $notification->delete();
+        }
     }
 
 }

@@ -47,8 +47,6 @@ class CreateLikeNotification extends Notification
      */
     public function toArray($notifiable)
     {
-        return [
-            //
-        ];
+        return $this->data;
     }
 }
