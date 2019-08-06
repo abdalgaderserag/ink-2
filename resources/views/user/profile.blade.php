@@ -35,7 +35,11 @@
                     <div class="flex-box" style="justify-content: space-between">
                         {{--text section --}}
                         <div style="width: 50%">
-                            <span style="color: #f98835;font-weight: 100;font-size: 2.7vh">{{ $user->name }}</span><br>
+                            <span style="color: #f98835;font-weight: 100;font-size: 2.7vh">{{ $user->name }}</span>
+                            <a href="/edit/profile" class="link-clear">
+                                <span style="font-size: 2vh;color: gray;padding: 0 0 0 12px;cursor: pointer;">Edit</span>
+                            </a>
+                            <br>
                             <span style="color: #878787;font-weight: 100;font-size: 2vh">{{ '@' . $user->slug }}</span>
                         </div>
 
@@ -89,54 +93,54 @@
 
 @section('foot-script')
     {{--<script>--}}
-        document.getElementById('profile-avatar').onload = () => {
-            document.getElementById('profile-avatar').style.display = 'block';
-            document.getElementById('avatar-holder').remove();
-        };
-        let bgWidth = document.getElementById('background').offsetWidth;
-        document.getElementById('background').style.height = (bgWidth * (1.5 / 4)) + 'px';
-        document.getElementById('background-holder').style.height = (bgWidth * (1.5 / 4)) + 'px';
+    document.getElementById('profile-avatar').onload = () => {
+    document.getElementById('profile-avatar').style.display = 'block';
+    document.getElementById('avatar-holder').remove();
+    };
+    let bgWidth = document.getElementById('background').offsetWidth;
+    document.getElementById('background').style.height = (bgWidth * (1.5 / 4)) + 'px';
+    document.getElementById('background-holder').style.height = (bgWidth * (1.5 / 4)) + 'px';
 
-        function deIncFollowers(val = '+') {
-            let number = Number.parseInt(document.getElementById('followers').innerText);
-            if (val == '+')
-                number++;
-            else
-                number--;
-            document.getElementById('followers').innerText = number;
-        }
+    function deIncFollowers(val = '+') {
+    let number = Number.parseInt(document.getElementById('followers').innerText);
+    if (val == '+')
+    number++;
+    else
+    number--;
+    document.getElementById('followers').innerText = number;
+    }
 
-        @if($user->id != \Illuminate\Support\Facades\Auth::id())
+    @if($user->id != \Illuminate\Support\Facades\Auth::id())
         document.getElementById('follow-button').onclick = (e) => {
-            if (e.target.innerText == 'follow') {
-                let bgColor = e.target.style.background;
-                e.target.style.background = '#e0e0e0';
-                e.target.style.color = '#362017';
-                e.target.innerText = 'followed';
-                deIncFollowers();
+        if (e.target.innerText == 'follow') {
+        let bgColor = e.target.style.background;
+        e.target.style.background = '#e0e0e0';
+        e.target.style.color = '#362017';
+        e.target.innerText = 'followed';
+        deIncFollowers();
 
-                axios.post('/api/follow', {
-                    user_id: {{ $user->id }},
-                }).catch(error => {
-                    deIncFollowers('-');
-                    e.target.style.background = bgColor;
-                    e.target.style.color = '#000';
-                });
-            } else if (e.target.innerText == 'followed') {
-                let bgColor = e.target.style.background;
-                e.target.style.background = 'linear-gradient(to right, #FC4027, #f98835)';
-                e.target.style.color = '#fff';
-                deIncFollowers('-');
-                e.target.innerText = 'follow';
+        axios.post('/api/follow', {
+        user_id: {{ $user->id }},
+        }).catch(error => {
+        deIncFollowers('-');
+        e.target.style.background = bgColor;
+        e.target.style.color = '#000';
+        });
+        } else if (e.target.innerText == 'followed') {
+        let bgColor = e.target.style.background;
+        e.target.style.background = 'linear-gradient(to right, #FC4027, #f98835)';
+        e.target.style.color = '#fff';
+        deIncFollowers('-');
+        e.target.innerText = 'follow';
 
-                axios.delete('/api/follow/{{ $user->id }}')
-                    .catch(error => {
-                        deIncFollowers();
-                        e.target.style.background = '#e0e0e0';
-                        e.target.style.color = '#362017';
-                        e.target.innerText = 'followed';
-                    });
-            }
+        axios.delete('/api/follow/{{ $user->id }}')
+        .catch(error => {
+        deIncFollowers();
+        e.target.style.background = '#e0e0e0';
+        e.target.style.color = '#362017';
+        e.target.innerText = 'followed';
+        });
+        }
         };
     @endif
 
