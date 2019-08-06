@@ -27,6 +27,7 @@ class CommentObserver
 
         $user = $comment[$type]->user;
         $holder = $type;
+
         if ($user->id != Auth::id())
             $user->notify(new CreateCommentNotification($comment, $holder));
     }

@@ -4,9 +4,11 @@ namespace App\Providers;
 
 use App\Comment;
 use App\Ink;
+use App\Like;
 use App\Media;
 use App\Observers\CommentObserver;
 use App\Observers\InkObserver;
+use App\Observers\LikeObserver;
 use App\Observers\MediaObserver;
 use App\Observers\UserObserver;
 use App\User;
@@ -36,5 +38,6 @@ class ObserversServiceProvider extends ServiceProvider
         Ink::observe(InkObserver::class);
         Media::observe(MediaObserver::class);
         User::observe(UserObserver::class);
+        Like::observe(LikeObserver::class);
     }
 }
