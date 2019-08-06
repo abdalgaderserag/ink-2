@@ -26,6 +26,15 @@ class Comment extends Model
         return $this->hasMany('App\Like');
     }
 
+    public function ink()
+    {
+        return $this->belongsTo('App\Ink');
+    }
+
+    public function parentComment()
+    {
+        return $this->belongsTo('App\Comment');
+    }
 
     public function comment()
     {

@@ -3,6 +3,8 @@
 namespace App\Observers;
 
 use App\Comment;
+use App\Notifications\Comment\CreateCommentNotification;
+use Illuminate\Support\Facades\Notification;
 
 class CommentObserver
 {
@@ -15,6 +17,18 @@ class CommentObserver
     public function created(Comment $comment)
     {
 //        TODO : notify the ink owner about
+        if (!empty($comment->ink_id)) {
+            $type = 'ink';
+            $holder = $comment->ink();
+        } else if (!empty($comment->comment_id)) {
+            $type = 'comment';
+            $holder = $comment->parentComment();
+        } else
+            return;
+        $user = $comment[$type];
+        $holder->type = $type;
+
+        Notification::send($user, new CreateCommentNotification($comment, $holder));
     }
 
     /**
