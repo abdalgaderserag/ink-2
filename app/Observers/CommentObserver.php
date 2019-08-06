@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Comment;
 use App\Notifications\Comment\CreateCommentNotification;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 
 class CommentObserver
@@ -16,19 +17,18 @@ class CommentObserver
      */
     public function created(Comment $comment)
     {
-//        TODO : notify the ink owner about
-        if (!empty($comment->ink_id)) {
-            $type = 'ink';
-            $holder = $comment->ink();
-        } else if (!empty($comment->comment_id)) {
-            $type = 'comment';
-            $holder = $comment->parentComment();
-        } else
-            return;
-        $user = $comment[$type];
-        $holder->type = $type;
 
-        Notification::send($user, new CreateCommentNotification($comment, $holder));
+        if (!empty($comment->ink_id))
+            $type = 'ink';
+        else if (!empty($comment->comment_id))
+            $type = 'comment';
+        else
+            return;
+
+        $user = $comment[$type]->user;
+        $holder = $type;
+        if ($user->id != Auth::id())
+            $user->notify(new CreateCommentNotification($comment, $holder));
     }
 
     /**
@@ -52,15 +52,25 @@ class CommentObserver
     {
 //        TODO: reset the notify
 
+        if (!empty($comment->ink_id))
+            $type = 'ink';
+        else if (!empty($comment->comment_id))
+            $type = 'comment';
+        else
+            return;
+
+        $user = $comment[$type]->user;
+        if ($user->id != Auth::id())
+            foreach ($user->notifications as $notification) {
+                if ($notification['data']['comment'] == $comment->id)
+                    $notification->delete();
+            }
+
         $comment->media->delete();
 
         if (!empty($comment->replies))
             $comment->replies->each(function ($comment) {
                 $comment->delete();
             });
-
-//        $comment->like->each(function ($like) {
-//            $like->delete();
-//        });
     }
 }

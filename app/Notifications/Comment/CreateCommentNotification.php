@@ -19,7 +19,7 @@ class CreateCommentNotification extends Notification
      */
     public function __construct(Comment $comment, $holder)
     {
-        $text = 'new comment added to your ' . $holder->type . ' by ' . $comment->user()->name;
+        $text = 'new comment added to your ' . $holder . ' by ' . $comment->user->name;
         $comment_id = $comment->id;
         $this->data = [
             'text' => $text,
