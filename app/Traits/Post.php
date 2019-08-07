@@ -22,6 +22,6 @@ trait Post
 
     public function user()
     {
-        return $this->belongToOne('App\User');
+        return $this->belongsTo('App\User');
     }
 }

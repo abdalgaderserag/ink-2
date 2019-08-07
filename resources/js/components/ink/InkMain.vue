@@ -23,7 +23,7 @@
             let url = '/api/ink';
 
             if (document.location.pathname == '/profile')
-                url = '/api/profile/ink';
+                url = '/api/profile/ink ';
             else if (document.location.pathname == '/') {
                 url = '/api/main';
                 /*axios.get(url)
@@ -43,6 +43,8 @@
             }
             else
                 url = '/api/profile/ink?slug=' + document.location.pathname.split('/').pop();
+
+            url = '/api/ink';
 
             axios.get(url)
                 .then(response => {

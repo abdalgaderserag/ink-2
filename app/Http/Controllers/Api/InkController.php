@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\DB;
 class InkController extends Controller
 {
 
+    public function __construct()
+    {
+        Auth::loginUsingId(1);
+    }
 
     /**
      * Display a listing of the resource.
@@ -21,7 +25,6 @@ class InkController extends Controller
      */
     public function index()
     {
-
         $inks = Ink::where('user_id', Auth::id())->orderBy('created_at', 'desc');
         $data[0] = $inks->with('user', 'media')->get();
         $i = 0;
@@ -59,16 +62,20 @@ class InkController extends Controller
         $ink = new Ink();
         $ink->user_id = Auth::id();
 
-        $media = new Media();
+        /*$media = new Media();
         $media->text = $request->text;
         if (isset($request->media)) {
             foreach ($request->media as $media) {
                 $media->media = $media->media . $media . ',';
             }
-        }
+        }*/
 
         $ink->save();
+//        $media->save();
+        $media = Media::setMedia($request);
+        $media->ink_id = $ink->id;
         $media->save();
+
         $data[0] = $ink;
         $data[1] = $media;
         return response()->json($data, 200);

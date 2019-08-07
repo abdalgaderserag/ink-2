@@ -16,7 +16,7 @@ class CommentController extends Controller
 
     public function __construct()
     {
-//        Auth::loginUsingId(1);
+        Auth::loginUsingId(1);
     }
 
 
@@ -68,12 +68,12 @@ class CommentController extends Controller
     public function store(Request $request)
     {
 
-        try {
-            $this->authorize('comments.create');
-        } catch (AuthorizationException $error) {
-            return response()
-                ->json('you are not allowed to create this comment.\n' . $error, 401);
-        }
+//        try {
+//            $this->authorize('comments.create');
+//        } catch (AuthorizationException $error) {
+//            return response()
+//                ->json('you are not allowed to create this comment.\n' . $error, 401);
+//        }
 
         $comment = new Comment();
         $comment->user_id = Auth::id();
@@ -84,7 +84,7 @@ class CommentController extends Controller
         }
         $comment->save();
 
-        $mei = '';
+        /*$mei = '';
         if ($request->media != []) {
             foreach ($request->media as $media) {
                 $mei = $mei . $media . ',';
@@ -96,7 +96,9 @@ class CommentController extends Controller
             'text' => $request->text,
             'media' => $mei,
         ];
-        $media = new Media($data);
+        $media = new Media($data);*/
+        $media = Media::setMedia($request);
+        $media->comment_id = $comment->id;
         $media->save();
 
 

@@ -74,7 +74,7 @@
     let height = window.innerHeight - nav.offsetHeight;
 
     @auth
-        window.axios.defaults.headers.common["Authorization"] = 'Bearer {{ $access }}';
+        {{--window.axios.defaults.headers.common["Authorization"] = 'Bearer {{ $access }}';--}}
     let mediaTemp;
     let app = new Vue({
         el: '#app',
