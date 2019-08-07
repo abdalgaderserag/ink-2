@@ -18,7 +18,7 @@ class Media extends Model
      *
      * @param Request $request
      * @return Media
-    **/
+     **/
     public static function setMedia(Request $request)
     {
         $mei = '';
@@ -35,5 +35,27 @@ class Media extends Model
             'user_id' => Auth::id(),
         ];
         return new Media($data);
+    }
+
+
+    public function updateMedia(Request $request)
+    {
+        $media = $this;
+        $mei = '';
+        if ($request->media != []) {
+            foreach ($request->media as $media) {
+                $mei = $mei . $media . ',';
+            }
+        }
+
+
+        $data = [
+            'text' => $request->text,
+            'media' => $mei,
+            'user_id' => Auth::id(),
+        ];
+
+        $media->update($data);
+        return $media;
     }
 }

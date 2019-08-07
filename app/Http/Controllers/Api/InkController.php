@@ -116,13 +116,7 @@ class InkController extends Controller
         }
 
         $media = $ink->media;
-        $media->text = $request->text;
-        if (isset($request->media))
-            foreach ($request->media as $med) {
-                $media->media = $media->media . $med . ',';
-            }
-        $media->save();
-        return response()->json($media, 200);
+        return response()->json($media->updateMedia($request), 200);
     }
 
     /**

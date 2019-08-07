@@ -149,14 +149,8 @@ class CommentController extends Controller
                 ->json('you are not allowed to update this comment.\n' . $error, 401);
         }
 
-        $m = $comment->media;
-        $m->text = $request->text;
-        if (isset($request->media))
-            foreach ($request->media as $med) {
-                $m->media = $m->media . $med . ',';
-            }
-        $m->save();
-        $comment->media = $m;
+        $media = $comment->media;
+        $comment->media = $media->updateMedia($request);
         return response()->json($comment, 200);
     }
 
