@@ -15,6 +15,9 @@ class CreateSharesTable extends Migration
     {
         Schema::create('shares', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('user_id', false, true);
+            $table->bigInteger('ink_id', false, true)->nullable();
+            $table->bigInteger('comment_id', false, true)->nullable();
             $table->timestamps();
         });
     }
