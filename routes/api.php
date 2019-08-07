@@ -16,23 +16,23 @@ use Illuminate\Http\Request;
 
 //Route::middleware('auth:api')->group(function () {
 
-Route::post('like', 'Api\LikeController')->middleware('test');
-Route::post('upload', 'Api\UploaderController')->middleware('test');
+Route::post('like', 'Api\LikeController');
+Route::post('upload', 'Api\UploaderController');
 
-Route::post('follow', 'Api\FollowController@store')->middleware('test');
-Route::delete('follow/{user_id}', 'Api\FollowController@destroy')->middleware('test');
+Route::post('follow', 'Api\FollowController@store');
+Route::delete('follow/{user_id}', 'Api\FollowController@destroy');
 
 
 //});
 
-Route::apiResource('ink', 'Api\InkController')->middleware('test');
-Route::get('main','Api\MainPageController');
+Route::apiResource('ink', 'Api\InkController');
+Route::get('main', 'Api\MainPageController');
 Route::get('profile/ink', 'UserController@profileInk');
 
-Route::apiResource('comment', 'Api\CommentController')->middleware('test');
+Route::apiResource('comment', 'Api\CommentController');
 
-Route::get('notifications','Notification\NotificationController@notifications');
-Route::get('notifications/mark-as-read/{uuid}','Notification\NotificationController@setNotificationAsRead');
-Route::get('notifications/unread','Notification\NotificationController@getUnreadNotification');
-Route::delete('notifications/delete-read','Notification\NotificationController@deleteReadNotification');
-Route::get('notifications/mark-all-as-read','Notification\NotificationController@notifications');
+Route::get('notifications', 'Notification\NotificationController@notifications');
+Route::get('notifications/mark-as-read/{uuid}', 'Notification\NotificationController@setNotificationAsRead');
+Route::get('notifications/unread', 'Notification\NotificationController@getUnreadNotification');
+Route::delete('notifications/delete-read', 'Notification\NotificationController@deleteReadNotification');
+Route::get('notifications/mark-all-as-read', 'Notification\NotificationController@notifications');

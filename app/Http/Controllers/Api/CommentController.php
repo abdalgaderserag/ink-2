@@ -16,7 +16,7 @@ class CommentController extends Controller
 
     public function __construct()
     {
-        Auth::loginUsingId(1);
+//        Auth::loginUsingId(1);
     }
 
 

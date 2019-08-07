@@ -135,42 +135,42 @@
 
 @section('foot-script')
     {{--<script>--}}
-        function login() {
-            {{--clear the old data -if avialible- before send the login request.--}}
-            localStorage.clear();
+    function login() {
+    {{--clear the old data -if avialible- before send the login request.--}}
+    localStorage.clear();
 
-            let data = {
-                client_id: 2,
-                client_secret: '6pwjY4LcWMBSnalOVq0gfddnvAFNZqyIUV2qkvXw',
-                grant_type: 'password',
-                username: document.getElementById('email').value,
-                password: document.getElementById('password').value,
-            };
+    let data = {
+    client_id: 1,
+    client_secret: '{!!  \Illuminate\Support\Facades\DB::table('oauth_clients')->where('id',1)->first()->secret; !!}',
+    grant_type: 'personal_access',
+    username: document.getElementById('email').value,
+    password: document.getElementById('password').value,
+    };
 
-            document.getElementById('login-message').innerText = '';
+    document.getElementById('login-message').innerText = '';
 
-            document.getElementById('login-form').getElementsByTagName('button')[0].disabled = true;
-            document.getElementById('login-form').getElementsByTagName('button')[0].style.background = '#eee';
-            document.getElementById('login-form').getElementsByTagName('button')[0].style.color = '#000';
+    document.getElementById('login-form').getElementsByTagName('button')[0].disabled = true;
+    document.getElementById('login-form').getElementsByTagName('button')[0].style.background = '#eee';
+    document.getElementById('login-form').getElementsByTagName('button')[0].style.color = '#000';
 
 
-            axios.post('/oauth/token', data)
-                .then(response => {
-                    localStorage.setItem('access_token', response.data.access_token);
-                    localStorage.setItem('expires_in', response.data.expires_in);
-                    localStorage.setItem('refresh_token', response.data.refresh_token);
-                    localStorage.setItem('token_type', response.data.token_type);
-                    document.getElementById('login-form').submit();
-                })
-                .catch(error => {
-                    document.getElementById('login-form').getElementsByTagName('button')[0].disabled = false;
-                    document.getElementById('login-form').getElementsByTagName('button')[0].style.background = '';
-                    document.getElementById('login-form').getElementsByTagName('button')[0].style.color = '';
+    axios.post('/oauth/token', data)
+    .then(response => {
+    localStorage.setItem('access_token', response.data.access_token);
+    localStorage.setItem('expires_in', response.data.expires_in);
+    localStorage.setItem('refresh_token', response.data.refresh_token);
+    localStorage.setItem('token_type', response.data.token_type);
+    document.getElementById('login-form').submit();
+    })
+    .catch(error => {
+    document.getElementById('login-form').getElementsByTagName('button')[0].disabled = false;
+    document.getElementById('login-form').getElementsByTagName('button')[0].style.background = '';
+    document.getElementById('login-form').getElementsByTagName('button')[0].style.color = '';
 
-                    document.getElementById('login-message').innerText = 'the email or password not match any of our records.'
-                });
+    document.getElementById('login-message').innerText = 'the email or password not match any of our records.'
+    });
 
-        }
+    }
 
-        document.getElementById('log-body').style.height = height + 'px';
+    document.getElementById('log-body').style.height = height + 'px';
 @endsection

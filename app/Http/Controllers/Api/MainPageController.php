@@ -16,7 +16,7 @@ class MainPageController extends Controller
      */
     public function __invoke()
     {
-        Auth::loginUsingId(1);
+//        Auth::loginUsingId(1);
         $data = Follow::where('user_id', Auth::id())->with('inks.user', 'inks.media', 'inks.like')->get();
         return response()->json($data, 200);
     }

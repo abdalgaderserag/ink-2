@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class HomeController extends Controller
 {
@@ -14,7 +15,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        Auth::loginUsingId(1);
+//        Auth::loginUsingId(1);
         $this->middleware('auth');
     }
 
@@ -25,6 +26,8 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $_SESSION['access'] = Auth::user()->createToken('web')->accessToken;
+
         return view('home');
     }
 }

@@ -2,34 +2,16 @@
 
 namespace App;
 
+use App\Traites\Post\Post;
 use Illuminate\Database\Eloquent\Model;
 
 class Ink extends Model
 {
-    public function user()
-    {
-        return $this->belongsTo('App\User');
-    }
-
-    public function like()
-    {
-        return $this->hasMany('App\Like');
-    }
-
-
-    public function comment()
-    {
-        return $this->hasMany('App\Comment');
-    }
+    use Post;
 
     public function ink()
     {
         return $this->hasMany('App\Ink');
-    }
-
-    public function media()
-    {
-        return $this->hasOne('App\Media');
     }
 
     public function getLikeCountAttribute($key)

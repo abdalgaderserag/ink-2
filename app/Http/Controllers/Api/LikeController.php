@@ -20,7 +20,7 @@ class LikeController extends Controller
      */
     public function __invoke(Request $request)
     {
-        Auth::loginUsingId(1);
+//        Auth::loginUsingId(1);
 //        check if like already added and then delete him.
         if (isset($request->ink_id))
             $like = Like::where('user_id', Auth::id())->where('ink_id', $request->ink_id)->first();
