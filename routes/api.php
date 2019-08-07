@@ -31,6 +31,9 @@ Route::get('profile/ink', 'UserController@profileInk');
 
 Route::apiResource('comment', 'Api\CommentController');
 
+Route::apiResource('share', 'Api\ShareController');
+
+
 Route::get('notifications', 'Notification\NotificationController@notifications');
 Route::get('notifications/mark-as-read/{uuid}', 'Notification\NotificationController@setNotificationAsRead');
 Route::get('notifications/unread', 'Notification\NotificationController@getUnreadNotification');

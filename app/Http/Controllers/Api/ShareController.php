@@ -6,6 +6,7 @@ use App\Share;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ShareController extends Controller
 {
@@ -16,7 +17,24 @@ class ShareController extends Controller
      */
     public function index()
     {
-        //
+        $shares = Share::where('user_id', Auth::id())->orderBy('created_at', 'desc');
+        $data[0] = $shares->with('user', 'media', 'ink.user', 'ink.media')->get();
+        $i = 0;
+        foreach ($data[0] as $share) {
+
+            $data[1][$i]['like'] = DB::table('likes')
+                ->where('ink_id', $share->id)->count();
+
+            $data[1][$i]['isLiked'] = DB::table('likes')
+                ->where('user_id', Auth::id())
+                ->where('ink_id', $share->id)->count();
+
+            $data[1][$i]['comment'] = DB::table('comments')
+                ->where('ink_id', $share->id)->count();
+
+            $i++;
+        }
+        return response()->json($data, 200);
     }
 
     /**
@@ -59,17 +77,20 @@ class ShareController extends Controller
      */
     public function update(Request $request, Share $share)
     {
-        //
+        $media = $share->media;
+        return response()->json($media->updateMedia($request), 200);
     }
 
     /**
      * Remove the specified resource from storage.
      *
+     * @throws 404
      * @param  \App\Share $share
      * @return \Illuminate\Http\Response
      */
     public function destroy(Share $share)
     {
-        //
+        $share->delete();
+        return response()->json($share, 200);
     }
 }
