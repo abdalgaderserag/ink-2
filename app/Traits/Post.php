@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Traites\Post;
+namespace App\Traits;
 
 trait Post
 {

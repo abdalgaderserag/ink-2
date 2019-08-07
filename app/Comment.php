@@ -2,12 +2,11 @@
 
 namespace App;
 
-use App\Traites\Post\Post;
 use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
 {
-    use Post;
+    use Traits\Post;
 
     public function replies()
     {
