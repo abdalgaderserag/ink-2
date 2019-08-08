@@ -15,8 +15,9 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        Auth::loginUsingId(1);
-        $this->middleware('auth');
+//        Auth::loginUsingId(1);
+//        $this->middleware('auth');
+//        Auth::logout();
     }
 
     /**
@@ -26,7 +27,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $access = Auth::user()->createToken('web')->accessToken;
+//        $access = Auth::user()->createToken('web')->accessToken;
+        $access = '';
 
         return view('home')->with('access', $access);
     }

@@ -23,18 +23,20 @@ Route::middleware('auth:api')->group(function () {
     Route::delete('follow/{user_id}', 'Api\FollowController@destroy');
 
 
-    Route::apiResource('ink', 'Api\InkController');
-    Route::get('main', 'Api\MainPageController');
-    Route::get('profile/ink', 'UserController@profileInk');
 
-    Route::apiResource('comment', 'Api\CommentController');
+Route::apiResource('ink', 'Api\InkController');
+Route::get('main', 'Api\MainPageController');
+Route::get('profile/ink', 'UserController@profileInk');
 
-    Route::apiResource('share', 'Api\ShareController');
+Route::apiResource('comment', 'Api\CommentController');
+
+Route::apiResource('share', 'Api\ShareController');
 
 
-    Route::get('notifications', 'Notification\NotificationController@notifications');
-    Route::get('notifications/mark-as-read/{uuid}', 'Notification\NotificationController@setNotificationAsRead');
-    Route::get('notifications/unread', 'Notification\NotificationController@getUnreadNotification');
-    Route::delete('notifications/delete-read', 'Notification\NotificationController@deleteReadNotification');
-    Route::get('notifications/mark-all-as-read', 'Notification\NotificationController@notifications');
+Route::get('notifications', 'Notification\NotificationController@notifications');
+Route::get('notifications/mark-as-read/{uuid}', 'Notification\NotificationController@setNotificationAsRead');
+Route::get('notifications/unread', 'Notification\NotificationController@getUnreadNotification');
+Route::delete('notifications/delete-read', 'Notification\NotificationController@deleteReadNotification');
+Route::get('notifications/mark-all-as-read', 'Notification\NotificationController@notifications');
+
 });

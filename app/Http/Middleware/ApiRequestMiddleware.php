@@ -2,19 +2,11 @@
 
 namespace App\Http\Middleware;
 
-use Closure;
 
-class ApiRequestMiddleware
+class ApiRequestMiddleware extends Authenticate
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @return mixed
-     */
-    public function handle($request, Closure $next)
+    public function authenticate()
     {
-        return $next($request);
+        return $this->auth->shouldUse('api');
     }
 }

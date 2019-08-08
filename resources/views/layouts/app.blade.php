@@ -23,6 +23,7 @@
 </head>
 <body>
 <div id="app">
+    {{ \Illuminate\Support\Facades\Auth::user() }}
     <div class="nav-bar flex-box">
         <div class="flex-box g g1">
             <div class="logo-title">
@@ -56,6 +57,9 @@
                     <img src="/images/layouts/menu.svg" alt="">
                 </div>
             </div>
+        @elseguest
+            <a href="/log" class="link-clear">Login</a>
+            <a href="/log?register=true" class="link-clear">Register</a>
         @endauth
 
     </div>

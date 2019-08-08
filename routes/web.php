@@ -35,4 +35,4 @@ Route::post('/register', 'UserController@register')->name('register');
 Route::post('/login', 'UserController@login')->name('login');
 
 
-Auth::routes();
+//Auth::routes();
