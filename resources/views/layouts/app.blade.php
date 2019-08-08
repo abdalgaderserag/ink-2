@@ -23,7 +23,6 @@
 </head>
 <body>
 <div id="app">
-    {{ \Illuminate\Support\Facades\Auth::user() }}
     <div class="nav-bar flex-box">
         <div class="flex-box g g1">
             <div class="logo-title">
@@ -78,7 +77,7 @@
     let height = window.innerHeight - nav.offsetHeight;
 
     @auth
-        window.axios.defaults.headers.common["Authorization"] = 'Bearer {{ $access }}';
+        window.axios.defaults.headers.common["Authorization"] = `Bearer ${ localStorage.access_token }`;
     let mediaTemp;
     let app = new Vue({
         el: '#app',
