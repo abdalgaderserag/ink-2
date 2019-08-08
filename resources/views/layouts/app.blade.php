@@ -120,14 +120,7 @@ ${mediaTemp.text}
 <span>Add image or video or Gif</span>
 </div>
 <div class="flex-box images-pop">
-<div class="flex-box pop-icon">
-<img class="image" src="/images/avatars/ariya.jpg">
-<div>
-<svg>
-<path d="m4 8 l8 0" style="stroke: white;"/>
-</svg>
-</div>
-</div>
+${ getImages() }
 </div>
 <div class="pop-buttons">
 <span onclick="document.getElementById('pop-up').style.display = 'none';">
@@ -140,6 +133,27 @@ Save
 </div>`;
         //    bind draw
         document.getElementById('pop-up').innerHTML = element;
+    }
+
+    function getImages() {
+        if (mediaTemp.media == null)
+            return '';
+
+        let media = ``;
+        for (let i = 0; i < mediaTemp.media.length; i++)
+            media = media + getImage(mediaTemp.media[i]);
+        return media;
+    }
+
+    function getImage(src) {
+        return `<div class="flex-box pop-icon">
+<img class="image" src="${ src }">
+<div>
+<svg>
+<path d="m4 8 l8 0" style="stroke: white;"/>
+</svg>
+</div>
+</div>`;
     }
     @endauth
 

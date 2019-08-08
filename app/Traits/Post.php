@@ -4,6 +4,12 @@ namespace App\Traits;
 
 trait Post
 {
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+    }
+
     public function comment()
     {
         return $this->hasMany('App\Comment');

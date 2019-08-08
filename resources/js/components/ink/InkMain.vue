@@ -44,7 +44,7 @@
             else
                 url = '/api/profile/ink?slug=' + document.location.pathname.split('/').pop();
 
-            url = '/api/ink';
+            // url = '/api/ink';
 
             axios.get(url)
                 .then(response => {

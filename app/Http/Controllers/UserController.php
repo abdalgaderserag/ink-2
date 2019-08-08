@@ -42,7 +42,7 @@ class UserController extends Controller
             return response()->json('', 404);
 
         $inks = Ink::where('user_id', $user->id)->orderBy('created_at', 'desc');
-        $data[0] = $inks->with('user', 'media')->get();
+        $data[0] = $inks->get();
         $i = 0;
         foreach ($data[0] as $ink) {
 
