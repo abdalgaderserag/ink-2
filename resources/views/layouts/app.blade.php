@@ -52,7 +52,7 @@
                 <form id="logout" method="POST" action="{{ route('logout') }}">
                     @csrf
                 </form>
-                <div class="nav-menu" onclick="document.getElementById('logout').submit();">
+                <div class="nav-menu" onclick="localStorage.clear();document.getElementById('logout').submit();">
                     <img src="/images/layouts/menu.svg" alt="">
                 </div>
             </div>
