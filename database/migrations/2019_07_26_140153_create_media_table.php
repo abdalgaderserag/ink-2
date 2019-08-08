@@ -17,6 +17,7 @@ class CreateMediaTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('comment_id', false, true)->nullable();
             $table->bigInteger('ink_id', false, true)->nullable();
+            $table->bigInteger('share_id', false, true)->nullable();
             $table->text('text')->nullable();
             $table->text('media')->nullable();
             $table->timestamps();

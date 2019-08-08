@@ -26,8 +26,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $_SESSION['access'] = Auth::user()->createToken('web')->accessToken;
+        $access = Auth::user()->createToken('web')->accessToken;
 
-        return view('home');
+        return view('home')->with('access', $access);
     }
 }

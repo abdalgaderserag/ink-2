@@ -18,6 +18,7 @@ class CreateLikesTable extends Migration
             $table->bigInteger('user_id', false, true);
             $table->bigInteger('comment_id', false, true)->nullable();
             $table->bigInteger('ink_id', false, true)->nullable();
+            $table->bigInteger('share_id', false, true)->nullable();
             $table->timestamps();
         });
     }
