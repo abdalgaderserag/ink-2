@@ -15,7 +15,7 @@
             </div>
 
             <!--edit delete menu-->
-            <div>
+            <div v-if="ink.user.id == $root.user.id">
                 <span style="padding: 0 10px">
                     <div class="card-menu" style="display:none;">
                         <div>share</div>
@@ -98,7 +98,8 @@
                 this.like = 'hard-fill.svg';
         },
         methods: {
-            //add the hash tag to the inks
+
+            // add the hash tag to the inks
             getHashTag: function (text) {
                 //split the all the text to array the first element won't contain any hash tag
                 let textArray = text.split('#');
@@ -118,10 +119,7 @@
                     out = out + `<a href="/search?hash=${splited[0]}" class="hash-tag">${ '#' + splited[0]}</a> ${textArray[i].slice(splited[0].length, textArray[i].length)}`;
                 }
 
-                //set the text to out put
-                text = out;
-
-                return text;
+                return out;
             },
 
             // show the edit delete menue
@@ -132,7 +130,7 @@
                 card.style.top = (e.clientY + 6) + 'px';
             },
 
-            //resize images by count
+            // resize images by count
             reSizeImages: function () {
                 let mediaEle = document.getElementsByClassName('media-view')[0];
                 let height = mediaEle.offsetWidth / 1.75;
@@ -169,7 +167,7 @@
                 }
             },
 
-            //upload comment images
+            // upload comment images
             upload: function (e) {
                 let read = new FileReader();
                 read.readAsDataURL(e.target.files[0]);
@@ -182,7 +180,7 @@
                 }
             },
 
-            //get the ink comments
+            // get the ink comments
             getComments: function () {
                 if (!this.commentsLoaded)
                     axios.get('/api/comment?ink=' + this.ink.id)
@@ -199,7 +197,7 @@
                         });
             },
 
-            //hide or show the other inks
+            // hide or show the other inks
             hideEvent: function () {
                 let type;
                 if (this.onlyVis) {
@@ -217,7 +215,7 @@
                 this.$el.style.display = 'block';
             },
 
-            //edit the ink
+            // edit the ink
             editInk: function () {
                 mediaTemp = {
                     text: this.ink.media.text,
@@ -242,7 +240,7 @@
                 };
             },
 
-            //remove the ink
+            // remove the ink
             deleteInk: function () {
                 axios.delete('/api/ink/' + this.ink.id)
                     .then(response => {
@@ -253,7 +251,7 @@
                     })
             },
 
-            //save new comment
+            // save new comment
             storeComment: function () {
 
                 let data = {
@@ -277,7 +275,7 @@
                         });
             },
 
-            //like button requests
+            // like button requests
             liked: function () {
                 axios.post('/api/like', {
                     ink_id: this.ink.id,

@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Like;
 use App\Notifications\Like\CreateLikeNotification;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\UnauthorizedException;
 
 class LikeObserver
 {
