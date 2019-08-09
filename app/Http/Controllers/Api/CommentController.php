@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Comment;
 use App\Media;
+use App\Traits\EditControllerTrait;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -12,24 +13,18 @@ use Illuminate\Support\Facades\DB;
 
 class CommentController extends Controller
 {
-
-
-    public function __construct()
-    {
-//        Auth::loginUsingId(1);
-    }
+    use EditControllerTrait;
 
 
     /**
      * Display a listing of the resource.
-     *
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
 //        try {
-        $this->authorize('comments.view');
+//        $this->authorize('comments.view');
 //        } catch (AuthorizationException $error) {
 //            return response()->json('you are not allowed to see this content.\n' . $error, 401);
 //        }

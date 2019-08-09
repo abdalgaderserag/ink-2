@@ -3,11 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Admin\Admin;
-use App\Ink;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AdminController extends Controller
 {
@@ -15,7 +12,7 @@ class AdminController extends Controller
     public function __construct()
     {
 
-        $this->middleware('admin');
+//        $this->middleware('admin');
 
         if (isset($_GET['resource']))
             $class = $_GET['resource'];

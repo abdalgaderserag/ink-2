@@ -25,7 +25,6 @@ Route::middleware('auth:api')->group(function () {
 
 
 Route::apiResource('ink', 'Api\InkController');
-Route::get('main', 'Api\MainPageController');
 Route::get('profile/ink', 'UserController@profileInk');
 
 Route::apiResource('comment', 'Api\CommentController');
@@ -40,5 +39,7 @@ Route::delete('notifications/delete-read', 'Notification\NotificationController@
 Route::get('notifications/mark-all-as-read', 'Notification\NotificationController@notifications');
 
 });
+
+Route::get('main', 'Api\MainPageController');
 
 Route::apiResource('admin', 'Admin\AdminController');

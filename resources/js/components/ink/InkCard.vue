@@ -15,7 +15,7 @@
             </div>
 
             <!--edit delete menu-->
-            <div v-if="ink.user.id == $root.user.id">
+            <div v-if="$root.user && ink.user.id == $root.user.id">
                 <span style="padding: 0 10px">
                     <div class="card-menu" style="display:none;">
                         <div>share</div>

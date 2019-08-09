@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Auth;
 class LikeController extends Controller
 {
 
-
     /**
      * Handle the incoming request.
      *

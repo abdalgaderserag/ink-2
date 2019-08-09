@@ -27,10 +27,6 @@ class MainPageController extends Controller
             $data[1][$i]['like'] = DB::table('likes')
                 ->where('ink_id', $ink->id)->count();
 
-            $data[1][$i]['isLiked'] = DB::table('likes')
-                ->where('user_id', Auth::id())
-                ->where('ink_id', $ink->id)->count();
-
             $data[1][$i]['comment'] = DB::table('comments')
                 ->where('ink_id', $ink->id)->count();
 

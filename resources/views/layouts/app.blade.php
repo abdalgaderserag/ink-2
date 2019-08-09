@@ -76,14 +76,15 @@
     let nav = document.getElementsByClassName('nav-bar')[0];
     let height = window.innerHeight - nav.offsetHeight;
 
-    @auth
-        window.axios.defaults.headers.common["Authorization"] = `Bearer ${ localStorage.access_token }`;
+    window.axios.defaults.headers.common["Authorization"] = `Bearer ${ localStorage.access_token }`;
     let mediaTemp;
     let app = new Vue({
         el: '#app',
+        @auth
         data: {
             user: {!! \Illuminate\Support\Facades\Auth::user() !!},
         },
+        @endauth
     });
 
 
@@ -155,7 +156,6 @@ Save
 </div>
 </div>`;
     }
-    @endauth
 
     @yield('foot-script')
 </script>

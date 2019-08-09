@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Ink;
 use App\Media;
+use App\Traits\EditControllerTrait;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -13,10 +14,7 @@ use Illuminate\Support\Facades\DB;
 class InkController extends Controller
 {
 
-    public function __construct()
-    {
-//        Auth::loginUsingId(1);
-    }
+    use EditControllerTrait;
 
     /**
      * Display a listing of the resource.
