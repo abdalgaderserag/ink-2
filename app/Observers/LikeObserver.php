@@ -59,8 +59,9 @@ class LikeObserver
         $user = $like[$type]->user;
 
         foreach ($user->notifications as $notification) {
-            if ($notification['data']['like'])
-                $notification->delete();
+            if (!empty($notification['data']['like']))
+                if ($notification['data']['like'])
+                    $notification->delete();
         }
     }
 

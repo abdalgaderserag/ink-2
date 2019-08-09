@@ -18,7 +18,7 @@ class CommentPolicy
      * @param  \App\Comment $comment
      * @return mixed
      */
-    public function view(User $user, Comment $comment)
+    public function view(User $user)
     {
         return true;
     }
@@ -57,5 +57,4 @@ class CommentPolicy
     {
         return $user->id == $comment->user_id;
     }
-
 }

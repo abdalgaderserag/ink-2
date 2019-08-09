@@ -29,7 +29,7 @@ class CommentController extends Controller
     public function index()
     {
 //        try {
-//            $this->authorize('comments.view');
+        $this->authorize('comments.view');
 //        } catch (AuthorizationException $error) {
 //            return response()->json('you are not allowed to see this content.\n' . $error, 401);
 //        }
@@ -69,7 +69,7 @@ class CommentController extends Controller
     {
 
 //        try {
-//            $this->authorize('comments.create');
+        $this->authorize('comments.create');
 //        } catch (AuthorizationException $error) {
 //            return response()
 //                ->json('you are not allowed to create this comment.\n' . $error, 401);
@@ -84,19 +84,6 @@ class CommentController extends Controller
         }
         $comment->save();
 
-        /*$mei = '';
-        if ($request->media != []) {
-            foreach ($request->media as $media) {
-                $mei = $mei . $media . ',';
-            }
-        }
-
-        $data = [
-            'comment_id' => $comment->id,
-            'text' => $request->text,
-            'media' => $mei,
-        ];
-        $media = new Media($data);*/
         $media = Media::setMedia($request);
         $media->comment_id = $comment->id;
         $media->save();
@@ -120,13 +107,6 @@ class CommentController extends Controller
      */
     public function show(Comment $comment)
     {
-        try {
-            $this->authorize('comments.view', $comment);
-        } catch (AuthorizationException $error) {
-            return response()
-                ->json('you are not allowed to See this content.\n' . $error, 401);
-        }
-
         $data = $comment->replies();
         $data->with('media', 'user', 'like');
         return response()->json($data, 200);

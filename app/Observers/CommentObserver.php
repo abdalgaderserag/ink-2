@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Comment;
 use App\Notifications\Comment\CreateCommentNotification;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
 
 class CommentObserver
@@ -57,17 +58,15 @@ class CommentObserver
 
         if (!empty($comment->ink_id))
             $type = 'ink';
-        else if (!empty($comment->comment_id))
-            $type = 'comment';
         else
-            return;
-
+            $type = 'parentComment';
         $user = $comment[$type]->user;
-        if ($user->id != Auth::id())
-            foreach ($user->notifications as $notification) {
+
+        foreach ($user->notifications as $notification) {
+            if (!empty($notification['data']['comment']))
                 if ($notification['data']['comment'] == $comment->id)
                     $notification->delete();
-            }
+        }
 
         $comment->media->delete();
 

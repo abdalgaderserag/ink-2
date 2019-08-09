@@ -20,31 +20,13 @@
             }
         },
         mounted() {
-            let url = '/api/ink';
-
+            let url;
             if (document.location.pathname == '/profile')
                 url = '/api/profile/ink ';
-            else if (document.location.pathname == '/') {
+            else if (document.location.pathname == '/')
                 url = '/api/main';
-                /*axios.get(url)
-                    .then(response => {
-                        // this.inks = response.data[0];
-                        let inks = [];
-                        for (let j = 0; j < response.data.length; j++) {
-                            inks.push(response.data[j].inks);
-                        }
-                        let temp = [];
-                        this.inks = temp.concat(inks[0],inks[1],inks[2]);
-                        this.interact = temp.concat(inks[0],inks[1],inks[2]);
-                    })
-                    .catch(error => {
-                        this.$root.message = 'problem while loading inks try refresh or try an other time.';
-                    });*/
-            }
             else
                 url = '/api/profile/ink?slug=' + document.location.pathname.split('/').pop();
-
-            // url = '/api/ink';
 
             axios.get(url)
                 .then(response => {
