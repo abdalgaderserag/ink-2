@@ -32,7 +32,7 @@
 
                 <div class="flex-box" style="justify-content: flex-start;padding: 0 2%;">
                     <div>
-                        <img @click="liked()" :src="'/images/ink/' + likeUrl" style="width: 24px" alt="">
+                        <img @click="liked()" :src="'/images/ink/' + like" style="width: 24px" alt="">
                         <span>{{ comment.like }}</span>
                     </div>
                     <div>
@@ -47,8 +47,8 @@
                          src="/images/ink/attachment.svg">
                     <input class="comment-button" @click="storeComment()" @submit="storeComment()" type="button"
                            value="Comment">
-                    <replies :comments="comments"></replies>
                 </div>
+                <replies v-if="showRp" :comments="comments"></replies>
             </div>
         </div>
     </div>
@@ -59,7 +59,7 @@
         name: "Comment",
         data() {
             return {
-                likeUrl: 'hard-fill.svg',
+                like: 'hard-fill.svg',
                 comments: [],
                 showRp: false,
                 firstTime: true,
@@ -79,12 +79,20 @@
             }
         },
         mounted() {
-            if (this.comment.isLiked)
-                this.likeUrl = 'hard-fill.svg';
-            else if (this.comment.isLiked)
-                this.likeUrl = 'hard-fill-color.svg';
+            // if (this.comment.isLiked == 0)
+            //     this.likeUrl = 'hard-fill.svg';
+            // else
+            //     this.likeUrl = 'hard-fill-color.svg';
+            this.likeUrl();
         },
         methods: {
+            likeUrl: function (url = '') {
+                if (this.comment.isLiked == 0)
+                    url = 'hard-fill.svg';
+                else
+                    url = 'hard-fill-color.svg';
+                this.like = url;
+            },
             upload: function (e) {
                 let read = new FileReader();
                 read.readAsDataURL(e.target.files[0]);
@@ -97,12 +105,12 @@
                 }
             },
             showReplies: function () {
-                this.showRp = !this.showRp;
+                this.showRp = true;
 
                 if (this.firstTime)
                     this.getReplies();
 
-                this.firstTime = false;
+                this.firstTime = true;
             },
             storeComment: function () {
                 let data = {
@@ -187,10 +195,10 @@
                     comment_id: this.comment.id,
                 }).then((response) => {
                     if (response.data == "") {
-                        this.likeUrl = 'hard-fill.svg';
+                        this.like = 'hard-fill.svg';
                         this.comment.like--;
                     } else if (response.data == 1) {
-                        this.likeUrl = 'hard-fill-color.svg';
+                        this.like = 'hard-fill-color.svg';
                         this.comment.like++;
                     }
                 });

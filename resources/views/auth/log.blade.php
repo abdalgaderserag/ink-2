@@ -141,7 +141,7 @@
 
     let data = {
     client_id: 2,
-    client_secret: 'uDzmQzYxQgbKzo3bfXPmdCE06EYrIoAwaWesnF8p',
+    client_secret: '{{ \Illuminate\Support\Facades\DB::table('oauth_clients')->find(2)->secret }}',
     grant_type: 'password',
     username: document.getElementById('email').value,
     password: document.getElementById('password').value,

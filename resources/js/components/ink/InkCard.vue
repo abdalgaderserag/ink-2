@@ -2,15 +2,19 @@
     <div class="ink-card">
         <br>
         <div class="flex-box">
+            <!--user avatar and text-->
             <div class="flex-box card-header">
                 <div class="ink-avatar">
                     <img class="ink-avatar-img" :src="ink.user.avatar" alt="">
                 </div>
                 <div>
-                    <div class="ink-user-name">{{ ink.user.name }}</div>
+                    <div class="ink-user-name">
+                        <a :href="`/profile/${ ink.user.slug }`" class="link-clear">{{ ink.user.name }}</a>
+                    </div>
                 </div>
             </div>
 
+            <!--edit delete menu-->
             <div>
                 <span style="padding: 0 10px">
                     <div class="card-menu" style="display:none;">
@@ -46,6 +50,7 @@
                 </div>
             </div>
         </div>
+        <!--comments section-->
         <div v-if="onlyVis" class="flex-box new-comment">
             <input class="comment-text" type="text" v-model="commentText">
             <input style="display: none" type="file" @change="upload" name="" id="upload">
@@ -93,6 +98,7 @@
                 this.like = 'hard-fill.svg';
         },
         methods: {
+            //add the hash tag to the inks
             getHashTag: function (text) {
                 //split the all the text to array the first element won't contain any hash tag
                 let textArray = text.split('#');
@@ -109,7 +115,7 @@
                     // bind the new hash to the old if avil
                     // it will add the hash to the old out var text
                     // remove from the loop text the hash by slice() function
-                    out = out + '<a href="/search?hash=' + splited[0] + '" class="hash-tag">#' + splited[0] + '</a>' + textArray[i].slice(splited[0].length, textArray[i].length);
+                    out = out + `<a href="/search?hash=${splited[0]}" class="hash-tag">${ '#' + splited[0]}</a> ${textArray[i].slice(splited[0].length, textArray[i].length)}`;
                 }
 
                 //set the text to out put
@@ -117,12 +123,15 @@
 
                 return text;
             },
+
+            // show the edit delete menue
             cardMenu: function (e) {
                 let card = this.$el.getElementsByClassName('card-menu')[0];
                 card.style.display = 'block';
                 card.style.left = (e.clientX - card.offsetWidth) + 'px';
                 card.style.top = (e.clientY + 6) + 'px';
             },
+
             //resize images by count
             reSizeImages: function () {
                 let mediaEle = document.getElementsByClassName('media-view')[0];
@@ -159,6 +168,8 @@
                     }
                 }
             },
+
+            //upload comment images
             upload: function (e) {
                 let read = new FileReader();
                 read.readAsDataURL(e.target.files[0]);
@@ -170,6 +181,8 @@
                         });
                 }
             },
+
+            //get the ink comments
             getComments: function () {
                 if (!this.commentsLoaded)
                     axios.get('/api/comment?ink=' + this.ink.id)
@@ -185,6 +198,8 @@
                             this.commentsLoaded = true;
                         });
             },
+
+            //hide or show the other inks
             hideEvent: function () {
                 let type;
                 if (this.onlyVis) {
@@ -201,6 +216,8 @@
                 }
                 this.$el.style.display = 'block';
             },
+
+            //edit the ink
             editInk: function () {
                 mediaTemp = {
                     text: this.ink.media.text,
@@ -212,8 +229,6 @@
                 let id = this.ink.id;
                 let save = document.getElementById('save');
                 save.onclick = () => {
-                    if (text.value == '')
-                        return;
                     axios.put('/api/ink/' + id, {
                         text: text.value,
                         media: mediaTemp.media,
@@ -226,13 +241,19 @@
                     document.getElementById('pop-up').style.display = 'none';
                 };
             },
+
+            //remove the ink
             deleteInk: function () {
                 axios.delete('/api/ink/' + this.ink.id)
                     .then(response => {
                         this.$el.innerHTML = '';
                         this.$el.outerHTML = '';
+                        if (this.onlyVis)
+                            this.hideEvent();
                     })
             },
+
+            //save new comment
             storeComment: function () {
 
                 let data = {
@@ -255,6 +276,8 @@
                             this.ink.comment++;
                         });
             },
+
+            //like button requests
             liked: function () {
                 axios.post('/api/like', {
                     ink_id: this.ink.id,

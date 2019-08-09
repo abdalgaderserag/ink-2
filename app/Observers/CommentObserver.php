@@ -55,24 +55,12 @@ class CommentObserver
      */
     public function deleted(Comment $comment)
     {
-
-        if (!empty($comment->ink_id))
-            $type = 'ink';
-        else
-            $type = 'parentComment';
-        $user = $comment[$type]->user;
-
-        foreach ($user->notifications as $notification) {
-            if (!empty($notification['data']['comment']))
-                if ($notification['data']['comment'] == $comment->id)
-                    $notification->delete();
-        }
-
-        $comment->media->delete();
-
         if (!empty($comment->replies))
             $comment->replies->each(function ($comment) {
                 $comment->delete();
             });
+
+        $comment->media->delete();
+
     }
 }

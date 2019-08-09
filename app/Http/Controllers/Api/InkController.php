@@ -109,11 +109,11 @@ class InkController extends Controller
     public function update(Request $request, Ink $ink)
     {
 
-        try {
-            $this->authorize('inks.update');
-        } catch (AuthorizationException $error) {
-            return response()->json('you are not allowed to update this content', 401);
-        }
+//        try {
+//            $this->authorize('inks.update');
+//        } catch (AuthorizationException $error) {
+//            return response()->json('you are not allowed to update this content', 401);
+//        }
 
         $media = $ink->media;
         return response()->json($media->updateMedia($request), 200);

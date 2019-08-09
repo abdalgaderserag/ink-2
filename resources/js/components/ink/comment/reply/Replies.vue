@@ -1,10 +1,10 @@
 <template>
     <div>
-        <div v-if="comments.length != 0">
-            <div v-for="comment in comments">
-                <reply :comment="getComment(comment)"></reply>
-            </div>
+        <!--<div v-if="comments.length != 0">-->
+        <div v-for="comment in comments">
+            <reply :comment="getComment(comment)"></reply>
         </div>
+        <!--</div>-->
     </div>
 </template>
 
@@ -19,7 +19,6 @@
         },
         methods: {
             getComment: function (comment) {
-                console.log(comment);
                 if (comment.media.media) {
                     let media = comment.media.media;
                     try {

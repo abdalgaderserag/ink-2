@@ -4,28 +4,26 @@
             <div>
                 <img style="height: 48px;border-radius: 50%;" :src="comment.user.avatar" alt="">
             </div>
-            <div>
-                <div>
-                    <span><a href="/profile" class="link-clear"
-                             style="font-size: 2vh;">{{ comment.user.name }}</a></span>
+            <div style="width: 94%">
+                <div class="flex-box">
+                    <span>
+                        <a :href="`/profile/${comment.user.slug}`" class="link-clear"
+                           style="font-size: 2vh;padding: 0 4px;color: #f98835">{{ comment.user.name }}</a>
+                    </span>
+                    <div style="padding: 0 10px">
+                        <div class="card-menu" style="display:none;">
+                            <div>share</div>
+                            <div @click="editComment()">edit</div>
+                            <div @click="deleteComment()">delete</div>
+                            <div>report</div>
+                        </div>
+                        <svg @click="cardMenu" class="arrow"
+                             viewBox="-300.7 388.6 10.1 17.4" id="arrow" width="100%" height="100%">
+                            <path d="M-290.6,404.6l-1.4,1.4l-8-8l-0.7-0.7l0.7-0.7l8-8l1.4,1.4l-7.3,7.3L-290.6,404.6z"></path>
+                        </svg>
+                    </div>
                 </div>
                 <div>{{ comment.media.text }}</div>
-
-
-                <div>
-                <span style="padding: 0 10px">
-                    <div class="card-menu" style="display:none;">
-                        <div>share</div>
-                        <div @click="editComment()">edit</div>
-                        <div @click="deleteComment()">delete</div>
-                        <div>report</div>
-                    </div>
-                    <svg @click="cardMenu" class="arrow"
-                         viewBox="-300.7 388.6 10.1 17.4" id="arrow" width="100%" height="100%">
-                        <path d="M-290.6,404.6l-1.4,1.4l-8-8l-0.7-0.7l0.7-0.7l8-8l1.4,1.4l-7.3,7.3L-290.6,404.6z"></path>
-                    </svg>
-                </span>
-                </div>
 
 
                 <div v-for="image in comment.media.media">
@@ -57,11 +55,10 @@
             }
         },
         mounted() {
-            console.log(this.comment);
-            if (this.comment.isLiked == 0)
-                this.likeUrl = 'hard-fill.svg';
-            else if (this.comment.isLiked == 1)
+            if (this.comment.isLiked == 1)
                 this.likeUrl = 'hard-fill-color.svg';
+            else
+                this.likeUrl = 'hard-fill.svg';
         },
         methods: {
             cardMenu: function (e) {
