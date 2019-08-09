@@ -40,3 +40,5 @@ Route::delete('notifications/delete-read', 'Notification\NotificationController@
 Route::get('notifications/mark-all-as-read', 'Notification\NotificationController@notifications');
 
 });
+
+Route::apiResource('admin', 'Admin\AdminController');
