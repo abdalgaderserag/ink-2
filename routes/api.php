@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 */
 
 
-Route::middleware('auth:api')->group(function () {
+//Route::middleware('auth:api')->group(function () {
 
     Route::post('like', 'Api\LikeController');
     Route::post('upload', 'Api\UploaderController');
@@ -37,8 +37,7 @@ Route::get('notifications/mark-as-read/{uuid}', 'Notification\NotificationContro
 Route::get('notifications/unread', 'Notification\NotificationController@getUnreadNotification');
 Route::delete('notifications/delete-read', 'Notification\NotificationController@deleteReadNotification');
 Route::get('notifications/mark-all-as-read', 'Notification\NotificationController@notifications');
-
-});
+//});
 
 Route::get('main', 'Api\MainPageController');
 

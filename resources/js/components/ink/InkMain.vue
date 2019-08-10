@@ -22,7 +22,7 @@
         mounted() {
             let url;
             if (document.location.pathname == '/profile')
-                url = '/api/profile/ink ';
+                url = '/api/ink ';
             else if (document.location.pathname == '/')
                 url = '/api/main';
             else

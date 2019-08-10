@@ -14,7 +14,11 @@ use Illuminate\Support\Facades\DB;
 class InkController extends Controller
 {
 
-    use EditControllerTrait;
+
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
 
     /**
      * Display a listing of the resource.
