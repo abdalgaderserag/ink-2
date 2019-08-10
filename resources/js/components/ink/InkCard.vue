@@ -122,7 +122,7 @@
                 return out;
             },
 
-            // show the edit delete menue
+            // show the edit delete menu
             cardMenu: function (e) {
                 let card = this.$el.getElementsByClassName('card-menu')[0];
                 card.style.display = 'block';

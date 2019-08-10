@@ -48,7 +48,7 @@
                     <input class="comment-button" @click="storeComment()" @submit="storeComment()" type="button"
                            value="Comment">
                 </div>
-                <replies v-if="showRp" :comments="comments"></replies>
+                <replies v-if="showRp && show" :comments="comments"></replies>
             </div>
         </div>
     </div>
@@ -61,6 +61,7 @@
             return {
                 like: 'hard-fill.svg',
                 comments: [],
+                show: false,
                 showRp: false,
                 firstTime: true,
 
@@ -93,6 +94,7 @@
                     url = 'hard-fill-color.svg';
                 this.like = url;
             },
+
             upload: function (e) {
                 let read = new FileReader();
                 read.readAsDataURL(e.target.files[0]);
@@ -104,14 +106,17 @@
                         });
                 }
             },
+
             showReplies: function () {
-                this.showRp = true;
+                this.showRp = !this.showRp;
 
                 if (this.firstTime)
                     this.getReplies();
 
-                this.firstTime = true;
+                this.firstTime = false;
+
             },
+
             storeComment: function () {
                 let data = {
                     comment_id: this.comment.id,
@@ -133,12 +138,14 @@
                             this.comment.comment++;
                         });
             },
+
             cardMenu: function (e) {
                 let card = this.$el.getElementsByClassName('card-menu')[0];
                 card.style.display = 'block';
                 card.style.left = (e.clientX - card.offsetWidth) + 'px';
                 card.style.top = (e.clientY + 6) + 'px';
             },
+
             getReplies: function () {
                 axios.get('/api/comment/?comment=' + this.comment.id)
                     .then((response) => {
@@ -148,9 +155,10 @@
                             this.comments[i].isLiked = response.data[1][i].isLiked;
                             this.comments[i].comment = response.data[1][i].comment;
                         }
-                        // this.showRp = true;
+                        this.show = true
                     });
             },
+
             editComment: function () {
                 mediaTemp = {
                     text: this.comment.media.text,
@@ -185,6 +193,7 @@
                     document.getElementById('pop-up').style.display = 'none';
                 };
             },
+
             deleteComment: function () {
                 axios.delete('/api/comment/' + this.comment.id)
                     .then(response => {
@@ -200,6 +209,7 @@
                         par.ink.comment--;
                     });
             },
+
             liked: function () {
                 axios.post('/api/like', {
                     comment_id: this.comment.id,
