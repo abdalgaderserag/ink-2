@@ -77,7 +77,17 @@
                 text.value = text.value.slice(0, text.value.length - 1);
                 let id = this.comment.id;
                 let save = document.getElementById('save');
+
                 save.onclick = () => {
+
+                    let meds = document.getElementById('images-edit');
+                    let media = [];
+
+                    if (meds.childElementCount != 0)
+                        for (let i = 0; i < meds.childElementCount; i++) {
+                            media[i] = meds.children[i].children[0].attributes.src.value;
+                        }
+
                     if (text.value == '')
                         return;
                     axios.put('/api/comment/' + id, {

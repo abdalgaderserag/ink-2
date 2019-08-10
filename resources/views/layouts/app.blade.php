@@ -120,7 +120,7 @@ ${mediaTemp.text}
 <img src="/images/ink/attachment.svg">
 <span>Add image or video or Gif</span>
 </div>
-<div class="flex-box images-pop">
+<div id="images-edit" class="flex-box images-pop">
 ${ getImages() }
 </div>
 <div class="pop-buttons">
@@ -149,7 +149,7 @@ Save
     function getImage(src) {
         return `<div class="flex-box pop-icon">
 <img class="image" src="${ src }">
-<div>
+<div onclick="event.target.parentElement.parentElement.remove();">
 <svg>
 <path d="m4 8 l8 0" style="stroke: white;"/>
 </svg>

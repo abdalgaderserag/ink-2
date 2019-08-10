@@ -227,9 +227,18 @@
                 let id = this.ink.id;
                 let save = document.getElementById('save');
                 save.onclick = () => {
+
+                    let meds = document.getElementById('images-edit');
+                    let media = [];
+
+                    if (meds.childElementCount != 0)
+                        for (let i = 0; i < meds.childElementCount; i++) {
+                            media[i] = meds.children[i].children[0].attributes.src.value;
+                        }
+
                     axios.put('/api/ink/' + id, {
                         text: text.value,
-                        media: mediaTemp.media,
+                        media: media,
                     });
                     this.ink.media.text = text.value;
                     this.ink.media.media = mediaTemp.media;
@@ -271,6 +280,7 @@
                             comment.user = this.$root.user;
                             this.comments.unshift(comment);
                             this.commentText = '';
+                            this.mediaPath = [];
                             this.ink.comment++;
                         });
             },
