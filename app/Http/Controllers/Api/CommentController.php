@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use App\Comment;
 use App\Media;
-use App\Traits\EditControllerTrait;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -13,7 +12,6 @@ use Illuminate\Support\Facades\DB;
 
 class CommentController extends Controller
 {
-    use EditControllerTrait;
 
 
     /**

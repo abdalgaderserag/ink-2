@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use App\Ink;
 use App\Media;
-use App\Traits\EditControllerTrait;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -15,10 +14,6 @@ class InkController extends Controller
 {
 
 
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
 
     /**
      * Display a listing of the resource.
@@ -27,6 +22,7 @@ class InkController extends Controller
      */
     public function index()
     {
+
         $inks = Ink::where('user_id', Auth::id())->orderBy('created_at', 'desc');
         $data[0] = $inks->get();
         $i = 0;

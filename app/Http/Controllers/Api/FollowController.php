@@ -4,13 +4,11 @@ namespace App\Http\Controllers\Api;
 
 use App\Follow;
 use App\Http\Controllers\Controller;
-use App\Traits\EditControllerTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class FollowController extends Controller
 {
-    use EditControllerTrait;
 
     /**
      * Display a listing of the resource.

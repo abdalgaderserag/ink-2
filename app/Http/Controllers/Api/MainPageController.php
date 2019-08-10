@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Ink;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\UnauthorizedException;
 
 class MainPageController extends Controller
 {
@@ -19,7 +20,6 @@ class MainPageController extends Controller
     public function __invoke()
     {
         $inks = Ink::orderBy('created_at', 'desc')->get();
-//        $inks = Ink::all();
         $data[0] = $inks;
         $i = 0;
         foreach ($data[0] as $ink) {
