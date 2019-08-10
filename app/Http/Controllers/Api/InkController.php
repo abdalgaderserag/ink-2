@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Requests\MediaRequest;
 use App\Ink;
 use App\Media;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -49,7 +50,7 @@ class InkController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MediaRequest $request)
     {
         try {
             $this->authorize('inks.create');
@@ -104,7 +105,7 @@ class InkController extends Controller
      * @param  \App\Ink $ink
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Ink $ink)
+    public function update(MediaRequest $request, Ink $ink)
     {
 
 //        try {

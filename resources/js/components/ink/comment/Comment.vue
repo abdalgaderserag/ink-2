@@ -32,8 +32,8 @@
 
                 <div class="flex-box" style="justify-content: flex-start;padding: 0 2%;">
                     <div>
-                        <img @click="liked()" :src="'/images/ink/' + like" style="width: 24px" alt="">
-                        <span>{{ comment.like }}</span>
+                        <img @click="liked()" ref="like" src="/images/ink/hard-fill.svg" style="width: 24px" alt="">
+                        <span class="like-span">{{ comment.like }}</span>
                     </div>
                     <div>
                         <img src="/images/ink/comment.svg" style="width: 24px;margin: 0 0 0 12px" alt="">
@@ -84,16 +84,20 @@
             //     this.likeUrl = 'hard-fill.svg';
             // else
             //     this.likeUrl = 'hard-fill-color.svg';
-            this.likeUrl();
+            if (this.comment.isLiked == 1)
+                this.$refs.like.attributes.src.value = '/images/ink/hard-fill-color.svg';
+            else
+                this.$refs.like.attributes.src.value = '/images/ink/hard-fill.svg';
+            // this.likeUrl();
         },
         methods: {
-            likeUrl: function (url = '') {
-                if (this.comment.isLiked == 0)
-                    url = 'hard-fill.svg';
-                else
-                    url = 'hard-fill-color.svg';
-                this.like = url;
-            },
+            // likeUrl: function (url = '') {
+            //     if (this.comment.isLiked == 0)
+            //         url = 'hard-fill.svg';
+            //     else
+            //         url = 'hard-fill-color.svg';
+            //     this.like = url;
+            // },
 
             upload: function (e) {
                 let read = new FileReader();
@@ -214,11 +218,14 @@
                 axios.post('/api/like', {
                     comment_id: this.comment.id,
                 }).then((response) => {
+                    let like = this.$el.getElementsByClassName('like-span')[0];
                     if (response.data == "") {
-                        this.like = 'hard-fill.svg';
+                        like.innerText = Number.parseInt(like.innerText) - 1;
+                        this.$refs.like.attributes.src.value = '/images/ink/hard-fill.svg';
                         this.comment.like--;
                     } else if (response.data == 1) {
-                        this.like = 'hard-fill-color.svg';
+                        like.innerText = Number.parseInt(like.innerText) + 1;
+                        this.$refs.like.attributes.src.value = '/images/ink/hard-fill-color.svg';
                         this.comment.like++;
                     }
                 });

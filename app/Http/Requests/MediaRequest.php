@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class MediaRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class MediaRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return Auth::check();
     }
 
     /**
@@ -24,7 +25,8 @@ class MediaRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'text' => ['required_if:text,null', 'String', 'max:511'],
+            'media' => ['required_if:media,null', 'Array', 'max:25'],
         ];
     }
 }

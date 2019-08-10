@@ -30,6 +30,7 @@
                 </span>
             </div>
         </div>
+
         <div class="card-body">
             <div @click="hideEvent" class="media">
                 <span style="font-size: 4vh" v-html="getHashTag(ink.media.text)"></span>
@@ -40,8 +41,8 @@
             <div class="card-footer flex-box">
                 <div class="flex-box">
                     <div class="card-interact">
-                        <img @click="liked()" :src="'/images/ink/' + like" alt="">
-                        <span>{{ ink.like }}</span>
+                        <img ref="like" @click="liked()" src="/images/ink/hard-fill.svg" alt="">
+                        <span class="like-span">{{ ink.like }}</span>
                     </div>
                     <div class="card-interact">
                         <img src="/images/ink/comment.svg" alt="">
@@ -78,9 +79,6 @@
                 showComments: false,
                 mediaPath: [],
                 mediaSrc: [],
-
-                // like
-                like: '',
             }
         },
         props: {
@@ -93,9 +91,9 @@
             if (this.ink.media.media)
                 this.reSizeImages();
             if (this.ink.isLiked == 1)
-                this.like = 'hard-fill-color.svg';
+                this.$refs.like.attributes.src.value = '/images/ink/hard-fill-color.svg';
             else
-                this.like = 'hard-fill.svg';
+                this.$refs.like.attributes.src.value = '/images/ink/hard-fill.svg';
         },
         methods: {
 
@@ -290,12 +288,15 @@
                 axios.post('/api/like', {
                     ink_id: this.ink.id,
                 }).then((response) => {
+                    let like = this.$el.getElementsByClassName('like-span')[0];
                     if (response.data == "") {
-                        this.like = 'hard-fill.svg';
                         this.ink.like--;
+                        like.innerText = Number.parseInt(like.innerText) - 1;
+                        this.$refs.like.attributes.src.value = '/images/ink/hard-fill.svg';
                     } else {
-                        this.like = 'hard-fill-color.svg';
                         this.ink.like++;
+                        like.innerText = Number.parseInt(like.innerText) + 1;
+                        this.$refs.like.attributes.src.value = '/images/ink/hard-fill-color.svg';
                     }
                 });
             }

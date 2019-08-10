@@ -9,9 +9,15 @@ use Illuminate\Support\Facades\Storage;
 
 class UploaderController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
+
     /**
      * Handle the incoming request.
      *
+     * @throws
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */

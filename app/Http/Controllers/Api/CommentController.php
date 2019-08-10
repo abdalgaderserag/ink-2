@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Comment;
+use App\Http\Requests\MediaRequest;
 use App\Media;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
@@ -58,7 +59,7 @@ class CommentController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MediaRequest $request)
     {
 
 //        try {
@@ -112,7 +113,7 @@ class CommentController extends Controller
      * @param  \App\Comment $comment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Comment $comment)
+    public function update(MediaRequest $request, Comment $comment)
     {
 
         try {
