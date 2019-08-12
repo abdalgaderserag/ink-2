@@ -153,6 +153,7 @@ Save
 
     function addedImage(src) {
         document.getElementById('images-edit').innerHTML = document.getElementById('images-edit').innerHTML + getImage(src);
+        mediaTemp.media.push(src);
     }
 
     function getImages() {

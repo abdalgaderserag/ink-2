@@ -43,24 +43,14 @@ class Media extends Model
     }
 
 
-    public function updateMedia(Request $request)
+    public function fetchMediaString(Request $request)
     {
-        $media = $this;
         $mei = '';
         if ($request->media != []) {
             foreach ($request->media as $media) {
                 $mei = $mei . $media . ',';
             }
         }
-
-
-        $data = [
-            'text' => $request->text,
-            'media' => $mei,
-            'user_id' => Auth::id(),
-        ];
-
-        $media->update($data);
-        return $media;
+        return $mei;
     }
 }

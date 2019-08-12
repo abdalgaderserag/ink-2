@@ -94,7 +94,10 @@ class InkController extends Controller
     {
         $media = $ink->media;
         $media->validate($request);
-        return response()->json($media->updateMedia($request), 200);
+        $media->text = $request->text;
+        $media->media = $media->fetchMediaString($request);
+        $media->save();
+        return response()->json($media, 200);
     }
 
     /**
