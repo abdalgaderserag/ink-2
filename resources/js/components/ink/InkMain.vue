@@ -1,6 +1,11 @@
 <template>
     <div class="ink-main">
 
+        <div @click="createInk()"
+             style="background: linear-gradient(to left, #FC4027, #f98835);border-radius: 50%;height:60px;position: fixed;right: 36px;bottom: 38px;box-shadow: 1px 1px 10px #919191a8;">
+            <img src="/images/ink/ink.png" alt="">
+        </div>
+
         <div v-if="nullInks" v-for="(ink,index) in inks">
             <ink-card :ink="getInk(ink,index)"></ink-card>
         </div>
@@ -63,6 +68,45 @@
                     }
                 }
                 return ink;
+            },
+            createInk: function () {
+                mediaTemp = {
+                    text: '',
+                    media: [],
+                };
+                pop();
+                let text = document.getElementById('pop-text');
+                text.value = text.value.slice(0, text.value.length - 1);
+                let save = document.getElementById('save');
+                save.onclick = () => {
+
+                    let meds = document.getElementById('images-edit');
+                    let media = [];
+
+                    if (meds.childElementCount != 0)
+                        for (let i = 0; i < meds.childElementCount; i++) {
+                            media[i] = meds.children[i].children[0].attributes.src.value;
+                        }
+
+                    axios.post('/api/ink', {
+                        text: text.value,
+                        media: media,
+                    }).then((response) => {
+                        let ink = response.data;
+                        ink.media = media.toString() + ',';
+                        this.interact.unshift({
+                            comment: 0,
+                            like: 0,
+                            isLiked: 0
+                        });
+
+                        this.inks.unshift(ink);
+                    });
+                    text.value = '';
+                    mediaTemp.media = [];
+                    mediaTemp.text = '';
+                    document.getElementById('pop-up').style.display = 'none';
+                };
             }
         }
     }
