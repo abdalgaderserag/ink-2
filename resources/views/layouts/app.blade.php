@@ -116,7 +116,8 @@ Edit Comment</div>
 <textarea id="pop-text" cols="30" rows="10">
 ${mediaTemp.text}
 </textarea>
-<div class="attachment flex-box">
+<input style="display: none" type="file" id="upload-ink">
+<div onclick="event.preventDefault();document.getElementById('upload-ink').click();" class="attachment flex-box">
 <img src="/images/ink/attachment.svg">
 <span>Add image or video or Gif</span>
 </div>
@@ -134,6 +135,24 @@ Save
 </div>`;
         //    bind draw
         document.getElementById('pop-up').innerHTML = element;
+        ready();
+    }
+
+    function ready() {
+        document.getElementById('upload-ink').onchange = (e) => {
+            let read = new FileReader();
+            read.readAsDataURL(e.target.files[0]);
+            read.onload = () => {
+                axios.post('/api/upload', {result: read.result})
+                    .then(response => {
+                        addedImage(response.data.path);
+                    });
+            }
+        };
+    }
+
+    function addedImage(src) {
+        document.getElementById('images-edit').innerHTML = document.getElementById('images-edit').innerHTML + getImage(src);
     }
 
     function getImages() {
@@ -148,7 +167,7 @@ Save
 
     function getImage(src) {
         return `<div class="flex-box pop-icon">
-<img class="image" src="${ src }">
+<img style="object-fit: cover;" class="image" src="${ src }">
 <div onclick="event.target.parentElement.parentElement.remove();">
 <svg>
 <path d="m4 8 l8 0" style="stroke: white;"/>
