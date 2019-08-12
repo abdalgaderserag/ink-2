@@ -22,7 +22,6 @@ class InkController extends Controller
      */
     public function index()
     {
-
         $inks = Ink::where('user_id', Auth::id())->orderBy('created_at', 'desc');
         $data[0] = $inks->get();
         $i = 0;

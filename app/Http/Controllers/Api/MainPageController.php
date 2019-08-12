@@ -30,6 +30,11 @@ class MainPageController extends Controller
             $data[1][$i]['comment'] = DB::table('comments')
                 ->where('ink_id', $ink->id)->count();
 
+            if (Auth::guard('api')->check())
+                $data[1][$i]['isLiked'] = DB::table('likes')
+                    ->where('user_id', Auth::guard('api')->id())
+                    ->where('ink_id', $ink->id)->count();
+
             $i++;
         }
         return response()->json($data, 200);
