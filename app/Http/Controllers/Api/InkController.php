@@ -15,7 +15,6 @@ class InkController extends Controller
 {
 
 
-
     /**
      * Display a listing of the resource.
      *
@@ -50,31 +49,18 @@ class InkController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(MediaRequest $request)
+    public function store(Request $request)
     {
-        try {
-            $this->authorize('inks.create');
-        } catch (AuthorizationException $error) {
-            return response()->json('you are not allowed to create this content', 401);
-        }
-
         $ink = new Ink();
         $ink->user_id = Auth::id();
 
-        /*$media = new Media();
-        $media->text = $request->text;
-        if (isset($request->media)) {
-            foreach ($request->media as $media) {
-                $media->media = $media->media . $media . ',';
-            }
-        }*/
-
         $ink->save();
-//        $media->save();
+
         $media = Media::setMedia($request);
+        $media->validate($request);
+
         $media->ink_id = $ink->id;
         $media->save();
-
         $data[0] = $ink;
         $data[1] = $media;
         return response()->json($data, 200);
@@ -105,16 +91,10 @@ class InkController extends Controller
      * @param  \App\Ink $ink
      * @return \Illuminate\Http\Response
      */
-    public function update(MediaRequest $request, Ink $ink)
+    public function update(Request $request, Ink $ink)
     {
-
-//        try {
-//            $this->authorize('inks.update');
-//        } catch (AuthorizationException $error) {
-//            return response()->json('you are not allowed to update this content', 401);
-//        }
-
         $media = $ink->media;
+        $media->validate($request);
         return response()->json($media->updateMedia($request), 200);
     }
 

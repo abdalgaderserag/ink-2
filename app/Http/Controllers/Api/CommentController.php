@@ -22,11 +22,6 @@ class CommentController extends Controller
      */
     public function index()
     {
-//        try {
-//        $this->authorize('comments.view');
-//        } catch (AuthorizationException $error) {
-//            return response()->json('you are not allowed to see this content.\n' . $error, 401);
-//        }
 
         if (isset($_GET['comment']))
             $data[0] = Comment::where('comment_id', $_GET['comment'])->with('media', 'user')->orderBy('created_at', 'desc')->get();
@@ -59,15 +54,8 @@ class CommentController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(MediaRequest $request)
+    public function store(Request $request)
     {
-
-//        try {
-        $this->authorize('comments.create');
-//        } catch (AuthorizationException $error) {
-//            return response()
-//                ->json('you are not allowed to create this comment.\n' . $error, 401);
-//        }
 
         $comment = new Comment();
         $comment->user_id = Auth::id();
@@ -79,6 +67,7 @@ class CommentController extends Controller
         $comment->save();
 
         $media = Media::setMedia($request);
+        $media->validate($request);
         $media->comment_id = $comment->id;
         $media->save();
 
@@ -113,17 +102,10 @@ class CommentController extends Controller
      * @param  \App\Comment $comment
      * @return \Illuminate\Http\Response
      */
-    public function update(MediaRequest $request, Comment $comment)
+    public function update(Request $request, Comment $comment)
     {
-
-        try {
-            $this->authorize('comments.update', $comment);
-        } catch (AuthorizationException $error) {
-            return response()
-                ->json('you are not allowed to update this comment.\n' . $error, 401);
-        }
-
         $media = $comment->media;
+        $media->validate($request);
         $comment->media = $media->updateMedia($request);
         return response()->json($comment, 200);
     }
@@ -137,12 +119,6 @@ class CommentController extends Controller
      */
     public function destroy(Comment $comment)
     {
-        try {
-            $this->authorize('comments.delete', $comment);
-        } catch (AuthorizationException $error) {
-            return response()
-                ->json('you are not allowed to delete this comment.\n' . $error, 401);
-        }
         $comment->delete();
         return response()->json($comment, 200);
     }

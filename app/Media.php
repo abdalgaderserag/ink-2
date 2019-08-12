@@ -12,6 +12,11 @@ class Media extends Model
         'text', 'media', 'comment_id', 'ink_id',
     ];
 
+    public function validate(Request $request)
+    {
+        if ($request->text == '' && $request->media == [])
+            return response()->json('you should enter some data', 502);
+    }
 
     /**
      * dynamic create the media with out save

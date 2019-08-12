@@ -50,14 +50,16 @@ class LikeObserver
      */
     public function deleted(Like $like)
     {
-        if (!empty($like->ink_id))
+        if (!empty($like->ink_id)) {
             $type = 'ink';
-        else if (!empty($like->comment_id))
+            $hold = $like->ink()->dissociate();
+        } else if (!empty($like->comment_id)) {
             $type = 'comment';
-        else
+            $hold = $like->ink()->dissociate();
+        } else
             return;
 
-        $user = $like[$type]->user;
+        $user = $hold->user;
 
         foreach ($user->notifications as $notification) {
             if (!empty($notification['data']['like']))
