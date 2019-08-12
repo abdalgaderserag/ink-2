@@ -28,6 +28,7 @@ window.Vue = require('vue');
 
 Vue.component('ink-main', require("./components/ink/InkMain").default);
 Vue.component('ink-card', require("./components/ink/InkCard").default);
+Vue.component('empty-ink-card', require("./components/ink/EmptyInkCard").default);
 Vue.component('comment', require("./components/ink/comment/Comment").default);
 Vue.component('comments', require("./components/ink/comment/Comments").default);
 Vue.component('replies', require("./components/ink/comment/reply/Replies").default);

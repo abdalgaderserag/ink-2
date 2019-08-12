@@ -106,7 +106,10 @@ class CommentController extends Controller
     {
         $media = $comment->media;
         $media->validate($request);
-        $comment->media = $media->updateMedia($request);
+        $media->text = $request->text;
+        $media->media = $media->fetchMediaString($request);
+        $media->save();
+        $comment->media = $media;
         return response()->json($comment, 200);
     }
 

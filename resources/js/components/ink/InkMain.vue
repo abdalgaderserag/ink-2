@@ -6,6 +6,14 @@
             <img src="/images/ink/ink.png" alt="">
         </div>
 
+        <div class="temp-ink">
+            <empty-ink-card></empty-ink-card>
+            <empty-ink-card></empty-ink-card>
+            <empty-ink-card></empty-ink-card>
+            <empty-ink-card></empty-ink-card>
+            <empty-ink-card></empty-ink-card>
+        </div>
+
         <div v-if="nullInks" v-for="(ink,index) in inks">
             <ink-card :ink="getInk(ink,index)"></ink-card>
         </div>
@@ -37,6 +45,7 @@
                 .then(response => {
                     this.inks = response.data[0];
                     this.interact = response.data[1];
+                    document.getElementsByClassName('temp-ink')[0].remove();
                 })
                 .catch(error => {
                     this.$root.message = 'problem while loading inks try refresh or try an other time.';
