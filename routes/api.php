@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,8 +37,6 @@ Route::middleware('auth:api')->group(function () {
     Route::delete('notifications/delete-read', 'Notification\NotificationController@deleteReadNotification');
     Route::get('notifications/mark-all-as-read', 'Notification\NotificationController@notifications');
 });
-
-
 
 
 Route::apiResource('admin', 'Admin\AdminController');
