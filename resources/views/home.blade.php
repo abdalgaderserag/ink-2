@@ -7,8 +7,7 @@
 
 @section('content')
     <div class="left-section">
-        <div>
-        </div>
+        <chat></chat>
     </div>
     <div class="flex-box main-section">
         <div class="main">

@@ -71,12 +71,12 @@
 </div>
 <script>
 
+    window.axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.access_token}`;
 
     //cla height.
     let nav = document.getElementsByClassName('nav-bar')[0];
     let height = window.innerHeight - nav.offsetHeight;
 
-    window.axios.defaults.headers.common["Authorization"] = `Bearer ${ localStorage.access_token }`;
     let mediaTemp;
     let app = new Vue({
         el: '#app',
@@ -122,7 +122,7 @@ ${mediaTemp.text}
 <span>Add image or video or Gif</span>
 </div>
 <div id="images-edit" class="flex-box images-pop">
-${ getImages() }
+${getImages()}
 </div>
 <div class="pop-buttons">
 <span onclick="document.getElementById('pop-up').style.display = 'none';">
@@ -168,7 +168,7 @@ Save
 
     function getImage(src) {
         return `<div class="flex-box pop-icon">
-<img style="object-fit: cover;" class="image" src="${ src }">
+<img style="object-fit: cover;" class="image" src="${src}">
 <div onclick="event.target.parentElement.parentElement.remove();">
 <svg>
 <path d="m4 8 l8 0" style="stroke: white;"/>
@@ -177,7 +177,19 @@ Save
 </div>`;
     }
 
+
     @yield('foot-script')
+
+        window.onresize = function () {
+        height = window.innerHeight - nav.offsetHeight;
+
+        //bind the height to views.
+        if (document.getElementsByClassName('left-section').length !== 0) {
+            document.getElementsByClassName('left-section')[0].style.height = height + 'px';
+            document.getElementsByClassName('main-section')[0].style.height = height + 'px';
+            document.getElementsByClassName('main')[0].style.minHeight = 1 + height + 'px';
+        }
+    };
 </script>
 </body>
 </html>

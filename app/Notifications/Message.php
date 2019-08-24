@@ -6,6 +6,7 @@ use App\Media;
 use Illuminate\Bus\Queueable;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\Auth;
 
 class Message extends Notification
 {
@@ -17,12 +18,14 @@ class Message extends Notification
      * Create a new notification instance.
      *
      * @param Request $request
+     * @param $id
      * @return void
      */
     public function __construct(Request $request)
     {
         $data['text'] = $request->text;
         $data['media'] = $request->media;
+        $data['user_id'] = Auth::id();
         $this->data = $data;
     }
 

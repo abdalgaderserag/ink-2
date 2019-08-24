@@ -35,9 +35,14 @@ class ChatController extends Controller
      */
     public function store(Request $request)
     {
-        $chat = Chat::where('first_user', Auth::id())->where('second_user', $request->user_id);
-        if ($chat->exists)
-            return response()->json('');
+        foreach (Chat::all() as $chat) {
+            if ($chat->first_user == Auth::id() && $chat->second == $chat->second_user) {
+                return response()->json('');
+            }
+            if ($chat->first_user == $chat->second_user && $chat->second == Auth::id()) {
+                return response()->json('');
+            }
+        }
         $chat = new Chat();
         $chat->first_user = Auth::id();
         $chat->second_user = $request->user_id;

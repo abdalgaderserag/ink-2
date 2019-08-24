@@ -5,15 +5,14 @@
   .main-section {
     width: 100%;
     margin-left: 0;
+
     .main {
       width: 100%;
     }
+
     .right-section {
       display: none;
     }
-  }
-  .left-section {
-    display: none;
   }
 
   .search {
@@ -26,11 +25,11 @@
 @media only screen and (min-width: 960px) {
   .main-section {
     width: 84%;
-    margin-left: 16%;
 
     .main {
       width: 75%;
     }
+
     .right-section {
       width: 25%;
     }
@@ -71,51 +70,64 @@ body {
   padding: 0 10%;
   //position: fixed;
   width: 80%;
+
   .g {
     width: 50%;
   }
+
   .g1 {
     justify-content: flex-start;
+
     .logo-title {
       font-size: 5vh;
       color: $white;
       padding: 14px 4% 0 0;
     }
+
     .search {
       width: 100%;
       padding: 6px 0 0 0;
+
       input {
         margin: 12px 0 0 0;
         border: 1px solid $white;
         padding: 6px 1.5% 4px 1.5%;
         border-radius: 2px;
       }
+
       input::placeholder {
         font-size: 2.4vh;
       }
     }
   }
+
   .g2 {
     justify-content: flex-end;
+
     .notifications {
       margin-right: 5%;
       padding: 18px 0 0 0;
+
       img {
         width: 24px;
       }
     }
+
     .nav-avatar {
       margin-right: 4%;
       padding: 5px 0 0 0;
+
       img {
         width: 48px;
         border-radius: 50%;
         border: 2px solid $white;
       }
     }
+
     .nav-menu {
       padding: 7px 0 0 0;
       cursor: pointer;
+
       img {
         width: 34px;
       }
@@ -130,17 +142,11 @@ body {
 
   .left-section {
     width: $leftWidth;
-    //height: -webkit-fill-available;
-    position: fixed;
-    //margin-top: 63px;
     background-color: #f4f4f4;
   }
 
   .main-section {
     overflow-x: auto;
-    //padding: 101px 0 0 0;
-    //height: -webkit-fill-available;
-
   }
 }
 

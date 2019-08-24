@@ -38,6 +38,10 @@ Vue.component('reply', require("./components/ink/comment/reply/Reply").default);
 
 Vue.component('notifications', require("./components/Notifications/Notifications").default);
 
+Vue.component('chat', require("./components/Notifications/chat/Chat").default);
+Vue.component('chat-card', require("./components/Notifications/chat/ChatCard").default);
+Vue.component('chat-view', require("./components/Notifications/chat/ChatView").default);
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
