@@ -9,6 +9,10 @@ class Chat extends Model
 {
     use Notifiable;
 
+    protected $with = [
+        'first', 'second'
+    ];
+
     public function notifications()
     {
         return $this->morphMany(DatabaseMessage::class, 'notifiable')->orderBy('created_at', 'desc');

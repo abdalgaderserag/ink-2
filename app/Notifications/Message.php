@@ -11,6 +11,8 @@ class Message extends Notification
 {
     use Queueable;
 
+    protected $data;
+
     /**
      * Create a new notification instance.
      *
@@ -19,8 +21,9 @@ class Message extends Notification
      */
     public function __construct(Request $request)
     {
-        $media = Media::setMedia($request);
-        $media->save();
+        $data['text'] = $request->text;
+        $data['media'] = $request->media;
+        $this->data = $data;
     }
 
     /**
@@ -42,8 +45,6 @@ class Message extends Notification
      */
     public function toArray($notifiable)
     {
-        return [
-            //
-        ];
+        return $this->data;
     }
 }

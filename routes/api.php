@@ -24,6 +24,7 @@ Route::middleware('auth:api')->group(function () {
 
     Route::get('profile/ink', 'UserController@profileInk');
 
+    Route::apiResource('chat', 'Message\ChatController')->except('destroy');
 
     Route::apiResource('share', 'Api\ShareController');
     Route::apiResource('comment', 'Api\CommentController');
@@ -36,7 +37,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('notifications/unread', 'Notification\NotificationController@getUnreadNotification');
     Route::delete('notifications/delete-read', 'Notification\NotificationController@deleteReadNotification');
     Route::get('notifications/mark-all-as-read', 'Notification\NotificationController@notifications');
+
 });
 
-Route::apiResource('chat', 'Message\ChatController');
 Route::apiResource('admin', 'Admin\AdminController');
