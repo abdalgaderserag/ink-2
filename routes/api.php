@@ -38,5 +38,5 @@ Route::middleware('auth:api')->group(function () {
     Route::get('notifications/mark-all-as-read', 'Notification\NotificationController@notifications');
 });
 
-
+Route::apiResource('chat', 'Message\ChatController');
 Route::apiResource('admin', 'Admin\AdminController');
