@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Message;
 
-use App\Message;
+use App\Chat;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class MesageController extends Controller
+class ChatController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -32,10 +32,10 @@ class MesageController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Message  $message
+     * @param  \App\Chat  $message
      * @return \Illuminate\Http\Response
      */
-    public function show(Message $message)
+    public function show(Chat $message)
     {
         //
     }
@@ -44,10 +44,10 @@ class MesageController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Message  $message
+     * @param  \App\Chat  $message
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Message $message)
+    public function update(Request $request, Chat $message)
     {
         //
     }
@@ -55,10 +55,10 @@ class MesageController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Message  $message
+     * @param  \App\Chat  $message
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Message $message)
+    public function destroy(Chat $message)
     {
         //
     }
