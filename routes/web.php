@@ -17,7 +17,6 @@
 
 Route::middleware('auth')->group(function () {
     Route::get('/', 'HomeController@index');
-    Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/edit/profile', 'UserController@edit')->name('profile.edit');
     Route::put('/edit/profile', 'UserController@update')->name('profile.edit');
     Route::put('/delete/account', 'UserController@destory')->name('profile.delete');

@@ -16,11 +16,11 @@ class Chat extends Model
 
     public function first()
     {
-        return $this->belongsTo('App\User', 'first_id', 'id');
+        return $this->belongsTo('App\User', 'first_user', 'id');
     }
 
     public function second()
     {
-        return $this->belongsTo('App\User', 'second_id', 'id');
+        return $this->belongsTo('App\User', 'second_user', 'id');
     }
 }

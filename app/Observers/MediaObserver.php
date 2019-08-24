@@ -37,7 +37,7 @@ class MediaObserver
      */
     public function deleted(Media $media)
     {
-        $paths = explode(',', $media->media);
+        $paths = $media->media;
 
         foreach ($paths as $path)
             Storage::disk('public')->delete($path);

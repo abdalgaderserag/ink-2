@@ -33,9 +33,10 @@
 
         <div class="card-body">
             <div @click="hideEvent" class="media">
-                <span style="font-size: 4vh" v-html="getHashTag(ink.media.text)"></span>
-                <div v-if="ink.media.media" class="media-view" style="padding: 4%">
-                    <img v-for="(media,index) in ink.media.media" v-if="index<4" :src="media" alt="">
+                <span style="font-size: 4vh" v-if="ink.media.text" v-html="getHashTag(ink.media.text)"></span>
+                <div v-if="ink.media.media" class="media-view" style="padding: 4%;">
+                    <img v-for="(media,index) in ink.media.media" style="object-fit: cover" v-if="index<4" :src="media"
+                         alt="">
                 </div>
             </div>
             <div class="card-footer flex-box">
@@ -114,7 +115,7 @@
                     // bind the new hash to the old if avil
                     // it will add the hash to the old out var text
                     // remove from the loop text the hash by slice() function
-                    out = out + `<a href="/search?hash=${splited[0]}" class="hash-tag">${ '#' + splited[0]}</a> ${textArray[i].slice(splited[0].length, textArray[i].length)}`;
+                    out = out + `<a href="/search?hash=${splited[0]}" class="hash-tag">${'#' + splited[0]}</a> ${textArray[i].slice(splited[0].length, textArray[i].length)}`;
                 }
 
                 return out;
@@ -130,39 +131,54 @@
 
             // resize images by count
             reSizeImages: function () {
-                let mediaEle = document.getElementsByClassName('media-view')[0];
-                let height = mediaEle.offsetWidth / 1.75;
+                let mediaEle = this.$el.getElementsByClassName('media-view')[0];
+                let height = mediaEle.offsetWidth / (1.75 * 2);
                 let rad = '12px';
-                if (this.ink.media.media.length > 1) {
-                    for (let i = 0; i < this.ink.media.media.length; i++) {
+                let overflow = false;
+                let count = mediaEle.children.length;
+                if (count > 4) {
+                    count = 4;
+                    overflow = true;
+                }
 
-                        switch (i) {
-                            case 0:
-                                mediaEle.children[i].style.borderTopLeftRadius = rad;
-                                mediaEle.children[i].style.borderTopLeftRadius = rad;
-                                break;
-                            case 1:
-                                mediaEle.children[i].style.borderTopRightRadius = rad;
-                                mediaEle.children[i].style.borderBottomLeftRadius = rad;
-                                break;
-                            case 2:
-                                mediaEle.children[i].style.borderBottomLeftRadius = rad;
-                                mediaEle.children[0].style.borderBottomLeftRadius = 0;
-                                break;
-                            case 3:
-                                mediaEle.children[i].style.borderBottomRightRadius = rad;
-                                mediaEle.children[1].style.borderBottomLeftRadius = 0;
-                                break;
-                        }
+                for (let i = 0; i < count; i++) {
+                    let ele = mediaEle.children[i];
+                    let eles = mediaEle.children;
+                    ele.style.width = '50%';
+                    ele.style.height = height + 'px';
+                    if (i === 0) {
+                        ele.style.borderRadius = rad;
+                        ele.style.width = '100%';
+                        ele.style.marginBottom = '-5px';
+                    } else if (i === 1) {
+                        ele.style.marginBottom = '-5px';
 
-                        mediaEle.children[i].style.width = '50%';
-                        if (this.ink.media.media.length > 2) {
-                            mediaEle.children[i].style.height = Math.trunc(height * 0.4) + 'px';
-                        } else {
-                            mediaEle.children[i].style.height = Math.trunc(height * 0.8) + 'px';
-                        }
+                        eles[0].style.borderTopRightRadius = '0';
+                        eles[0].style.borderBottomRightRadius = '0';
+                        eles[0].style.width = '50%';
+
+                        eles[1].style.borderTopRightRadius = rad;
+                        eles[1].style.borderBottomRightRadius = rad;
+                    } else if (i === 2) {
+                        ele.style.borderTopLeftRadius = '0';
+                        ele.style.borderTopRightRadius = '0';
+                        ele.style.borderBottomRightRadius = rad;
+                        ele.style.borderBottomLeftRadius = rad;
+                        ele.style.width = '100%';
+
+                        eles[0].style.borderBottomLeftRadius = '0';
+                        eles[1].style.borderBottomRightRadius = '0';
+                    } else if (i === 3) {
+                        ele.style.borderBottomRightRadius = rad;
+
+                        eles[2].style.width = '50%';
+                        eles[2].style.borderBottomRightRadius = '0';
                     }
                 }
+
+                if (overflow)
+                    for (let i = 4; i < count; i++)
+                        mediaEle.children[i].remove();
             },
 
             // upload comment images

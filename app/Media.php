@@ -2,14 +2,20 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Support\Facades\Auth;
 
-class Media extends Model
+class Media extends DatabaseNotification
 {
+    protected $table = 'media';
+
+    protected $casts = [
+        'media' => 'array'
+    ];
+
     protected $fillable = [
-        'text', 'media', 'comment_id', 'ink_id',
+        'text', 'media', 'comment_id', 'ink_id', 'message_id',
     ];
 
     public function validate(Request $request)
@@ -26,31 +32,11 @@ class Media extends Model
      **/
     public static function setMedia(Request $request)
     {
-        $mei = '';
-        if ($request->media != []) {
-            foreach ($request->media as $media) {
-                $mei = $mei . $media . ',';
-            }
-        }
-
-
         $data = [
             'text' => $request->text,
-            'media' => $mei,
+            'media' => $request->media,
             'user_id' => Auth::id(),
         ];
         return new Media($data);
-    }
-
-
-    public function fetchMediaString(Request $request)
-    {
-        $mei = '';
-        if ($request->media != []) {
-            foreach ($request->media as $media) {
-                $mei = $mei . $media . ',';
-            }
-        }
-        return $mei;
     }
 }

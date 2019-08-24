@@ -16,9 +16,9 @@ class ChatController extends Controller
      */
     public function index()
     {
-        $chat1 = Chat::where('first_id', Auth::id())->toArray();
-        $chat2 = Chat::where('second_id', Auth::id())->toArray();
-        $chat = array_merge($chat1, $chat2);
+        $chat1 = Chat::where('first_user', 1);
+        $chat2 = Chat::where('second_user', 1);
+        $chat = array_merge($chat1->get(), $chat2->get());
         return response()->json($chat);
     }
 
@@ -30,7 +30,11 @@ class ChatController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $chat = new Chat();
+        $chat->first_user = Auth::id();
+        $chat->second_user = $request->user_id;
+        $chat->save();
+
     }
 
     /**
