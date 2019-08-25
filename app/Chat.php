@@ -15,7 +15,7 @@ class Chat extends Model
 
     public function notifications()
     {
-        return $this->morphMany(DatabaseMessage::class, 'notifiable')->orderBy('created_at', 'desc');
+        return $this->morphMany(DatabaseMessage::class, 'notifiable')->orderBy('created_at', 'asc');
     }
 
     public function first()

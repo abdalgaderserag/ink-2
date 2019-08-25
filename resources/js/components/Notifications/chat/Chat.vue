@@ -32,7 +32,7 @@
                 else if (chat.second.id == user.id)
                     data.user = chat.first;
                 return data;
-            }
+            },
         }
     }
 </script>

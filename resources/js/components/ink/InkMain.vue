@@ -100,19 +100,7 @@
                     axios.post('/api/ink', {
                         text: text.value,
                         media: media,
-                    })
-                        /*.then((response) => {
-                            let ink = response.data;
-                            ink.user = $root.user;
-                            ink.media = media.toString() + ',';
-                            this.interact.unshift({
-                                comment: 0,
-                                like: 0,
-                                isLiked: 0
-                            });
-
-                            this.inks.unshift(ink);
-                        });*/
+                    });
                     text.value = '';
                     mediaTemp.media = [];
                     mediaTemp.text = '';

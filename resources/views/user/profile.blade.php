@@ -74,6 +74,10 @@
                                         followed
                                     </button>
                                 @endif
+                                <button onclick="message()" onsubmit="message()"
+                                        style="font-size: 2.4vh;padding: 5px 6%;color:white;background: linear-gradient(to right, #FC4027, #f98835);border-width: 0;border-radius:14px;margin: 8px 0 0 0;">
+                                    ()
+                                </button>
                             </div>
                         @endif
                     </div>
@@ -93,6 +97,37 @@
 
 @section('foot-script')
     {{--<script>--}}
+    function message() {
+    mediaTemp = {
+    text: '',
+    media: [],
+    };
+    pop();
+    let text = document.getElementById('pop-text');
+    text.value = text.value.slice(0, text.value.length - 1);
+    let save = document.getElementById('save');
+    save.onclick = () => {
+
+    let meds = document.getElementById('images-edit');
+    let media = [];
+
+    if (meds.childElementCount != 0)
+    for (let i = 0; i < meds.childElementCount; i++) {
+    media[i] = meds.children[i].children[0].attributes.src.value;
+    }
+
+    axios.post('/api/chat', {
+    user_id: {{ $user->id }},
+    text: text.value,
+    media: media,
+    });
+    text.value = '';
+    mediaTemp.media = [];
+    mediaTemp.text = '';
+    document.getElementById('pop-up').style.display = 'none';
+    };
+    }
+
     document.getElementById('profile-avatar').onload = () => {
     document.getElementById('profile-avatar').style.display = 'block';
     document.getElementById('avatar-holder').remove();
