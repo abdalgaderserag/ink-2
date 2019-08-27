@@ -15,6 +15,35 @@
     }
   }
 
+  .left-section {
+    display: none;
+  }
+
+  .search {
+    input {
+      width: 100%;
+    }
+  }
+}
+
+@media only screen and (max-device-width: 960px) {
+  .main-section {
+    width: 100%;
+    margin-left: 0;
+
+    .main {
+      width: 100%;
+    }
+
+    //.right-section {
+    //  display: none;
+    //}
+  }
+
+  .left-section {
+    display: none;
+  }
+
   .search {
     input {
       width: 100%;
@@ -23,6 +52,9 @@
 }
 
 @media only screen and (min-width: 960px) {
+  .container {
+    max-width: 1500px;
+  }
   .main-section {
     width: 84%;
 
@@ -42,6 +74,7 @@
   }
 }
 
+
 button:focus {
   outline: black auto 0;
 }
@@ -51,6 +84,12 @@ body {
   font-family: $font-family-1, $font-family-2;
   font-size: 2.4vh;
   cursor: default;
+}
+
+#app {
+  align-items: center;
+  flex-direction: column;
+  background-color: $background;
 }
 
 .flex-box {
@@ -137,7 +176,6 @@ body {
 
 .container {
   width: 100%;
-  background-color: $background;
   $leftWidth: 16%;
 
   .left-section {

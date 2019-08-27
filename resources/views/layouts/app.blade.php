@@ -22,7 +22,7 @@
     @yield('styles')
 </head>
 <body>
-<div id="app">
+<div id="app" class="flex-box">
     <div class="nav-bar flex-box">
         <div class="flex-box g g1">
             <div class="logo-title">
