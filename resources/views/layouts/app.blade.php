@@ -73,6 +73,16 @@
 
     window.axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.access_token}`;
 
+    /*window.Echo.constructor({
+        broadcaster: 'socket.io',
+        host: window.location.hostname + ':6001',
+        auth: {
+            headers: {
+                Authorization: `Bearer ${localStorage.access_token}`,
+            }
+        }
+    });*/
+
     //cla height.
     let nav = document.getElementsByClassName('nav-bar')[0];
     let height = window.innerHeight - nav.offsetHeight;

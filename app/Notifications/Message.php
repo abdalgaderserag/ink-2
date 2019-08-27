@@ -3,12 +3,12 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Http\Request;
-use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Auth;
 
-class Message extends Notification
+class Message extends Notification implements ShouldBroadcast
 {
     use Queueable;
 
@@ -37,7 +37,7 @@ class Message extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database', 'broadcast'];
     }
 
     /**
@@ -51,10 +51,11 @@ class Message extends Notification
         return $this->data;
     }
 
-    public function broadcastOn()
-    {
-        return new BroadcastMessage($this->data);
-    }
+
+//    public function broadcastOn()
+//    {
+//        return new BroadcastMessage($this->data);
+//    }
 
 //    public function toBroadcast($notifiable)
 //    {

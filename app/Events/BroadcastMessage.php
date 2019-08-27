@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Chat;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -14,14 +15,17 @@ class BroadcastMessage
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    protected $chat;
+
     /**
      * Create a new event instance.
      *
+     * @param Chat $chat
      * @return void
      */
-    public function __construct()
+    public function __construct(Chat $chat)
     {
-        //
+        $this->chat = $chat;
     }
 
     /**
@@ -31,6 +35,12 @@ class BroadcastMessage
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('channel-name');
+        return new PrivateChannel('message.' . $this->chat->id);
     }
+
+    public function broadcastWith()
+    {
+        return $this->chat->notifications()->last();
+    }
+
 }
