@@ -2,9 +2,9 @@
 
 namespace App\Notifications;
 
-use App\Media;
 use Illuminate\Bus\Queueable;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Auth;
 
@@ -50,4 +50,14 @@ class Message extends Notification
     {
         return $this->data;
     }
+
+    public function broadcastOn()
+    {
+        return new BroadcastMessage($this->data);
+    }
+
+//    public function toBroadcast($notifiable)
+//    {
+//        return new BroadcastMessage($this->data);
+//    }
 }

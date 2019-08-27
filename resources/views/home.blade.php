@@ -19,3 +19,11 @@
         </div>
     </div>
 @endsection
+
+
+@section('foot-script')
+    {{--<script>--}}
+    Echo.private('App.Chat.1').notification((noti) => {
+    console.log(noti)
+    });
+@endsection

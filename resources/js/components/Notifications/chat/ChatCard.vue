@@ -52,7 +52,7 @@
             }
         },
         mounted() {
-            this.$el.getElementsByClassName('chat-box')[0].style.height = (height * 0.7) + 'px'
+            this.$el.getElementsByClassName('chat-box')[0].style.height = (height * 0.7) + 'px';
         },
         methods: {
             showMessage: function () {
