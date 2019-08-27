@@ -3,26 +3,30 @@
         <div @click="showMessage">
             {{ chat.user.name }}
         </div>
-        <div class="chat-box flex-box">
-            <div>
-                <div class="flex-box" style="width: 100%;background-color: #f98835;justify-content: flex-start">
-                    <img src="/images/avatars/b2c4312d-d08f-40f8-9f7b-5e4c6f213e0a.png"
-                         style="margin:4px 0 4px 7px;width: 32px;height: 32px;border-radius: 50%;border: 2px solid #fff;">
-                    <div style="padding: 11px 0 0 9px;color:#fff">
-                        {{ chat.user.name }}
+
+
+        <div class="chat-box" style="display: none">
+            <div class="chat-box-order flex-box">
+                <div>
+                    <div class="flex-box" style="width: 100%;background-color: #f98835;justify-content: flex-start">
+                        <img src="/images/avatars/b2c4312d-d08f-40f8-9f7b-5e4c6f213e0a.png"
+                             style="margin:4px 0 4px 7px;width: 32px;height: 32px;border-radius: 50%;border: 2px solid #fff;">
+                        <div style="padding: 11px 0 0 9px;color:#fff">
+                            {{ chat.user.name }}
+                        </div>
+                    </div>
+                    <div v-for="message in messages"
+                         :class="{'user-message': displayMessage(message),'message':true}">
+                        {{ message.data.text }}
                     </div>
                 </div>
-                <div v-for="message in messages"
-                     :class="{'user-message': displayMessage(message),'message':true}">
-                    {{ message.data.text }}
+                <div class="flex-box">
+                    <input type="text" v-model="text" style="width: 60%;border-width: 1px 0">
+                    <button style="width: 20%;border: 1px solid #878787">img</button>
+                    <button style="width: 20%;border: 1px solid #878787" @click="sendMessage()" @submit="sendMessage()">
+                        send
+                    </button>
                 </div>
-            </div>
-            <div class="flex-box">
-                <input type="text" v-model="text" style="width: 60%;border-width: 1px 0">
-                <button style="width: 20%;border: 1px solid #878787">img</button>
-                <button style="width: 20%;border: 1px solid #878787" @click="sendMessage()" @submit="sendMessage()">
-                    send
-                </button>
             </div>
         </div>
     </div>
@@ -37,6 +41,8 @@
 
                 text: '',
                 media: [],
+
+                called: false,
             }
         },
         props: {
@@ -50,6 +56,13 @@
         },
         methods: {
             showMessage: function () {
+                let chats = document.getElementsByClassName('chat-box');
+                for (let i = 0; i < chats.length; i++)
+                    chats[i].style.display = 'none';
+                if (!this.called)
+                    this.getMessage();
+            },
+            getMessage: function () {
                 axios.get('/api/chat/' + this.chat.id).then(response => {
                     /*let data;
                     let hasNext = true;
@@ -69,6 +82,8 @@
                         this.messages[i] = data;
                     }*/
                     this.messages = response.data;
+                    this.$el.getElementsByClassName('chat-box')[0].style.display = 'block';
+                    this.called = true;
                 });
             },
             sendMessage: function () {
@@ -77,7 +92,6 @@
                         text: this.text,
                         media: this.media,
                     }).then(response => {
-                        console.log(response);
                         this.messages[this.messages.length] = {
                             data: {
                                 media: this.media,
@@ -105,6 +119,9 @@
         width: 25%;
         border: 1px solid #878787;
         overflow-y: auto;
+    }
+
+    .chat-box-order {
         flex-direction: column;
         justify-content: space-between;
     }
