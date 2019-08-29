@@ -34,3 +34,34 @@ Route::middleware('guest')->group(function () {
 //    Route::post('/login', 'UserController@login')->name('login');
     Auth::routes();
 });
+
+Route::get('/redirect',function()
+{
+    $query = http_build_query([
+        'client_id' => 1,
+        'redirect_uri' => 'http://127.0.0.1:9000/callback',
+        'response_type' => 'code',
+        'scope' => '',
+    ]);
+
+    return redirect('http://127.0.0.1:000/oauth/authorize?' . $query);
+});
+
+
+Route::get('/callback',function(\Illuminate\Http\Request $request)
+{
+    $http = new GuzzleHttp\Client;
+    $response = $http->post('http://127.0.0.1:000/oauth/token',[
+        'form_params' => [
+            'grant_type' => 'authorization_code',
+            'client_id' => 3,
+            'client_secret' => 'CtnTBrtM8388T0TpRhFaAAYEtERYuxsTmIdvlZPl',
+            'redirect_uri' => 'http://127.0.0.1:9000/callback',
+            'code' => $request->code,
+        ],
+    ]);
+
+    return 1;
+    return response()->json($response->getBody());
+    return json_decode((string)$response->getBody(), true);
+});
