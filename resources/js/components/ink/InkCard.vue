@@ -119,6 +119,24 @@
                     out = out + `<a href="/search?hash=${splited[0]}" class="hash-tag">${'#' + splited[0]}</a> ${textArray[i].slice(splited[0].length, textArray[i].length)}`;
                 }
 
+                //split the all the text to array the first element won't contain any hash tag
+                textArray = out.split('@');
+
+                //save the first element to the out put var (out)
+                out = textArray[0];
+
+                //loop thowght all the hashes and instert the # sgin with the a HTML tag
+                //it's start from the second element why? see the prev comments
+                for (let i = 1; i < textArray.length; i++) {
+
+                    //splite the hash from the rest text by space the hash will stored in the splited[0]
+                    let splited = textArray[i].split(' ', 1);
+                    // bind the new hash to the old if avil
+                    // it will add the hash to the old out var text
+                    // remove from the loop text the hash by slice() function
+                    out = out + `<a href="/search?slug=${splited[0]}" class="hash-tag">${ splited[0]}</a> ${textArray[i].slice(splited[0].length, textArray[i].length)}`;
+                }
+
                 return out;
             },
 

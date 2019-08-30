@@ -13,8 +13,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $access = '';
 
-        return view('home')->with('access', $access);
+        return view('home');
     }
 }

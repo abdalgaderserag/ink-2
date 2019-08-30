@@ -37,7 +37,6 @@ class LikesEvent implements ShouldBroadcast
         $this->type = $type;
         $this->user = $like->user->id;
         $this->op = $op;
-        $this->dontBroadcastToCurrentUser();
     }
 
 

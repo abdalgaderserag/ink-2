@@ -28,15 +28,14 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::middleware('guest')->group(function () {
-    Route::get('/log', 'UserController@create')->name('log');
+//Route::middleware('guest')->group(function () {
+Route::get('/log', 'UserController@create')->middleware('guest')->name('log');
 //    Route::post('/register', 'UserController@register')->name('register');
 //    Route::post('/login', 'UserController@login')->name('login');
-    Auth::routes();
-});
+Auth::routes();
+//});
 
-Route::get('/redirect',function()
-{
+Route::get('/redirect', function () {
     $query = http_build_query([
         'client_id' => 3,
         'redirect_uri' => 'http://127.0.0.1:9000/callback',
@@ -48,11 +47,10 @@ Route::get('/redirect',function()
 });
 
 
-Route::get('/callback',function(\Illuminate\Http\Request $request)
-{
-    return redirect('?code='.$request->code);
-    $http = new GuzzleHttp\Client;
-    $response = $http->post('http://127.0.0.1:000/oauth/token',[
+Route::get('/callback', function (\Illuminate\Http\Request $request) {
+//    return redirect('?code='.$request->code);
+    $http = new GuzzleHttp\Client();
+    $response = $http->post('http://127.0.0.1:8000/oauth/token', [
         'form_params' => [
             'grant_type' => 'authorization_code',
             'client_id' => 3,
@@ -62,5 +60,6 @@ Route::get('/callback',function(\Illuminate\Http\Request $request)
         ],
     ]);
 
-    return json_decode((string)$response->getBody(), true);
+//    return json_decode((string)$response->getBody(), true);
+    return view('home')->with('access', json_decode((string)$response->getBody(), true));
 });
