@@ -4,11 +4,15 @@ namespace App\Observers;
 
 use App\Like;
 use App\Notifications\Like\CreateLikeNotification;
+use Illuminate\Broadcasting\PresenceChannel;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\UnauthorizedException;
 
-class LikeObserver
+class LikeObserver implements ShouldBroadcast
 {
+
+    protected $like;
+
     /**
      * Handle the like "created" event.
      *
@@ -26,9 +30,20 @@ class LikeObserver
 
         $user = $like[$type]->user;
         $holder = $type;
-
+        $this->like = $like;
         if ($user->id != Auth::id())
             $user->notify(new CreateLikeNotification($like, $holder));
+    }
+
+    public function __destruct()
+    {
+        $this->broadcastOn();
+    }
+
+    public function broadcastOn()
+    {
+//        return new PresenceChannel('likes.'.$this->like->id);
+        return new PresenceChannel('likes.1');
     }
 
     /**
@@ -58,6 +73,8 @@ class LikeObserver
             $hold = $like->ink()->dissociate();
         } else
             return;
+
+        $this->like = $like;
 
         $user = $hold->user;
 
