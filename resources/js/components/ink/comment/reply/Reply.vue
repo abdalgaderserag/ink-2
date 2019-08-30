@@ -31,7 +31,7 @@
                 </div>
                 <div class="flex-box" style="justify-content: flex-start">
                     <div>
-                        <img @click="liked()" :src="'/images/ink/' + likeUrl" style="width: 24px" alt="">
+                        <img @click="liked" :src="'/images/ink/' + likeUrl" style="width: 24px" alt="">
                         <span>{{ comment.like }}</span>
                     </div>
                 </div>
@@ -115,7 +115,7 @@
                         par.ink.comment--;
                     });
             },
-            liked: function () {
+            liked: function (e) {
                 axios.post('/api/like', {
                     comment_id: this.comment.id,
                 }).then((response) => {
@@ -124,9 +124,17 @@
                         this.comment.like--;
                     } else if (response.data == 1) {
                         this.likeUrl = 'hard-fill-color.svg';
+                        this.animateLike(e);
                         this.comment.like++;
                     }
                 });
+            },
+            animateLike: function (e) {
+                let animationTime = 200;
+                e.target.style.animation = `scale-h ${animationTime}ms ease-out 0s 1 normal none running`;
+                setTimeout(() => {
+                    e.target.style.animation = '';
+                }, animationTime);
             }
         }
     }

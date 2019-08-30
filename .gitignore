@@ -10,5 +10,6 @@
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml
+laravel-echo-server.lock
 npm-debug.log
 yarn-error.log

@@ -15,6 +15,7 @@ class BroadcastServiceProvider extends ServiceProvider
     public function boot()
     {
         Broadcast::routes([
+            "prefix" => "api",
             "middleware" => "auth:api",
         ]);
 

@@ -38,18 +38,19 @@ Route::middleware('guest')->group(function () {
 Route::get('/redirect',function()
 {
     $query = http_build_query([
-        'client_id' => 1,
+        'client_id' => 3,
         'redirect_uri' => 'http://127.0.0.1:9000/callback',
         'response_type' => 'code',
         'scope' => '',
     ]);
 
-    return redirect('http://127.0.0.1:000/oauth/authorize?' . $query);
+    return redirect('http://127.0.0.1:8000/oauth/authorize?' . $query);
 });
 
 
 Route::get('/callback',function(\Illuminate\Http\Request $request)
 {
+    return redirect('?code='.$request->code);
     $http = new GuzzleHttp\Client;
     $response = $http->post('http://127.0.0.1:000/oauth/token',[
         'form_params' => [
@@ -61,7 +62,5 @@ Route::get('/callback',function(\Illuminate\Http\Request $request)
         ],
     ]);
 
-    return 1;
-    return response()->json($response->getBody());
     return json_decode((string)$response->getBody(), true);
 });

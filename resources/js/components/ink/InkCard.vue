@@ -42,7 +42,7 @@
             <div class="card-footer flex-box">
                 <div class="flex-box">
                     <div class="card-interact">
-                        <img ref="like" @click="liked()" src="/images/ink/hard-fill.svg" alt="">
+                        <img ref="like" @click="liked" src="/images/ink/hard-fill.svg" alt="">
                         <span class="like-span">{{ ink.like }}</span>
                     </div>
                     <div class="card-interact">
@@ -300,7 +300,7 @@
             },
 
             // like button requests
-            liked: function () {
+            liked: function (e) {
                 axios.post('/api/like', {
                     ink_id: this.ink.id,
                 }).then((response) => {
@@ -312,9 +312,17 @@
                     } else {
                         this.ink.like++;
                         like.innerText = Number.parseInt(like.innerText) + 1;
+                        this.animateLike(e);
                         this.$refs.like.attributes.src.value = '/images/ink/hard-fill-color.svg';
                     }
                 });
+            },
+            animateLike: function (e) {
+                let animationTime = 200;
+                e.target.style.animation = `scale-h ${animationTime}ms ease-out 0s 1 normal none running`;
+                setTimeout(() => {
+                    e.target.style.animation = '';
+                }, animationTime);
             }
         }
     }

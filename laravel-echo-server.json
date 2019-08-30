@@ -1,6 +1,6 @@
 {
 	"authHost": "http://localhost:8000",
-	"authEndpoint": "/broadcasting/auth",
+	"authEndpoint": "/api/broadcasting/auth",
 	"clients": [
 		{
 			"appId": "54829b5ee6dad9d8",
