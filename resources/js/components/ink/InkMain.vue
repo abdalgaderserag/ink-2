@@ -35,9 +35,9 @@
         mounted() {
             //
             // Echo.channel('chat').whisper('typing', {name: "it work"});
-            Echo.channel('chat').listenForWhisper('typing', (e) => {
-                console.log(e);
-            });
+            // Echo.channel('chat').listenForWhisper('typing', (e) => {
+            //     console.log(e);
+            // });
             //
             let url;
             if (document.location.pathname == '/profile')

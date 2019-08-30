@@ -11,14 +11,6 @@
 |
 */
 
-Broadcast::channel('App.User.{id}', function ($user, $id) {
-    return (int)$user->id === (int)$id;
-});
-
-Broadcast::channel('likes.{id}', function ($id) {
-    return $id;
-});
-
-//Broadcast::channel('message.{id}', function (\App\User $user,\App\Chat $chat) {
-
+//Broadcast::channel('App.User.{id}', function ($user, $id) {
+//    return (int)$user->id === (int)$id;
 //});

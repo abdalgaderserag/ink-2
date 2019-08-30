@@ -2,17 +2,13 @@
 
 namespace App\Observers;
 
+use App\Events\LikesEvent;
 use App\Like;
 use App\Notifications\Like\CreateLikeNotification;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Support\Facades\Auth;
 
-class LikeObserver implements ShouldBroadcast
+class LikeObserver
 {
-
-    protected $like;
-
     /**
      * Handle the like "created" event.
      *
@@ -30,21 +26,15 @@ class LikeObserver implements ShouldBroadcast
 
         $user = $like[$type]->user;
         $holder = $type;
-        $this->like = $like;
+        event(new LikesEvent($like, true));
         if ($user->id != Auth::id())
             $user->notify(new CreateLikeNotification($like, $holder));
     }
-
-    public function __destruct()
-    {
-        $this->broadcastOn();
-    }
-
-    public function broadcastOn()
-    {
+//    public function broadcastOn()
+//    {
 //        return new PresenceChannel('likes.'.$this->like->id);
-        return new PresenceChannel('likes.1');
-    }
+//        return new PresenceChannel('likes.1');
+//    }
 
     /**
      * Handle the like "updated" event.
@@ -65,6 +55,9 @@ class LikeObserver implements ShouldBroadcast
      */
     public function deleted(Like $like)
     {
+        event(new LikesEvent($like, false));
+
+
         if (!empty($like->ink_id)) {
             $type = 'ink';
             $hold = $like->ink()->dissociate();

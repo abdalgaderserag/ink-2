@@ -88,6 +88,7 @@
                 this.$refs.like.attributes.src.value = '/images/ink/hard-fill-color.svg';
             else
                 this.$refs.like.attributes.src.value = '/images/ink/hard-fill.svg';
+            this.listen();
             // this.likeUrl();
         },
         methods: {
@@ -237,6 +238,15 @@
                 setTimeout(() => {
                     e.target.style.animation = '';
                 }, animationTime);
+            },
+            listen: function () {
+                Echo.channel('likes.ink.' + this.ink.id).listen('LikesEvent', (e) => {
+                    let number = 0;
+                    e.op ? number++ : number--;
+                    let like = this.$el.getElementsByClassName('like-span')[0];
+                    if (e.user != this.$root.user.id)
+                        like.innerText = Number.parseInt(like.innerText) + number;
+                })
             }
         }
     }

@@ -53,10 +53,6 @@
         },
         mounted() {
             this.$el.getElementsByClassName('chat-box')[0].style.height = (height * 0.7) + 'px';
-            Echo.private('App.Chat.' + this.chat.id)
-                .notification(function (notification) {
-                    console.log(notification);
-                });
         },
         methods: {
             showMessage: function () {
