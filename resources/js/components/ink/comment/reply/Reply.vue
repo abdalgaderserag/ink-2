@@ -27,7 +27,7 @@
 
 
                 <div v-for="image in comment.media.media">
-                    <img style="max-width: 120px;" :src="image">
+                    <img style="max-width: 120px;" :src="'/' + image">
                 </div>
                 <div class="flex-box" style="justify-content: flex-start">
                     <div>

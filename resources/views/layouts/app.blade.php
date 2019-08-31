@@ -178,7 +178,7 @@ Save
 
     function getImage(src) {
         return `<div class="flex-box pop-icon">
-<img style="object-fit: cover;" class="image" src="${src}">
+<img style="object-fit: cover;" class="image" src="/${src}">
 <div onclick="event.target.parentElement.parentElement.remove();">
 <svg>
 <path d="m4 8 l8 0" style="stroke: white;"/>

@@ -26,7 +26,7 @@
 
                 <div @click="showReplies" style="padding: 8px 1%;">{{ comment.media.text }}</div>
                 <div v-for="image in comment.media.media">
-                    <img style="max-width: 120px;" :src="image">
+                    <img style="max-width: 120px;" :src="'/' + image">
                 </div>
 
 

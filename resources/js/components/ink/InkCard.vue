@@ -35,7 +35,8 @@
             <div @click="hideEvent" class="media">
                 <span style="font-size: 4vh" v-if="ink.media.text" v-html="getHashTag(ink.media.text)"></span>
                 <div v-if="ink.media.media.length != 0" class="media-view" style="padding: 4%;">
-                    <img v-for="(media,index) in ink.media.media" style="object-fit: cover" v-if="index<4" :src="media"
+                    <img v-for="(media,index) in ink.media.media" style="object-fit: cover" v-if="index<4"
+                         :src=" '/' + media"
                          alt="">
                 </div>
             </div>
