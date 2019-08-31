@@ -34,7 +34,7 @@
         <div class="card-body">
             <div @click="hideEvent" class="media">
                 <span style="font-size: 4vh" v-if="ink.media.text" v-html="getHashTag(ink.media.text)"></span>
-                <div v-if="ink.media.media" class="media-view" style="padding: 4%;">
+                <div v-if="ink.media.media.length != 0" class="media-view" style="padding: 4%;">
                     <img v-for="(media,index) in ink.media.media" style="object-fit: cover" v-if="index<4" :src="media"
                          alt="">
                 </div>
@@ -89,7 +89,7 @@
             }
         },
         mounted() {
-            if (this.ink.media.media)
+            if (this.ink.media.media.length != 0)
                 this.reSizeImages();
             if (this.ink.isLiked == 1)
                 this.$refs.like.attributes.src.value = '/images/ink/hard-fill-color.svg';
@@ -134,7 +134,7 @@
                     // bind the new hash to the old if avil
                     // it will add the hash to the old out var text
                     // remove from the loop text the hash by slice() function
-                    out = out + `<a href="/search?slug=${splited[0]}" class="hash-tag">${ splited[0]}</a> ${textArray[i].slice(splited[0].length, textArray[i].length)}`;
+                    out = out + `<a href="/search?slug=${splited[0]}" class="hash-tag">${splited[0]}</a> ${textArray[i].slice(splited[0].length, textArray[i].length)}`;
                 }
 
                 return out;
@@ -344,13 +344,28 @@
                 }, animationTime);
             },
             listen: function () {
+                //Likes
                 Echo.channel('likes.ink.' + this.ink.id).listen('LikesEvent', (e) => {
                     let number = 0;
                     e.op ? number++ : number--;
                     let like = this.$el.getElementsByClassName('like-span')[0];
                     if (e.user != this.$root.user.id)
                         like.innerText = Number.parseInt(like.innerText) + number;
-                })
+                });
+
+                Echo.channel('comments.ink.' + this.ink.id).listen('CommentsEvent', (e) => {
+                    if (e.comment.user_id != this.$root.user.id) {
+                        let comment = e.comment;
+                        comment.like = 0;
+                        comment.media = e.comment.media;
+                        comment.comment = 0;
+                        comment.isLike = 0;
+                        comment.user = e.comment.user;
+                        this.ink.comment++;
+                        this.comments.unshift(comment);
+                    }
+                });
+
             }
         }
     }

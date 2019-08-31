@@ -2,41 +2,41 @@
 
 namespace App\Events;
 
-use App\Like;
+use App\Comment;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class LikesEvent implements ShouldBroadcast
+class CommentsEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $id, $type, $op, $user;
+
+    public $id, $type, $comment;
 
     /**
      * Create a new event instance.
      *
-     * @param Like $like
-     * @param $op
+     * @param Comment $comment
      * @return void
      */
-    public function __construct(Like $like, $op)
+    public function __construct(Comment $comment)
     {
-        if (!empty($like->ink_id)) {
-            $id = $like->ink_id;
+        if (!empty($comment->ink_id)) {
+            $id = $comment->ink_id;
             $type = 'ink';
         } else {
-            $id = $like->comment_id;
+            $id = $comment->comment_id;
             $type = 'comment';
         }
         $this->id = $id;
         $this->type = $type;
-        $this->user = $like->user->id;
-        $this->op = $op;
+        $this->comment = $comment;
+        $this->comment->user;
+        $this->comment->media;
     }
-
 
     /**
      * Get the channels the event should broadcast on.
@@ -45,14 +45,13 @@ class LikesEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('likes.' . $this->type . '.' . $this->id);
+        return new Channel('comments.' . $this->type . '.' . $this->id);
     }
 
     public function broadcastWith()
     {
         return [
-            'op' => $this->op,
-            'user' => $this->user,
+            'comment' => $this->comment,
         ];
     }
 }

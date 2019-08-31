@@ -11,7 +11,6 @@
     </div>
     <div class="flex-box main-section">
         <div class="main">
-            <?php print_r($access['access_token']) ?>
             <ink-main></ink-main>
         </div>
         <div class="right-section">

@@ -39,4 +39,11 @@ class Media extends DatabaseNotification
         ];
         return new Media($data);
     }
+
+    public function setMediaAttribute($key)
+    {
+        if ($key == null)
+            $this->attributes['media'] = [];
+        $this->attributes['media'] = $key;
+    }
 }

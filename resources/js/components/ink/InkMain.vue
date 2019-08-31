@@ -112,7 +112,7 @@
                     mediaTemp.text = '';
                     document.getElementById('pop-up').style.display = 'none';
                 };
-            }
+            },
         }
     }
 </script>

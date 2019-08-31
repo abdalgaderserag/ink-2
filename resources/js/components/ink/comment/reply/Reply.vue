@@ -138,7 +138,7 @@
                 }, animationTime);
             },
             listen: function () {
-                Echo.channel('likes.ink.' + this.ink.id).listen('LikesEvent', (e) => {
+                Echo.channel('likes.comment.' + this.comment.id).listen('LikesEvent', (e) => {
                     let number = 0;
                     e.op ? number++ : number--;
                     let like = this.$el.getElementsByClassName('like-span')[0];

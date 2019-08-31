@@ -240,13 +240,26 @@
                 }, animationTime);
             },
             listen: function () {
-                Echo.channel('likes.ink.' + this.ink.id).listen('LikesEvent', (e) => {
+                Echo.channel('likes.comment.' + this.comment.id).listen('LikesEvent', (e) => {
                     let number = 0;
                     e.op ? number++ : number--;
                     let like = this.$el.getElementsByClassName('like-span')[0];
                     if (e.user != this.$root.user.id)
                         like.innerText = Number.parseInt(like.innerText) + number;
-                })
+                });
+
+                Echo.channel('comments.comment.' + this.comment.id).listen('CommentsEvent', (e) => {
+                    if (e.comment.user_id != this.$root.user.id) {
+                        let comment = e.comment;
+                        comment.like = 0;
+                        comment.media = e.comment.media;
+                        comment.comment = 0;
+                        comment.isLike = 0;
+                        comment.user = e.comment.user;
+                        this.comment.comment++;
+                        this.comments.unshift(comment);
+                    }
+                });
             }
         }
     }

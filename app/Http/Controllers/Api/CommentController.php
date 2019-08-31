@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Comment;
+use App\Events\CommentsEvent;
 use App\Http\Requests\MediaRequest;
 use App\Media;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -71,6 +72,7 @@ class CommentController extends Controller
         $media->comment_id = $comment->id;
         $media->save();
 
+        event(new CommentsEvent($comment));
 
         $data[0] = $comment;
         $data[1] = $media;
